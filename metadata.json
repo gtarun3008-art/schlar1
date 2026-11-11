@@ -1,0 +1,6 @@
+{
+  "name": "Schlar — School Management Platform",
+  "description": "One connected platform for smarter schools. Interactive role-based school management platform for web and mobile.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,986 @@
+# SCHLAR — PROMPT 7 OF 12
+## Librarian & Transport Manager Workspaces
+### Professional Design • Complete Workflows • Detailed Records • Shared Demo Data • Permission-Aware Navigation
+
+## 1. ROLE AND OBJECTIVE
+
+Act as a senior SaaS product architect, school library-management specialist, transport-operations workflow designer, frontend engineer, UX designer, accessibility specialist, and QA engineer.
+
+Implement Prompt 7 in the existing SCHLAR school-management application. Build two distinct role-specific workspaces:
+
+1. **Librarian**
+2. **Transport Manager**
+
+Each workspace must behave like a real school-management application, with working navigation, detailed records, validated forms, search, filters, record details, useful dashboards, and consistent shared demo data.
+
+The application must be professional, easy for first-time users, and comprehensive enough to support realistic school workflows.
+
+**Simplify the experience without removing important functionality.**
+
+Do not merely provide a plan, static mockup, or screenshot. Inspect the existing source code, implement the required changes, and test the actual workflows.
+
+## 2. FIRST: AUDIT AND PRESERVE THE EXISTING PROJECT
+
+Before modifying the application:
+
+1. Inspect the existing project structure, routes, shared components, role definitions, permissions, data models, theme settings, demo records, and persistence mechanisms.
+2. Review the SCHLAR master handover and previous prompt reports when available.
+3. Identify existing Library and Transport functionality.
+4. Separate completed, incomplete, broken, and missing functionality.
+5. Reuse existing working components and shared data.
+6. Repair defects and implement missing functionality without duplicating existing modules.
+7. Avoid broad redesigns of unrelated roles.
+
+If the current project already contains a working module, improve or extend it rather than replacing it unnecessarily.
+
+If a required dependency is not implemented yet, create the necessary integration point and a clear empty state. Do not pretend that a later prompt's functionality is complete.
+
+## 3. PRESERVE THE AUTHORITATIVE SCHLAR SPECIFICATION
+
+The system has exactly ten roles:
+
+1. Admin
+2. Vice Principal
+3. Teacher
+4. Parent
+5. Accountant / Fee Manager
+6. HR / Staff Manager
+7. Librarian
+8. Transport Manager
+9. Receptionist / Front Office
+10. Exam Coordinator
+
+Do not add Student or Super Admin.
+
+Preserve these experience rules:
+
+- Parent uses the Parent Mobile App only. Do not reintroduce a Parent Web Portal.
+- Teacher retains separate Web and Mobile experiences.
+- Librarian and Transport Manager each have their own web workspace.
+- Admin and Vice Principal remain distinct roles with separate permissions.
+- Other roles must retain their existing functionality and authorized experiences.
+- Role switching must use the existing role-selection system.
+
+Do not give Librarian or Transport Manager unrestricted access to other roles' data simply because their modules interact with students or staff.
+
+## 4. DESIGN SYSTEM AND VISUAL STANDARD
+
+Use the existing SCHLAR design system and shared theme tokens.
+
+Default Petrol & Copper palette:
+
+- Primary: `#164E55`
+- Secondary: `#287B7A`
+- Accent: `#C47D54`
+- Background: `#F5F0E7`
+- Surface: `#FFFFFF`
+
+Requirements:
+
+- Respect the currently selected palette.
+- Preserve all 12 existing palettes and the custom HEX palette editor.
+- Reuse the established typography, spacing, icons, cards, forms, tables, dialogs, and status indicators.
+- Use a clean, professional school-SaaS design.
+- Make data-dense screens readable with clear headings, spacing, and restrained visual emphasis.
+- Use status labels and text, not color alone.
+- Ensure desktop, tablet, and mobile layouts remain usable.
+- Avoid clutter, excessive gradients, unnecessary animations, oversized empty cards, and decorative charts without practical value.
+
+Both workspaces should look like parts of the same product while making their purposes immediately clear.
+
+## 5. CHATGPT-INSPIRED NAVIGATION AND WORKSPACE BEHAVIOR
+
+Use the general interaction principle of a persistent sidebar and a dedicated content area. Do not copy ChatGPT branding or unrelated features.
+
+For both roles:
+
+- Provide a persistent, collapsible left sidebar.
+- Show the current role and school identity.
+- Organize modules into logical groups when appropriate.
+- Highlight the active page.
+- Open each selected module in the main workspace.
+- Keep the application shell consistent while navigating.
+- Support sensible back navigation and breadcrumbs where useful.
+- Provide a clear return path from record details to the list.
+- Ensure every visible menu item works.
+- Use a drawer on narrow screens.
+- Enforce permissions on navigation and direct route access.
+
+Do not put every library or transport feature onto one enormous dashboard. The dashboard should summarize important information and link to dedicated module pages.
+
+## 6. WORKSPACE A — LIBRARIAN
+
+Build a complete library-management workspace using the existing SCHLAR data architecture.
+
+### 6.1 Librarian navigation
+
+Create a role-specific sidebar with these modules where supported by the existing specification:
+
+- Dashboard
+- Book Catalogue
+- Book Details
+- Book Categories
+- Authors and Publishers
+- Library Copies and Inventory
+- Issue Books
+- Return Books
+- Active Loans
+- Overdue Books
+- Reservations
+- Lost or Damaged Books
+- Library Members
+- Library Transactions
+- Library Reports
+- My Profile
+
+Organize related features into sensible groups. Keep common tasks, especially search, issue, return, and overdue tracking, easy to reach.
+
+Do not display unauthorized administrative settings or unrelated finance, HR, transport, or examination controls.
+
+### 6.2 Librarian dashboard
+
+Build a data-driven dashboard showing available metrics such as:
+
+- Total catalogue titles.
+- Total physical copies.
+- Available copies.
+- Currently issued copies.
+- Overdue loans.
+- Pending reservations.
+- Recent issue and return transactions.
+- Lost or damaged copies, when records exist.
+- Recent library activity.
+
+Provide useful quick actions:
+
+- Add a book.
+- Find a book.
+- Issue a book.
+- Record a return.
+- Review overdue loans.
+- Open library reports.
+
+Each action must open the appropriate functional screen or form.
+
+Calculate metrics from the underlying records. Do not hard-code unrelated dashboard figures.
+
+If there is no demo data for a metric, display an honest empty or zero state.
+
+### 6.3 Book catalogue
+
+Implement a searchable, filterable catalogue.
+
+Where supported by the data model, each book record should include:
+
+- Unique book or catalogue ID.
+- Title.
+- Author or authors.
+- ISBN, when available.
+- Category.
+- Publisher.
+- Edition and publication year, when available.
+- Language, when available.
+- Shelf or location reference.
+- Cover image or initials placeholder.
+- Short description, if supported.
+- Total physical copies.
+- Available copies.
+- Issued copies.
+- Record status.
+
+Requirements:
+
+- Search by title, author, ISBN, or catalogue ID.
+- Filter by category, availability, and other supported fields.
+- Sort by relevant columns.
+- Provide pagination or a suitable alternative.
+- Open a dedicated book-detail view.
+- Clearly distinguish a book title from its individual physical copies.
+- Provide useful empty states.
+- Prevent duplicate catalogue identifiers and invalid records.
+
+Do not invent ISBN values and present them as real. Use clearly fictional identifiers for demo records when necessary.
+
+### 6.4 Book creation and editing
+
+Where authorized, implement Add Book and Edit Book workflows.
+
+Use a structured form with logical sections:
+
+**Book information**
+- Title.
+- Author.
+- Category.
+- Publisher.
+- Edition.
+- Publication year.
+- ISBN, if available.
+- Description, if supported.
+
+**Library inventory**
+- Catalogue identifier.
+- Number of copies.
+- Shelf or location.
+- Availability or active status.
+
+Requirements:
+
+- Validate required fields.
+- Validate copy counts and relevant identifiers.
+- Prevent duplicate catalogue IDs.
+- Provide Save and Cancel actions.
+- Confirm consequential changes.
+- Display useful field-level validation errors.
+- Reflect successful changes in the catalogue, book details, inventory, and dashboard.
+
+If the system already tracks individual physical copies, preserve that design rather than replacing it with a single quantity field.
+
+### 6.5 Physical inventory and copy tracking
+
+Support individual copy records where the existing architecture allows it.
+
+A physical copy may contain:
+
+- Unique copy ID or barcode.
+- Associated book.
+- Shelf or location.
+- Acquisition information, if supported.
+- Current status.
+- Current borrower, where applicable.
+- Relevant transaction history.
+
+Use clear states such as:
+
+- Available
+- Issued
+- Reserved
+- Lost
+- Damaged
+- Archived
+
+Only use statuses supported by the existing model and workflow.
+
+Maintain inventory consistency:
+
+- Issuing a copy changes its status appropriately.
+- Returning a copy updates availability.
+- Marking a copy lost or damaged must not leave it available for issue.
+- A copy must not be issued to two members simultaneously.
+- Book-level available counts must reflect the underlying copy records.
+
+Do not duplicate copy counts independently across unrelated screens.
+
+### 6.6 Library members
+
+Create a member-management view using authorized student and staff records.
+
+Where supported, display:
+
+- Member ID.
+- Name.
+- Member type.
+- Class and section for students, where authorized.
+- Department for staff, where authorized.
+- Membership status.
+- Current loans.
+- Outstanding overdue items.
+
+Requirements:
+
+- Search by name or permitted identifier.
+- Filter by member type and status.
+- Open a member-detail page.
+- Show active loans and relevant transaction history.
+- Use shared student and staff records rather than creating duplicate people.
+- Respect data visibility and role permissions.
+
+Do not expose private family, financial, medical, or HR information that is unnecessary for library work.
+
+If the project already defines borrowing limits or eligibility rules, use them. Otherwise, make demo rules configurable within the existing design instead of inventing permanent institutional policy.
+
+### 6.7 Issue-book workflow
+
+Implement a functional issue workflow.
+
+The user should be able to:
+
+1. Find and select an eligible library member.
+2. Confirm the member's identity.
+3. View current loans and eligibility information.
+4. Search for an available book or physical copy.
+5. Select the specific available copy.
+6. Review the proposed issue transaction.
+7. Confirm the issue.
+8. Save the loan to shared demo state.
+9. Update the copy's status and the member's active-loan list.
+10. Calculate the due date using the existing library policy.
+11. Update catalogue availability, dashboard metrics, and transaction history.
+12. Display a clear success message.
+
+Safeguards:
+
+- Prevent issuing a copy that is already issued, reserved, lost, damaged, or archived.
+- Prevent duplicate active loans for the same physical copy.
+- Enforce existing member eligibility and borrowing limits.
+- Validate dates.
+- Avoid double-submission.
+- Do not save a transaction if validation fails.
+
+If borrowing rules are not configured, use a clearly identified demo default and keep the implementation consistent across all relevant screens.
+
+### 6.8 Return-book workflow
+
+Implement a complete return workflow.
+
+Allow the Librarian to:
+
+1. Find an active loan by book, copy ID, member, or loan reference.
+2. Review the original issue date and due date.
+3. Confirm the physical copy being returned.
+4. Record the return date.
+5. Record the condition of the returned copy where supported.
+6. Calculate overdue duration using consistent date logic.
+7. Apply a library fine only if the existing policy supports fines.
+8. Save the return transaction.
+9. Update the loan history and copy status.
+10. Update the member's active loans, book availability, and dashboard metrics.
+11. Show clear confirmation.
+
+Do not charge arbitrary fines or invent institutional policy. If fines are not supported, record overdue information without claiming a fine was applied.
+
+A returned copy must not remain in an active-loan state.
+
+### 6.9 Active loans and overdue books
+
+Build dedicated screens for active loans and overdue items.
+
+Show relevant information such as:
+
+- Loan reference.
+- Book title.
+- Copy ID.
+- Borrower.
+- Issue date.
+- Due date.
+- Days overdue, where applicable.
+- Loan status.
+
+Provide search, sorting, filtering, and detail navigation.
+
+Use one consistent overdue calculation based on dates and loan status.
+
+A returned book must not continue to appear as actively overdue. Exclude archived or otherwise ineligible records as appropriate.
+
+### 6.10 Reservations
+
+If reservations are supported by the existing specification, implement:
+
+- Reservation list.
+- Member and book details.
+- Reservation date.
+- Queue position, if applicable.
+- Reservation status.
+- Availability status.
+- Cancellation or fulfilment actions when authorized.
+
+Maintain consistent reservation ordering if the model supports a queue.
+
+Prevent duplicate active reservations where the existing rules prohibit them.
+
+Do not claim that a parent or student has been notified through email, SMS, or push notifications unless a real integration exists. Use clearly labelled demo notifications if supported.
+
+### 6.11 Lost, damaged, and archived copies
+
+Where supported, provide a controlled workflow to record lost or damaged copies.
+
+Include:
+
+- Copy and book identity.
+- Relevant loan or member reference, if applicable.
+- Condition or incident description.
+- Date.
+- Status.
+- Notes or follow-up information where authorized.
+
+Requirements:
+
+- Confirm consequential status changes.
+- Update inventory and availability correctly.
+- Preserve the transaction history.
+- Do not silently delete lost or damaged inventory records.
+- Restore a copy to Available only when the appropriate workflow permits it.
+
+If fines, replacement charges, or finance adjustments are involved, do not directly modify finance records unless the existing permission model allows it. Use an approved integration point instead.
+
+### 6.12 Library transactions and reports
+
+Maintain a transaction history for supported actions:
+
+- Issue.
+- Return.
+- Reservation.
+- Cancellation.
+- Copy status change.
+- Other supported inventory operations.
+
+Provide useful reports where the data supports them:
+
+- Catalogue inventory.
+- Available and issued copies.
+- Active loans.
+- Overdue loans.
+- Issue and return history.
+- Category-wise inventory.
+- Lost or damaged copies.
+- Member borrowing activity.
+
+Use date and category filters where relevant.
+
+All totals must be calculated from the same underlying records. Provide CSV export where feasible and permitted.
+
+## 7. WORKSPACE B — TRANSPORT MANAGER
+
+Build a dedicated school-transport workspace for authorized transport operations.
+
+The module must manage school vehicles, routes, stops, assignments, and transport records supported by the existing specification.
+
+Do not claim to provide live GPS tracking, automatic vehicle tracking, or real-time driver communication unless those integrations genuinely exist.
+
+### 7.1 Transport navigation
+
+Create a role-specific sidebar with these modules where supported:
+
+- Dashboard
+- Vehicles
+- Drivers
+- Transport Staff
+- Routes
+- Stops
+- Route Schedules
+- Student Transport Assignments
+- Route Rosters
+- Vehicle Maintenance
+- Transport Incidents
+- Transport Announcements
+- Transport Reports
+- My Profile
+
+Keep common operational tasks easy to reach.
+
+Group related sections logically. Do not put every record on the dashboard.
+
+Do not expose finance, HR, academic grading, school-wide permission administration, or unrelated administrative settings unless explicitly permitted.
+
+### 7.2 Transport dashboard
+
+Show relevant, data-derived metrics such as:
+
+- Total registered vehicles.
+- Active vehicles.
+- Vehicles under maintenance.
+- Total configured routes.
+- Active routes.
+- Students assigned to transport.
+- Unassigned transport requests, if supported.
+- Upcoming maintenance.
+- Recent transport incidents.
+- Recent changes to routes and assignments.
+
+Provide useful quick actions:
+
+- Add a vehicle.
+- Add a route.
+- Manage stops.
+- Assign a student to a route.
+- View a route roster.
+- Review maintenance.
+- Open transport reports.
+
+Each action must open a real page or functional form.
+
+Do not show fabricated GPS locations, live movement, or unsupported operational metrics.
+
+### 7.3 Vehicle management
+
+Implement a detailed vehicle register.
+
+Where available in the existing data model, include:
+
+- Unique vehicle ID.
+- Registration number.
+- Vehicle type.
+- Make and model.
+- Capacity.
+- Assigned route, where applicable.
+- Vehicle status.
+- Insurance or permit expiry dates, if supported.
+- Fitness or inspection dates, if supported.
+- Maintenance status.
+- Relevant notes.
+
+Support:
+
+- Search by registration or vehicle ID.
+- Filters by type, status, and assigned route.
+- Sorting and pagination or a suitable alternative.
+- A complete vehicle-detail view.
+- Add and edit workflows where authorized.
+- Validation and duplicate prevention.
+- Clear status indicators.
+
+Do not invent legal compliance claims or assume the vehicle meets regulatory requirements merely because a record exists.
+
+### 7.4 Vehicle status and capacity
+
+Use consistent vehicle statuses supported by the project, such as:
+
+- Active
+- Under Maintenance
+- Inactive
+
+Only use additional statuses if they fit the existing data model.
+
+Requirements:
+
+- Validate that capacity is a positive, reasonable value.
+- Prevent assigning more students than permitted capacity.
+- Warn or block assignments when a vehicle is inactive or unavailable, according to existing policy.
+- Ensure a vehicle's assigned route and roster remain consistent.
+- Do not count an inactive vehicle as available for operational assignment.
+
+If capacity is exceeded, show a clear explanation and prevent an invalid assignment unless the authoritative specification explicitly provides a different rule.
+
+### 7.5 Driver and transport staff records
+
+Create a transport-specific view of drivers and other relevant transport staff.
+
+Where authorized and available, include:
+
+- Staff ID.
+- Name.
+- Role or designation.
+- Work contact information.
+- Assigned vehicle.
+- Assigned route.
+- Employment or availability status.
+- Licence information and expiry date, if the model supports it.
+- Relevant training or document status, if supported.
+
+Requirements:
+
+- Reuse shared staff records when possible.
+- Do not create duplicate staff identities.
+- Restrict sensitive personal information.
+- Validate unique identifiers and dates.
+- Prevent assigning an unavailable driver to an active route where the existing rules require availability.
+- Do not claim that licence validity has been verified externally.
+- Do not expose unrelated salary or HR records.
+
+If HR owns employment-record editing, keep transport-specific views limited to permitted information and use the shared HR record.
+
+### 7.6 Route management
+
+Implement a functional route register.
+
+Where supported, each route should include:
+
+- Unique route ID.
+- Route name or code.
+- Route type or direction, if applicable.
+- Start and end points.
+- Ordered stops.
+- Assigned vehicle.
+- Assigned driver.
+- Scheduled departure and arrival information.
+- Operating days.
+- Route status.
+- Capacity and current assigned-student count.
+
+Provide:
+
+- Search and filters.
+- Add and edit forms.
+- Route details.
+- Stop ordering.
+- Assignment validation.
+- Clear active or inactive status.
+- A route roster showing assigned students, subject to permissions.
+
+Do not use fake map pins or claim that a route is geographically verified if no real mapping integration exists.
+
+### 7.7 Stops and schedules
+
+Build stop management using the existing route data model.
+
+A stop may contain:
+
+- Stop ID.
+- Stop name.
+- Address or area, if provided.
+- Route association.
+- Pickup time.
+- Drop-off time.
+- Stop sequence.
+- Status.
+
+Requirements:
+
+- Support ordered stops.
+- Validate time fields.
+- Avoid duplicate stop positions within a route where the model requires uniqueness.
+- Show schedules clearly.
+- Ensure stop changes are reflected in route details and rosters.
+- Provide a clear view of the stop sequence.
+- Prevent schedules from becoming inconsistent after route edits.
+
+Do not invent precise geographic coordinates or live travel-time estimates.
+
+### 7.8 Student transport assignments
+
+Build a dedicated student transport assignment module.
+
+Where authorized and supported, show:
+
+- Student name and identifier.
+- Class and section.
+- Assigned route.
+- Pickup stop.
+- Drop-off stop.
+- Assignment status.
+- Effective date or academic period, if supported.
+- Relevant guardian contact details only if necessary and authorized.
+
+Required workflow:
+
+1. Search and select an eligible student.
+2. Review existing transport assignment.
+3. Select an active route.
+4. Select valid pickup and drop-off stops belonging to that route.
+5. Check route and vehicle capacity.
+6. Check route and vehicle availability.
+7. Review the proposed assignment.
+8. Save the assignment.
+9. Update the route roster and dashboard.
+10. Show a clear success or error message.
+
+Safeguards:
+
+- Prevent duplicate active assignments unless the existing model explicitly supports them.
+- Prevent assigning a student to an inactive route.
+- Prevent using stops from unrelated routes.
+- Do not exceed capacity.
+- Do not expose unrelated family or financial data.
+- Ensure the student assignment, route roster, and related views use the same underlying record.
+
+If the existing system includes transport requests or approval workflows, preserve and use them instead of bypassing approval.
+
+### 7.9 Route rosters
+
+Provide a useful route roster showing:
+
+- Route identity.
+- Vehicle.
+- Driver.
+- Ordered stops.
+- Students assigned to the route.
+- Pickup and drop-off stops.
+- Relevant assignment status.
+- Current capacity usage.
+
+Provide filters and a print-friendly layout where feasible.
+
+Ensure:
+
+- Students appear only on valid active assignments.
+- Removed or inactive assignments do not remain incorrectly on the roster.
+- Capacity counts match actual assignments.
+- Unauthorized users cannot see unnecessary student or guardian information.
+
+### 7.10 Vehicle maintenance
+
+Where supported by the specification, implement a maintenance register.
+
+Include relevant information such as:
+
+- Vehicle.
+- Maintenance type.
+- Service date.
+- Next due date.
+- Status.
+- Notes.
+- Associated costs only if authorized and supported.
+
+Provide:
+
+- Maintenance history.
+- Upcoming maintenance list.
+- Search and filters.
+- Add or update forms where permitted.
+- Date validation.
+- Clear maintenance status.
+
+If a vehicle becomes unavailable for maintenance, ensure route and assignment workflows respect that status.
+
+Do not automatically invent service records or claim that a vehicle has been inspected.
+
+### 7.11 Transport incidents
+
+If the existing specification supports incident records, provide a controlled incident register.
+
+Include only necessary information, such as:
+
+- Incident reference.
+- Date and time.
+- Relevant vehicle or route.
+- Incident category.
+- Description.
+- Status.
+- Follow-up action.
+- Authorized staff notes.
+
+Requirements:
+
+- Restrict access to sensitive incident details.
+- Validate required fields.
+- Preserve history.
+- Allow authorized status updates.
+- Do not expose incident reports indiscriminately to parents or unrelated roles.
+- Do not claim an incident has been reported to external authorities or emergency services.
+
+### 7.12 Transport announcements
+
+If transport announcements are supported, allow the Transport Manager to prepare and manage authorized demo announcements.
+
+Include:
+
+- Title.
+- Message.
+- Relevant route or audience, if supported.
+- Publication status.
+- Date.
+- Created-by information where available.
+
+Validate the message and show a review step before publication.
+
+Use existing announcement functionality where possible rather than building a duplicate system.
+
+If publication only updates local demo state, state that clearly. Do not claim real notifications were delivered.
+
+### 7.13 Transport reports
+
+Provide useful reports where supported by the data:
+
+- Vehicle register.
+- Vehicle availability.
+- Route and stop register.
+- Route-wise student assignments.
+- Vehicle capacity utilization.
+- Driver and route assignments.
+- Upcoming maintenance.
+- Maintenance history.
+- Transport incidents.
+- Unassigned students or pending requests, if supported.
+
+Use appropriate filters and calculate totals from the underlying records.
+
+Provide CSV export where feasible and permitted.
+
+## 8. SHARED DATA AND WORKFLOW CONSISTENCY
+
+Both workspaces must use the existing SCHLAR architecture.
+
+- Reuse shared state, models, routing, and persistence.
+- Reuse existing student and staff records.
+- Avoid creating separate copies of students, staff, or vehicles for different screens.
+- Ensure all supported changes update relevant lists, details, dashboards, and reports.
+- Preserve relationships between book titles and physical copies.
+- Preserve relationships between students, routes, stops, vehicles, and staff.
+- Validate record references before saving.
+- Prevent duplicate identifiers.
+- Preserve transaction history where appropriate.
+- Handle missing and malformed stored data gracefully.
+- Do not clear all browser storage.
+- Use realistic fictional demo data.
+- Do not add a backend, external API, live tracking service, real messaging service, or external integration.
+
+If the existing project supports browser-local persistence, reuse it where appropriate. Do not claim cross-device synchronization.
+
+## 9. CENTRALIZED PERMISSIONS AND PRIVACY
+
+Reuse the existing centralized permission registry. Do not create an independent permission engine.
+
+Check authorization when rendering screens and executing actions. Direct navigation must not bypass permission checks.
+
+### Librarian permissions
+
+Grant only the library operations authorized by the existing specification.
+
+Do not automatically grant access to:
+
+- Fee collection and finance settings.
+- HR documents or salary information.
+- School-wide user and permission management.
+- Unrelated academic administration.
+- Private parent or family information.
+
+### Transport Manager permissions
+
+Grant only authorized transport operations.
+
+Do not automatically grant access to:
+
+- Unrestricted HR records or salary details.
+- Fee ledgers or payment details.
+- Examination marks.
+- School-wide settings and permission administration.
+- Unrelated student or family information.
+
+### General rules
+
+- Default to deny if a permission is missing or unknown.
+- Preserve Admin and Vice Principal's existing separate permissions.
+- Keep role-specific data scope.
+- Confirm consequential actions.
+- Preserve an audit trail for sensitive operations where supported.
+- Remember that frontend permission checks are demonstration safeguards, not production-grade security.
+
+## 10. REUSABLE COMPONENTS AND IMPLEMENTATION QUALITY
+
+Reuse or extend shared components for:
+
+- Role workspace shell.
+- Sidebar and mobile drawer.
+- Page headers and breadcrumbs.
+- Search and filter controls.
+- Responsive tables and lists.
+- Detail views.
+- Forms and field validation.
+- Confirmation dialogs.
+- Status indicators.
+- Empty states.
+- Notifications and feedback.
+- Date and time formatting.
+- Print-friendly records and reports.
+- Permission-aware actions.
+
+Keep library and transport domain logic separate while sharing general UI components.
+
+Avoid:
+
+- A single enormous component for both roles.
+- Duplicate routes or navigation systems.
+- Hard-coded dashboard totals.
+- Placeholder pages disguised as complete functionality.
+- Dead buttons or nonfunctional links.
+- Inconsistent statuses.
+- Silent save failures.
+- Unnecessary dependencies.
+- Unrelated changes to other roles.
+
+Follow the existing project's framework, routing, state management, and code conventions.
+
+## 11. RESPONSIVENESS AND ACCESSIBILITY
+
+- Make the workspaces usable on desktop, tablet, and mobile.
+- Convert the sidebar into a mobile drawer when necessary.
+- Avoid horizontal overflow.
+- Keep forms and dialogs usable on small screens.
+- Use accessible labels and visible focus states.
+- Provide keyboard-accessible navigation where applicable.
+- Use readable contrast and status text.
+- Provide clear field-level errors.
+- Confirm consequential actions.
+- Preserve the global theme system.
+
+## 12. REQUIRED TESTING
+
+Run actual tests supported by the project and verify the following.
+
+### Librarian tests
+
+1. Selecting Librarian opens the correct workspace.
+2. Sidebar navigation opens the correct modules.
+3. Book search and filters work.
+4. Adding or editing a book updates the catalogue.
+5. Duplicate catalogue identifiers are rejected.
+6. Inventory counts match physical copy records.
+7. A valid issue transaction updates the loan, member, copy status, and availability.
+8. An unavailable copy cannot be issued.
+9. A valid return updates the loan history and inventory.
+10. Returned books do not remain in active overdue lists.
+11. Reservation and lost/damaged workflows respect their supported rules.
+12. Reports reflect actual demo records.
+
+### Transport Manager tests
+
+1. Selecting Transport Manager opens the correct workspace.
+2. Sidebar navigation opens the correct modules.
+3. Vehicle and route search work.
+4. Duplicate vehicle or route identifiers are rejected.
+5. Route stops remain in the correct order.
+6. Student assignments update route rosters.
+7. Invalid routes and unrelated stops cannot be assigned.
+8. Vehicle capacity is enforced.
+9. Inactive or unavailable vehicles cannot be assigned contrary to policy.
+10. Maintenance status affects operational availability appropriately.
+11. Reports reflect actual route, vehicle, and assignment records.
+
+### Cross-role regression tests
+
+1. All ten roles remain present.
+2. Parent still opens the Parent Mobile App directly.
+3. No Parent Web Portal is reintroduced.
+4. Teacher Web and Teacher Mobile remain available.
+5. Admin and Vice Principal remain separate.
+6. The theme selector and all existing palettes still work.
+7. Finance and HR modules from Prompt 6 remain functional.
+8. Existing functionality from Prompts 1–6 remains intact.
+9. Unauthorized routes and actions remain inaccessible.
+10. No critical runtime errors or broken navigation are introduced.
+
+Do not claim a test passed unless you actually performed it. Identify tests that could not be run.
+
+## 13. IMPLEMENTATION ORDER
+
+Complete the work in this sequence:
+
+1. Audit the existing Library and Transport modules.
+2. Map current features and permissions to the authoritative specification.
+3. Preserve working functionality.
+4. Implement or complete the Librarian workspace.
+5. Implement or complete the Transport Manager workspace.
+6. Connect both workspaces to shared records.
+7. Implement validation, permissions, feedback, and persistence where supported.
+8. Verify relationships and derived metrics.
+9. Test the workflows and previous role experiences.
+10. Repair discovered defects.
+11. Produce the required implementation report.
+
+Do not begin Prompt 8 automatically.
+
+## 14. FINAL IMPLEMENTATION REPORT
+
+When finished, provide a factual report containing:
+
+1. Existing features preserved.
+2. New features implemented.
+3. Features repaired.
+4. Librarian modules completed.
+5. Transport Manager modules completed.
+6. Files created or modified.
+7. Shared data models and components reused.
+8. Permission boundaries implemented or verified.
+9. Tests actually performed and their results.
+10. Features not implemented and why.
+11. Known limitations and dependencies on later prompts.
+12. Confirmation that the application remains frontend-only.
+
+Do not call a module complete merely because its navigation item exists. Its authorized screens, data, validation, and expected actions must work.
+
+### DEFINITION OF DONE
+
+The Librarian can manage authorized catalogue, inventory, issue, return, loan, and reporting workflows using consistent records.
+
+The Transport Manager can manage authorized vehicles, drivers, routes, stops, student assignments, rosters, and supported maintenance workflows using consistent records.
+
+Both workspaces must be professional, responsive, easy to navigate, permission-aware, and integrated with the existing SCHLAR application. Existing features must remain intact, and the implementation must not falsely claim real-world integrations.

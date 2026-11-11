@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Schlar — School Management Platform</title>
+  <meta name="description" content="One connected platform for smarter schools. Interactive role-based school management platform for web and mobile." />
+  <!-- Tailwind CSS Play CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- React & Babel for standalone zero-build execution -->
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <style>
+    body { font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif; }
+    .tabular-nums { font-variant-numeric: tabular-nums; }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-900 min-h-screen antialiased">
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState, useEffect, useMemo } = React;
+
+    // INITIAL MOCK DATA
+    const INITIAL_STATE = {
+      currentPlatform: 'web', // 'web' | 'mobile'
+      currentRole: 'principal',
+      activeNav: 'dashboard',
+      selectedChildId: 'std-aarav',
+      themeColor: 'indigo',
+      students: [
+        { id: 'std-aarav', name: 'Aarav Sharma', admissionId: 'GIS-2022-0482', dob: '2012-05-14', gender: 'Male', class: 'Grade 8A', section: 'A', rollNo: '08', parentName: 'Vikram Sharma', parentPhone: '+1 (555) 234-8901', parentEmail: 'vikram.sharma@example.com', address: '742 Evergreen Terrace', attendanceRate: 94.5, academicStatus: 'Excellent', status: 'Active' },
+        { id: 'std-ananya', name: 'Ananya Sharma', admissionId: 'GIS-2024-0914', dob: '2015-08-22', gender: 'Female', class: 'Grade 5B', section: 'B', rollNo: '14', parentName: 'Vikram Sharma', parentPhone: '+1 (555) 234-8901', parentEmail: 'vikram.sharma@example.com', address: '742 Evergreen Terrace', attendanceRate: 97.0, academicStatus: 'Good', status: 'Active' },
+        { id: 'std-rohan', name: 'Rohan Mehta', admissionId: 'GIS-2021-0104', dob: '2010-03-12', gender: 'Male', class: 'Grade 10A', section: 'A', rollNo: '01', parentName: 'Sanjay Mehta', parentPhone: '+1 (555) 345-6789', parentEmail: 'sanjay.m@example.com', address: '12 Oak Ridge Blvd', attendanceRate: 92.0, academicStatus: 'Good', status: 'Active' },
+        { id: 'std-priya', name: 'Priya Patel', admissionId: 'GIS-2021-0105', dob: '2010-11-28', gender: 'Female', class: 'Grade 10A', section: 'A', rollNo: '02', parentName: 'Kishore Patel', parentPhone: '+1 (555) 456-7890', parentEmail: 'k.patel@example.com', address: '88 Maple Lane', attendanceRate: 98.4, academicStatus: 'Excellent', status: 'Active' },
+        { id: 'std-kevin', name: 'Kevin Vance', admissionId: 'GIS-2021-0211', dob: '2010-07-09', gender: 'Male', class: 'Grade 10B', section: 'B', rollNo: '05', parentName: 'Arthur Vance', parentPhone: '+1 (555) 567-8901', parentEmail: 'avance@example.com', address: '304 Birch Court', attendanceRate: 88.0, academicStatus: 'Average', status: 'Active' },
+        { id: 'std-aisha', name: 'Aisha Khan', admissionId: 'GIS-2022-0330', dob: '2011-04-18', gender: 'Female', class: 'Grade 9A', section: 'A', rollNo: '03', parentName: 'Tariq Khan', parentPhone: '+1 (555) 678-9012', parentEmail: 'tkhan@example.com', address: '15 Cedar Way', attendanceRate: 95.8, academicStatus: 'Excellent', status: 'Active' },
+        { id: 'std-lucas', name: 'Lucas Brown', admissionId: 'GIS-2023-0512', dob: '2013-01-20', gender: 'Male', class: 'Grade 7B', section: 'B', rollNo: '11', parentName: 'Derek Brown', parentPhone: '+1 (555) 890-1234', parentEmail: 'dbrown@example.com', address: '450 Pine Valley Dr', attendanceRate: 74.0, academicStatus: 'Needs Attention', status: 'Active' }
+      ],
+      teachers: [
+        { id: 'tch-sterling', name: 'Marcus Sterling', employeeId: 'EMP-T-101', roleTitle: 'Head of Mathematics', subjects: ['Mathematics'], classes: ['Grade 10A', 'Grade 10B', 'Grade 8A'], workloadHours: 24, attendanceRate: 98.0, status: 'Active', email: 'm.sterling@greenfield.edu' },
+        { id: 'tch-watson', name: 'Emily Watson', employeeId: 'EMP-T-102', roleTitle: 'Senior Science Teacher', subjects: ['Science'], classes: ['Grade 9A', 'Grade 8A', 'Grade 5B'], workloadHours: 22, attendanceRate: 96.5, status: 'Active', email: 'e.watson@greenfield.edu' },
+        { id: 'tch-kim', name: 'David Kim', employeeId: 'EMP-T-103', roleTitle: 'English Department Lead', subjects: ['English'], classes: ['Grade 10A', 'Grade 9A'], workloadHours: 20, attendanceRate: 95.0, status: 'Active', email: 'd.kim@greenfield.edu' },
+        { id: 'tch-bennett', name: 'Laura Bennett', employeeId: 'EMP-T-106', roleTitle: 'Physics Faculty', subjects: ['Physics'], classes: ['Grade 10A', 'Grade 10B'], workloadHours: 19, attendanceRate: 94.0, status: 'On Leave', email: 'l.bennett@greenfield.edu' }
+      ],
+      staff: [
+        { id: 'stf-clara', name: 'Clara Oswald', employeeId: 'EMP-S-201', role: 'Front Office Receptionist', department: 'Front Office', email: 'c.oswald@greenfield.edu', phone: '+1 555-0199', attendanceRate: 99.0, status: 'Active' },
+        { id: 'stf-fletcher', name: 'Edward Fletcher', employeeId: 'EMP-S-202', role: 'Chief Accountant', department: 'Accounts', email: 'e.fletcher@greenfield.edu', phone: '+1 555-0200', attendanceRate: 98.2, status: 'Active' },
+        { id: 'stf-vance', name: 'Eleanor Vance', employeeId: 'EMP-S-203', role: 'HR & Personnel Officer', department: 'Administration', email: 'e.vance@greenfield.edu', phone: '+1 555-0201', attendanceRate: 97.5, status: 'Active' },
+        { id: 'stf-pendelton', name: 'Arthur Pendelton', employeeId: 'EMP-S-204', role: 'Head Librarian', department: 'Library', email: 'a.pendelton@greenfield.edu', phone: '+1 555-0202', attendanceRate: 96.0, status: 'Active' }
+      ],
+      classes: [
+        { id: 'cls-10a', name: 'Grade 10A', grade: '10', section: 'A', roomNumber: '301', classTeacherName: 'Marcus Sterling', totalStudents: 28, attendanceToday: 96.4, averageMarks: 86.4 },
+        { id: 'cls-10b', name: 'Grade 10B', grade: '10', section: 'B', roomNumber: '302', classTeacherName: 'Laura Bennett', totalStudents: 26, attendanceToday: 92.3, averageMarks: 81.2 },
+        { id: 'cls-9a', name: 'Grade 9A', grade: '9', section: 'A', roomNumber: '201', classTeacherName: 'David Kim', totalStudents: 30, attendanceToday: 95.0, averageMarks: 83.5 },
+        { id: 'cls-8a', name: 'Grade 8A', grade: '8', section: 'A', roomNumber: '101', classTeacherName: 'Emily Watson', totalStudents: 29, attendanceToday: 96.5, averageMarks: 85.0 },
+        { id: 'cls-7b', name: 'Grade 7B', grade: '7', section: 'B', roomNumber: '104', classTeacherName: 'Robert Hayes', totalStudents: 27, attendanceToday: 91.8, averageMarks: 78.4 }
+      ],
+      fees: [
+        { id: 'fee-aarav', studentId: 'std-aarav', studentName: 'Aarav Sharma', class: 'Grade 8A', totalFee: 5000, paidAmount: 3800, pendingAmount: 1200, dueDate: '2026-10-15', status: 'Partially Paid' },
+        { id: 'fee-ananya', studentId: 'std-ananya', studentName: 'Ananya Sharma', class: 'Grade 5B', totalFee: 3900, paidAmount: 3900, pendingAmount: 0, dueDate: '2026-09-30', status: 'Paid' },
+        { id: 'fee-rohan', studentId: 'std-rohan', studentName: 'Rohan Mehta', class: 'Grade 10A', totalFee: 6000, paidAmount: 6000, pendingAmount: 0, dueDate: '2026-09-15', status: 'Paid' },
+        { id: 'fee-priya', studentId: 'std-priya', studentName: 'Priya Patel', class: 'Grade 10A', totalFee: 6000, paidAmount: 4000, pendingAmount: 2000, dueDate: '2026-10-15', status: 'Partially Paid' },
+        { id: 'fee-kevin', studentId: 'std-kevin', studentName: 'Kevin Vance', class: 'Grade 10B', totalFee: 6000, paidAmount: 0, pendingAmount: 6000, dueDate: '2026-09-01', status: 'Overdue' }
+      ],
+      payments: [
+        { id: 'pay-1', receiptNumber: 'REC-2026-081', studentId: 'std-ananya', studentName: 'Ananya Sharma', class: 'Grade 5B', amount: 1300, date: '2026-09-20', paymentMethod: 'Bank Transfer', referenceNumber: 'TXN-998124' },
+        { id: 'pay-2', receiptNumber: 'REC-2026-082', studentId: 'std-aarav', studentName: 'Aarav Sharma', class: 'Grade 8A', amount: 1900, date: '2026-09-18', paymentMethod: 'UPI', referenceNumber: 'UPI-332145' },
+        { id: 'pay-3', receiptNumber: 'REC-2026-083', studentId: 'std-rohan', studentName: 'Rohan Mehta', class: 'Grade 10A', amount: 2000, date: '2026-09-12', paymentMethod: 'Card', referenceNumber: 'CARD-449102' }
+      ],
+      visitors: [
+        { id: 'vis-1', visitorName: 'Arthur Vance', purpose: 'Fee Inquiry & Term Report', personToMeet: 'Edward Fletcher (Accountant)', phone: '+1 555-567-8901', entryTime: '08:45 AM', date: '2026-09-27', status: 'Checked In' },
+        { id: 'vis-2', visitorName: 'Sophia Miller', purpose: 'Admissions Tour Grade 6', personToMeet: 'Clara Oswald (Reception)', phone: '+1 555-781-9920', entryTime: '09:15 AM', exitTime: '10:30 AM', date: '2026-09-27', status: 'Checked Out' }
+      ],
+      enquiries: [
+        { id: 'enq-1', parentName: 'David Miller', studentName: 'Lucas Miller', grade: 'Grade 6', contact: '+1 555-781-9920', source: 'Walk-in', notes: 'Relocating from Chicago next month.', status: 'New' },
+        { id: 'enq-2', parentName: 'Hannah Abbott', studentName: 'Neville Abbott', grade: 'Grade 8', contact: '+1 555-902-1144', source: 'Website', notes: 'Interested in STEM robotics.', status: 'Follow-up' }
+      ],
+      leaveRequests: [
+        { id: 'lv-1', employeeName: 'Laura Bennett', role: 'Physics Faculty', department: 'Academics', leaveType: 'Medical', startDate: '2026-09-25', endDate: '2026-09-28', days: 4, reason: 'Flu recovery dispensation', status: 'Approved' },
+        { id: 'lv-2', employeeName: 'Emily Watson', role: 'Science Faculty', department: 'Academics', leaveType: 'Casual', startDate: '2026-10-02', endDate: '2026-10-03', days: 2, reason: 'Attending regional STEM symposium', status: 'Pending' }
+      ],
+      books: [
+        { id: 'bk-1', isbn: '978-0134494166', title: 'Clean Architecture', author: 'Robert C. Martin', category: 'Computer Science', totalCopies: 6, availableCopies: 4, shelfLocation: 'CS-Shelf-01' },
+        { id: 'bk-2', isbn: '978-0446310789', title: 'To Kill a Mockingbird', author: 'Harper Lee', category: 'Literature', totalCopies: 10, availableCopies: 8, shelfLocation: 'LT-Shelf-03' },
+        { id: 'bk-3', isbn: '978-0199204631', title: 'Calculus: Early Transcendentals', author: 'James Stewart', category: 'Mathematics', totalCopies: 8, availableCopies: 5, shelfLocation: 'MT-Shelf-02' }
+      ],
+      libraryTransactions: [
+        { id: 'lib-1', bookId: 'bk-1', bookTitle: 'Clean Architecture', studentId: 'std-rohan', studentName: 'Rohan Mehta', class: 'Grade 10A', issueDate: '2026-09-10', dueDate: '2026-09-24', status: 'Overdue', fineAmount: 6 },
+        { id: 'lib-2', bookId: 'bk-2', bookTitle: 'To Kill a Mockingbird', studentId: 'std-priya', studentName: 'Priya Patel', class: 'Grade 10A', issueDate: '2026-09-18', dueDate: '2026-10-02', status: 'Issued', fineAmount: 0 }
+      ],
+      assignments: [
+        { id: 'asg-1', title: 'Trigonometric Identities Set 4', subject: 'Mathematics', class: 'Grade 10A', teacherId: 'tch-sterling', teacherName: 'Marcus Sterling', description: 'Solve problems 14 through 28 on Page 142.', dueDate: '2026-10-02', status: 'Published' },
+        { id: 'asg-2', title: 'Electromagnetic Induction Lab Report', subject: 'Physics', class: 'Grade 10B', teacherId: 'tch-bennett', teacherName: 'Laura Bennett', description: 'Submit observation tables and flux calculations.', dueDate: '2026-10-05', status: 'Published' }
+      ],
+      messages: [
+        { id: 'msg-1', threadId: 'thr-vikram-sterling', text: 'Good morning Mr. Sterling, wanted to confirm if Aarav needs extra coaching for midterm geometry?', senderRole: 'parent', senderName: 'Vikram Sharma', timestamp: 'Yesterday 04:30 PM' },
+        { id: 'msg-2', threadId: 'thr-vikram-sterling', text: 'Hello Mr. Sharma, Aarav is progressing well! He scored 92% in the algebra assessment. I will provide practice worksheets tomorrow.', senderRole: 'teacher', senderName: 'Marcus Sterling', timestamp: 'Today 08:15 AM' }
+      ]
+    };
+
+    function App() {
+      const [state, setState] = useState(() => {
+        try {
+          const saved = localStorage.getItem('schlar_demo_state');
+          return saved ? JSON.parse(saved) : INITIAL_STATE;
+        } catch (e) {
+          return INITIAL_STATE;
+        }
+      });
+
+      const [toast, setToast] = useState(null);
+
+      // Save to localStorage
+      useEffect(() => {
+        try {
+          localStorage.setItem('schlar_demo_state', JSON.stringify(state));
+        } catch (e) {}
+      }, [state]);
+
+      const showToast = (title, message) => {
+        setToast({ title, message });
+        setTimeout(() => setToast(null), 3500);
+      };
+
+      // Theme Colors
+      const THEMES = {
+        indigo: { id: 'indigo', name: 'Sapphire Indigo', primary: '#4f46e5', light: '#eef2ff' },
+        emerald: { id: 'emerald', name: 'Forest Emerald', primary: '#059669', light: '#ecfdf5' },
+        ocean: { id: 'ocean', name: 'Ocean Sky', primary: '#0284c7', light: '#f0f9ff' },
+        violet: { id: 'violet', name: 'Royal Violet', primary: '#7c3aed', light: '#f5f3ff' },
+        crimson: { id: 'crimson', name: 'Crimson Rose', primary: '#e11d48', light: '#fff1f2' },
+        amber: { id: 'amber', name: 'Warm Amber', primary: '#d97706', light: '#fffbeb' },
+        slate: { id: 'slate', name: 'Midnight Slate', primary: '#334155', light: '#f8fafc' }
+      };
+
+      // Role configs - Exactly 6 Web Roles and 2 Mobile Roles
+      const ROLES = {
+        web: [
+          { id: 'principal', title: 'Principal / Admin', name: 'Dr. Robert Hayes', color: 'indigo' },
+          { id: 'vice_principal', title: 'Academic Coordinator', name: 'Sarah Jenkins', color: 'purple' },
+          { id: 'teacher', title: 'Faculty Teacher', name: 'Marcus Sterling', color: 'emerald' },
+          { id: 'accountant', title: 'Finance Accountant', name: 'Edward Fletcher', color: 'amber' },
+          { id: 'receptionist', title: 'Front Office', name: 'Clara Oswald', color: 'cyan' },
+          { id: 'librarian', title: 'Senior Librarian', name: 'Arthur Pendelton', color: 'teal' }
+        ],
+        mobile: [
+          { id: 'teacher', title: 'Teacher App', name: 'Marcus Sterling', color: 'emerald' },
+          { id: 'parent', title: 'Parent Portal', name: 'Vikram Sharma', color: 'blue' }
+        ]
+      };
+
+      // Role navigations
+      const getRoleNav = () => {
+        switch (state.currentRole) {
+          case 'principal':
+            return ['dashboard', 'students', 'teachers', 'classes', 'academics', 'finance', 'profile', 'settings'];
+          case 'vice_principal':
+            return ['dashboard', 'classes', 'teachers', 'subjects', 'attendance', 'exams', 'reports', 'profile'];
+          case 'teacher':
+            return ['dashboard', 'my_classes', 'students', 'attendance', 'marks', 'assignments', 'messages', 'profile'];
+          case 'accountant':
+            return ['dashboard', 'fees', 'fee_structure', 'collections', 'pending_fees', 'receipts', 'profile'];
+          case 'receptionist':
+            return ['dashboard', 'visitors', 'enquiries', 'students', 'profile'];
+          case 'hr':
+            return ['dashboard', 'staff', 'departments', 'attendance', 'leave', 'profile'];
+          case 'librarian':
+            return ['dashboard', 'books', 'issued', 'overdue', 'profile'];
+          default:
+            return ['dashboard', 'students', 'profile'];
+        }
+      };
+
+      // Actions
+      const addStudent = (std) => {
+        const newStd = { id: 'std-' + Date.now(), ...std, attendanceRate: 95.0, academicStatus: 'Good' };
+        setState(prev => ({
+          ...prev,
+          students: [newStd, ...prev.students]
+        }));
+        showToast('Student Added', `${std.name} registered into Greenfield database.`);
+      };
+
+      const recordPayment = (studentId, amount, method) => {
+        const student = state.students.find(s => s.id === studentId);
+        const receiptNo = 'REC-2026-' + Math.floor(100 + Math.random() * 900);
+        setState(prev => ({
+          ...prev,
+          fees: prev.fees.map(f => f.studentId === studentId ? {
+            ...f,
+            paidAmount: f.paidAmount + amount,
+            pendingAmount: Math.max(0, f.pendingAmount - amount),
+            status: (f.pendingAmount - amount <= 0) ? 'Paid' : 'Partially Paid'
+          } : f),
+          payments: [{
+            id: 'pay-' + Date.now(),
+            receiptNumber: receiptNo,
+            studentId,
+            studentName: student ? student.name : 'Student',
+            class: student ? student.class : 'Grade 10',
+            amount,
+            date: new Date().toISOString().split('T')[0],
+            paymentMethod: method,
+            referenceNumber: 'TXN-' + Math.floor(100000 + Math.random() * 900000)
+          }, ...prev.payments]
+        }));
+        showToast('Payment Recorded', `Voucher ${receiptNo} generated for $${amount}.`);
+      };
+
+      const checkInVisitor = (name, purpose, person) => {
+        setState(prev => ({
+          ...prev,
+          visitors: [{
+            id: 'vis-' + Date.now(),
+            visitorName: name,
+            purpose,
+            personToMeet: person,
+            phone: '+1 555-0199',
+            entryTime: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+            date: new Date().toISOString().split('T')[0],
+            status: 'Checked In'
+          }, ...prev.visitors]
+        }));
+        showToast('Visitor Checked In', `Pass issued for ${name}.`);
+      };
+
+      const checkOutVisitor = (id) => {
+        setState(prev => ({
+          ...prev,
+          visitors: prev.visitors.map(v => v.id === id ? {
+            ...v,
+            status: 'Checked Out',
+            exitTime: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+          } : v)
+        }));
+        showToast('Visitor Checked Out', 'Visitor exit recorded.');
+      };
+
+      const handleLeave = (id, decision) => {
+        setState(prev => ({
+          ...prev,
+          leaveRequests: prev.leaveRequests.map(l => l.id === id ? { ...l, status: decision } : l)
+        }));
+        showToast('Leave Processed', `Application marked as ${decision}.`);
+      };
+
+      const returnLibraryBook = (txId) => {
+        const tx = state.libraryTransactions.find(t => t.id === txId);
+        setState(prev => ({
+          ...prev,
+          libraryTransactions: prev.libraryTransactions.map(t => t.id === txId ? { ...t, status: 'Returned' } : t),
+          books: prev.books.map(b => b.id === tx?.bookId ? { ...b, availableCopies: b.availableCopies + 1 } : b)
+        }));
+        showToast('Book Returned', `Restored available copy of ${tx?.bookTitle || 'Book'}.`);
+      };
+
+      const resetData = () => {
+        if (confirm('Reset Greenfield International School demo data to pristine initial state?')) {
+          setState(INITIAL_STATE);
+          localStorage.removeItem('schlar_demo_state');
+          showToast('Data Reset', 'All demo changes refreshed.');
+        }
+      };
+
+      return (
+        <div className="flex flex-col min-h-screen">
+          {/* Top Bar Header */}
+          <header className="bg-white border-b px-4 py-2.5 flex items-center justify-between sticky top-0 z-30 shadow-xs">
+            <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2">
+                <span className="w-7 h-7 bg-indigo-600 text-white rounded-lg flex items-center justify-center font-bold text-xs">E</span>
+                <span className="font-bold text-base tracking-tight text-slate-900">Schlar</span>
+              </div>
+              <span className="text-slate-300">|</span>
+              <span className="text-xs font-semibold text-slate-600 hidden sm:inline">Greenfield International School</span>
+            </div>
+
+            {/* Platform & Role Switcher */}
+            <div className="flex items-center gap-2">
+              {/* Platform Toggle */}
+              <div className="bg-slate-100 p-0.5 rounded-lg flex text-xs">
+                <button
+                  onClick={() => setState(prev => ({ ...prev, currentPlatform: 'web', currentRole: 'principal', activeNav: 'dashboard' }))}
+                  className={`px-2.5 py-1 rounded-md font-semibold transition-all ${state.currentPlatform === 'web' ? 'bg-white shadow-xs text-slate-900' : 'text-slate-500'}`}
+                >
+                  Web
+                </button>
+                <button
+                  onClick={() => setState(prev => ({ ...prev, currentPlatform: 'mobile', currentRole: 'parent', activeNav: 'home' }))}
+                  className={`px-2.5 py-1 rounded-md font-semibold transition-all ${state.currentPlatform === 'mobile' ? 'bg-white shadow-xs text-slate-900' : 'text-slate-500'}`}
+                >
+                  Mobile
+                </button>
+              </div>
+
+              {/* Role Dropdown */}
+              <select
+                value={state.currentRole}
+                onChange={(e) => setState(prev => ({ ...prev, currentRole: e.target.value, activeNav: 'dashboard' }))}
+                className="px-2.5 py-1 bg-white border rounded-lg text-xs font-semibold text-slate-800"
+              >
+                {ROLES[state.currentPlatform].map(r => (
+                  <option key={r.id} value={r.id}>{r.title} ({r.name})</option>
+                ))}
+              </select>
+
+              {/* Theme Color Selector */}
+              <div className="flex items-center gap-1.5 bg-white border rounded-lg px-2 py-1 text-xs shadow-2xs">
+                <span
+                  className="w-3 h-3 rounded-full shrink-0 border"
+                  style={{ backgroundColor: (THEMES[state.themeColor] || THEMES.indigo).primary }}
+                />
+                <select
+                  value={state.themeColor || 'indigo'}
+                  onChange={(e) => {
+                    const chosen = e.target.value;
+                    setState(prev => ({ ...prev, themeColor: chosen }));
+                    showToast('Theme Updated', 'Accent color set to ' + (THEMES[chosen]?.name || chosen));
+                  }}
+                  className="bg-transparent font-semibold text-slate-700 text-xs outline-none cursor-pointer"
+                  title="Choose Accent Color"
+                >
+                  {Object.keys(THEMES).map(k => (
+                    <option key={k} value={k}>{THEMES[k].name}</option>
+                  ))}
+                </select>
+              </div>
+
+              {/* User Profile Pill */}
+              <button
+                onClick={() => setState(prev => ({ ...prev, activeNav: 'profile' }))}
+                className="flex items-center gap-1.5 px-2.5 py-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 rounded-lg text-xs font-semibold border border-indigo-200 transition-colors"
+                title="View My Institutional Profile"
+              >
+                <span className="w-5 h-5 rounded-full bg-indigo-600 text-white flex items-center justify-center text-[10px] font-bold">
+                  {(ROLES[state.currentPlatform].find(r => r.id === state.currentRole)?.name || 'Admin').split(' ').map(n=>n[0]).join('').slice(0,2)}
+                </span>
+                <span className="hidden md:inline font-bold">
+                  {ROLES[state.currentPlatform].find(r => r.id === state.currentRole)?.name || 'Profile'}
+                </span>
+                <span className="text-[10px] font-mono text-indigo-600 bg-white px-1.5 py-0.5 rounded shadow-2xs">Profile</span>
+              </button>
+
+              {/* Reset Demo Data Button */}
+              <button
+                onClick={resetData}
+                title="Reset Demo Data"
+                className="p-1.5 text-slate-400 hover:text-rose-600 rounded-md border text-xs"
+              >
+                Reset
+              </button>
+            </div>
+          </header>
+
+          {/* Toast Notification */}
+          {toast && (
+            <div className="fixed bottom-4 right-4 z-50 bg-slate-900 text-white px-4 py-3 rounded-xl shadow-lg border border-slate-700 text-xs">
+              <span className="font-bold block">{toast.title}</span>
+              <span className="text-slate-300">{toast.message}</span>
+            </div>
+          )}
+
+          {/* Body Content */}
+          {state.currentPlatform === 'mobile' ? (
+            /* MOBILE EXPERIENCE CONTAINER */
+            <div className="flex-1 flex justify-center p-4 bg-slate-100">
+              <div className="w-full max-w-sm bg-white rounded-3xl border border-slate-300 shadow-xl overflow-hidden flex flex-col min-h-[640px]">
+                {/* Mobile Top Header */}
+                <div className="bg-indigo-600 text-white p-4">
+                  <div className="flex justify-between items-center text-xs">
+                    <span className="font-bold tracking-tight">Schlar Mobile</span>
+                    <span className="capitalize text-[11px] bg-white/20 px-2 py-0.5 rounded-full font-medium">{state.currentRole}</span>
+                  </div>
+                  <h2 className="text-base font-bold mt-1">
+                    {state.currentRole === 'parent' ? 'Sharma Family Portal' : 'Faculty Mobile Desk'}
+                  </h2>
+                </div>
+
+                {/* Mobile Scrollable View */}
+                <div className="flex-1 p-4 overflow-y-auto space-y-4 text-xs">
+                  {state.currentRole === 'parent' ? (
+                    /* PARENT VIEW */
+                    <div className="space-y-4">
+                      {/* Child Switcher */}
+                      <div className="flex gap-2 p-1 bg-slate-100 rounded-xl">
+                        <button
+                          onClick={() => setState(prev => ({ ...prev, selectedChildId: 'std-aarav' }))}
+                          className={`flex-1 py-1.5 rounded-lg font-bold text-center ${state.selectedChildId === 'std-aarav' ? 'bg-indigo-600 text-white' : 'text-slate-600'}`}
+                        >
+                          Aarav (8A)
+                        </button>
+                        <button
+                          onClick={() => setState(prev => ({ ...prev, selectedChildId: 'std-ananya' }))}
+                          className={`flex-1 py-1.5 rounded-lg font-bold text-center ${state.selectedChildId === 'std-ananya' ? 'bg-indigo-600 text-white' : 'text-slate-600'}`}
+                        >
+                          Ananya (5B)
+                        </button>
+                      </div>
+
+                      {/* Child Card */}
+                      {(() => {
+                        const child = state.students.find(s => s.id === state.selectedChildId) || state.students[0];
+                        const childFee = state.fees.find(f => f.studentId === child.id);
+                        return (
+                          <div className="space-y-3">
+                            <div className="p-4 bg-slate-50 border rounded-2xl">
+                              <span className="text-[10px] font-bold text-indigo-600 uppercase">Student Overview</span>
+                              <h3 className="text-base font-bold text-slate-900 mt-0.5">{child.name}</h3>
+                              <p className="text-slate-500 text-[11px]">{child.class} · Roll #{child.rollNo}</p>
+                              <div className="grid grid-cols-2 gap-2 mt-3 pt-3 border-t">
+                                <div>
+                                  <span className="text-[10px] text-slate-400 block">Attendance</span>
+                                  <span className="text-sm font-bold text-emerald-600">{child.attendanceRate}%</span>
+                                </div>
+                                <div>
+                                  <span className="text-[10px] text-slate-400 block">Standing</span>
+                                  <span className="text-sm font-bold text-indigo-600">{child.academicStatus}</span>
+                                </div>
+                              </div>
+                            </div>
+
+                            {/* Tuition Fee Card */}
+                            {childFee && (
+                              <div className="p-4 bg-slate-50 border rounded-2xl">
+                                <div className="flex justify-between items-center">
+                                  <span className="font-bold text-slate-800">Fee Balance</span>
+                                  <span className="font-bold text-xs text-amber-700 bg-amber-50 px-2 py-0.5 rounded border border-amber-200">
+                                    ${childFee.pendingAmount} Due
+                                  </span>
+                                </div>
+                                {childFee.pendingAmount > 0 && (
+                                  <button
+                                    onClick={() => recordPayment(child.id, childFee.pendingAmount, 'Bank Transfer')}
+                                    className="w-full mt-3 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl text-xs"
+                                  >
+                                    Pay Tuition Online (${childFee.pendingAmount})
+                                  </button>
+                                )}
+                              </div>
+                            )}
+
+                            {/* Direct Message with Teacher */}
+                            <div className="p-4 bg-slate-50 border rounded-2xl space-y-2">
+                              <span className="font-bold text-slate-800 block">Class Teacher Communication</span>
+                              <div className="p-2.5 bg-white rounded-xl border text-[11px] space-y-1">
+                                <span className="font-bold text-slate-900 block">Mr. Marcus Sterling:</span>
+                                <p className="text-slate-600">Aarav is performing exceptionally in algebraic proofs this week!</p>
+                              </div>
+                              <button
+                                onClick={() => {
+                                  const text = prompt('Message for Mr. Sterling:');
+                                  if (text) showToast('Sent to Teacher', 'Your message was delivered.');
+                                }}
+                                className="w-full py-2 bg-indigo-600 text-white font-bold rounded-xl text-xs"
+                              >
+                                Send Teacher Message
+                              </button>
+                            </div>
+                          </div>
+                        );
+                      })()}
+                    </div>
+                  ) : (
+                    /* TEACHER MOBILE VIEW */
+                    <div className="space-y-4">
+                      <div className="p-4 bg-emerald-50 border border-emerald-200 rounded-2xl">
+                        <span className="text-[10px] uppercase font-bold text-emerald-800 block">Faculty On Duty</span>
+                        <h3 className="text-base font-bold text-slate-900 mt-0.5">Marcus Sterling</h3>
+                        <p className="text-[11px] text-slate-600">Room 301 · Period 1: Grade 10A Math</p>
+                      </div>
+
+                      <div className="p-4 bg-slate-50 border rounded-2xl space-y-3">
+                        <div className="flex justify-between items-center">
+                          <span className="font-bold text-slate-900">Grade 10A Attendance</span>
+                          <button
+                            onClick={() => showToast('Attendance Recorded', 'Marked all 28 students present.')}
+                            className="px-2.5 py-1 bg-emerald-600 text-white rounded font-bold text-[11px]"
+                          >
+                            Mark All Present
+                          </button>
+                        </div>
+                        <div className="divide-y divide-slate-200">
+                          {state.students.filter(s => s.class === 'Grade 10A').map(std => (
+                            <div key={std.id} className="py-2 flex justify-between items-center">
+                              <div>
+                                <span className="font-bold text-slate-900 block">{std.name}</span>
+                                <span className="text-[10px] text-slate-400">Roll #{std.rollNo}</span>
+                              </div>
+                              <span className="px-2 py-0.5 bg-emerald-50 text-emerald-700 font-bold text-[10px] rounded border border-emerald-200">Present</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          ) : (
+            /* WEB EXPERIENCE */
+            <div className="flex-1 flex overflow-hidden">
+              {/* Sidebar */}
+              <aside className="w-56 bg-white border-r p-4 flex flex-col shrink-0">
+                <div className="mb-4">
+                  <span className="text-base font-bold text-slate-900 block capitalize">{state.currentRole.replace('_', ' ')}</span>
+                  <span className="text-xs text-slate-500">Greenfield Workspace</span>
+                </div>
+                <nav className="space-y-1 flex-1 text-xs">
+                  {getRoleNav().map(m => (
+                    <button
+                      key={m}
+                      onClick={() => setState(prev => ({ ...prev, activeNav: m }))}
+                      className={`w-full text-left px-3 py-2 rounded-lg font-semibold capitalize transition-all ${state.activeNav === m ? 'bg-indigo-50 text-indigo-700 shadow-2xs font-bold' : 'text-slate-600 hover:bg-slate-100'}`}
+                    >
+                      {m.replace('_', ' ')}
+                    </button>
+                  ))}
+                </nav>
+                <div className="pt-3 border-t text-[11px] text-slate-400">
+                  Greenfield Intl School · 2026
+                </div>
+              </aside>
+
+              {/* Main Workspace Area */}
+              <main className="flex-1 overflow-y-auto p-6 bg-slate-50 space-y-6 text-xs">
+                {/* 1. Dashboard View */}
+                {state.activeNav === 'dashboard' && (
+                  <div className="space-y-6">
+                    <div className="bg-white p-6 rounded-2xl border shadow-xs flex justify-between items-center">
+                      <div>
+                        <h1 className="text-xl font-bold text-slate-900">Greenfield International School</h1>
+                        <p className="text-slate-500 mt-1">One connected platform for smarter schools.</p>
+                      </div>
+                      <button
+                        onClick={() => {
+                          const name = prompt('New Student Name:', 'Lucas Vance');
+                          if (name) addStudent({ name, admissionId: 'GIS-2026-' + Math.floor(1000 + Math.random() * 9000), dob: '2012-05-10', gender: 'Male', class: 'Grade 10A', section: 'A', rollNo: '33', parentName: 'David Vance', parentPhone: '+1 555-4920', parentEmail: 'vance@example.com', address: 'Greenfield', status: 'Active' });
+                        }}
+                        className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-bold"
+                      >
+                        + Add Student
+                      </button>
+                    </div>
+
+                    <div className="grid grid-cols-4 gap-4">
+                      <div className="bg-white p-4 rounded-xl border">
+                        <span className="text-slate-500 uppercase font-semibold text-[10px]">Total Students</span>
+                        <div className="text-2xl font-bold text-slate-900 font-mono mt-1">{state.students.length}</div>
+                      </div>
+                      <div className="bg-white p-4 rounded-xl border">
+                        <span className="text-slate-500 uppercase font-semibold text-[10px]">Faculty</span>
+                        <div className="text-2xl font-bold text-slate-900 font-mono mt-1">{state.teachers.length}</div>
+                      </div>
+                      <div className="bg-white p-4 rounded-xl border">
+                        <span className="text-slate-500 uppercase font-semibold text-[10px]">Attendance Today</span>
+                        <div className="text-2xl font-bold text-emerald-600 font-mono mt-1">94.8%</div>
+                      </div>
+                      <div className="bg-white p-4 rounded-xl border">
+                        <span className="text-slate-500 uppercase font-semibold text-[10px]">Active Visitors</span>
+                        <div className="text-2xl font-bold text-cyan-600 font-mono mt-1">
+                          {state.visitors.filter(v => v.status === 'Checked In').length}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* 2. Students View */}
+                {(state.activeNav === 'students' || state.activeNav === 'dashboard') && (
+                  <div className="bg-white rounded-2xl border shadow-xs overflow-hidden">
+                    <div className="p-4 border-b flex justify-between items-center">
+                      <h3 className="text-sm font-bold text-slate-900">Student Directory ({state.students.length} Enrolled)</h3>
+                      <button
+                        onClick={() => {
+                          const name = prompt('New Student Name:', 'Oliver Stone');
+                          if (name) addStudent({ name, admissionId: 'GIS-2026-9901', dob: '2012-05-10', gender: 'Male', class: 'Grade 10A', section: 'A', rollNo: '35', parentName: 'Mark Stone', parentPhone: '+1 555-9011', parentEmail: 'stone@example.com', address: 'Greenfield', status: 'Active' });
+                        }}
+                        className="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-md font-semibold text-xs"
+                      >
+                        + Add Student
+                      </button>
+                    </div>
+                    <table className="w-full text-left">
+                      <thead className="bg-slate-50 border-b text-slate-500 font-semibold uppercase text-[10px]">
+                        <tr>
+                          <th className="p-3">Student Name</th>
+                          <th className="p-3">ID</th>
+                          <th className="p-3">Class</th>
+                          <th className="p-3">Attendance</th>
+                          <th className="p-3">Parent</th>
+                          <th className="p-3">Status</th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-slate-100">
+                        {state.students.map(std => (
+                          <tr key={std.id} className="hover:bg-slate-50">
+                            <td className="p-3 font-bold text-slate-900">{std.name}</td>
+                            <td className="p-3 font-mono text-slate-500">{std.admissionId}</td>
+                            <td className="p-3 font-semibold text-indigo-700">{std.class}</td>
+                            <td className="p-3 font-mono font-bold text-emerald-600">{std.attendanceRate}%</td>
+                            <td className="p-3 text-slate-600">{std.parentName}</td>
+                            <td className="p-3">
+                              <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                                {std.status}
+                              </span>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                )}
+
+                {/* 3. Finance & Fees View */}
+                {(state.activeNav === 'finance' || state.activeNav === 'fees' || state.activeNav === 'collections') && (
+                  <div className="bg-white rounded-2xl border shadow-xs overflow-hidden">
+                    <div className="p-4 border-b flex justify-between items-center">
+                      <h3 className="text-sm font-bold text-slate-900">Student Fee Accounts & Collections</h3>
+                      <button
+                        onClick={() => {
+                          const amt = Number(prompt('Payment Amount ($):', '1200'));
+                          if (amt > 0) recordPayment('std-aarav', amt, 'Bank Transfer');
+                        }}
+                        className="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-md font-semibold text-xs"
+                      >
+                        + Record Payment
+                      </button>
+                    </div>
+                    <table className="w-full text-left">
+                      <thead className="bg-slate-50 border-b text-slate-500 font-semibold uppercase text-[10px]">
+                        <tr>
+                          <th className="p-3">Student</th>
+                          <th className="p-3">Class</th>
+                          <th className="p-3 font-mono">Billed</th>
+                          <th className="p-3 font-mono">Paid</th>
+                          <th className="p-3 font-mono">Pending</th>
+                          <th className="p-3">Status</th>
+                          <th className="p-3 text-right">Action</th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-slate-100">
+                        {state.fees.map(f => (
+                          <tr key={f.id} className="hover:bg-slate-50">
+                            <td className="p-3 font-bold text-slate-900">{f.studentName}</td>
+                            <td className="p-3 text-slate-600">{f.class}</td>
+                            <td className="p-3 font-mono">${f.totalFee}</td>
+                            <td className="p-3 font-mono text-emerald-600 font-semibold">${f.paidAmount}</td>
+                            <td className="p-3 font-mono font-bold text-rose-600">${f.pendingAmount}</td>
+                            <td className="p-3">
+                              <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${f.status === 'Paid' ? 'bg-emerald-50 text-emerald-700' : 'bg-amber-50 text-amber-700'}`}>
+                                {f.status}
+                              </span>
+                            </td>
+                            <td className="p-3 text-right">
+                              {f.pendingAmount > 0 && (
+                                <button
+                                  onClick={() => recordPayment(f.studentId, f.pendingAmount, 'Bank Transfer')}
+                                  className="px-2.5 py-1 bg-emerald-600 hover:bg-emerald-700 text-white rounded font-bold text-[11px]"
+                                >
+                                  Settle
+                                </button>
+                              )}
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                )}
+
+                {/* 4. Visitors Management */}
+                {(state.activeNav === 'visitors') && (
+                  <div className="bg-white rounded-2xl border shadow-xs overflow-hidden">
+                    <div className="p-4 border-b flex justify-between items-center">
+                      <h3 className="text-sm font-bold text-slate-900">Campus Visitor Gate Register</h3>
+                      <button
+                        onClick={() => {
+                          const name = prompt('Visitor Name:', 'William Clark');
+                          if (name) checkInVisitor(name, 'Parent Inquiry', 'Principal');
+                        }}
+                        className="px-3 py-1.5 bg-cyan-600 hover:bg-cyan-700 text-white rounded-md font-semibold text-xs"
+                      >
+                        + Check In Visitor
+                      </button>
+                    </div>
+                    <table className="w-full text-left">
+                      <thead className="bg-slate-50 border-b text-slate-500 font-semibold uppercase text-[10px]">
+                        <tr>
+                          <th className="p-3">Visitor Name</th>
+                          <th className="p-3">Purpose</th>
+                          <th className="p-3">Meeting With</th>
+                          <th className="p-3">In Time</th>
+                          <th className="p-3">Out Time</th>
+                          <th className="p-3">Status</th>
+                          <th className="p-3 text-right">Action</th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-slate-100">
+                        {state.visitors.map(v => (
+                          <tr key={v.id} className="hover:bg-slate-50">
+                            <td className="p-3 font-bold text-slate-900">{v.visitorName}</td>
+                            <td className="p-3 text-slate-600">{v.purpose}</td>
+                            <td className="p-3 font-medium text-slate-800">{v.personToMeet}</td>
+                            <td className="p-3 font-mono">{v.entryTime}</td>
+                            <td className="p-3 font-mono">{v.exitTime || '—'}</td>
+                            <td className="p-3">
+                              <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${v.status === 'Checked In' ? 'bg-cyan-50 text-cyan-700' : 'bg-slate-100 text-slate-500'}`}>
+                                {v.status}
+                              </span>
+                            </td>
+                            <td className="p-3 text-right">
+                              {v.status === 'Checked In' && (
+                                <button
+                                  onClick={() => checkOutVisitor(v.id)}
+                                  className="px-2.5 py-1 bg-rose-50 text-rose-700 hover:bg-rose-100 rounded font-bold text-[11px] border border-rose-200"
+                                >
+                                  Check Out
+                                </button>
+                              )}
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                )}
+
+                {/* 5. HR & Leave Management */}
+                {(state.activeNav === 'leave' || state.activeNav === 'staff') && (
+                  <div className="bg-white rounded-2xl border shadow-xs overflow-hidden">
+                    <div className="p-4 border-b flex justify-between items-center">
+                      <h3 className="text-sm font-bold text-slate-900">Staff Leave Applications</h3>
+                    </div>
+                    <table className="w-full text-left">
+                      <thead className="bg-slate-50 border-b text-slate-500 font-semibold uppercase text-[10px]">
+                        <tr>
+                          <th className="p-3">Employee</th>
+                          <th className="p-3">Role</th>
+                          <th className="p-3">Leave Type</th>
+                          <th className="p-3">Days</th>
+                          <th className="p-3">Status</th>
+                          <th className="p-3 text-right">Action</th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-slate-100">
+                        {state.leaveRequests.map(l => (
+                          <tr key={l.id} className="hover:bg-slate-50">
+                            <td className="p-3 font-bold text-slate-900">{l.employeeName}</td>
+                            <td className="p-3 text-slate-600">{l.role}</td>
+                            <td className="p-3 font-medium text-indigo-700">{l.leaveType}</td>
+                            <td className="p-3 font-mono">{l.days} Days</td>
+                            <td className="p-3">
+                              <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${l.status === 'Approved' ? 'bg-emerald-50 text-emerald-700' : l.status === 'Pending' ? 'bg-amber-50 text-amber-700' : 'bg-rose-50 text-rose-700'}`}>
+                                {l.status}
+                              </span>
+                            </td>
+                            <td className="p-3 text-right">
+                              {l.status === 'Pending' && (
+                                <div className="inline-flex gap-1">
+                                  <button
+                                    onClick={() => handleLeave(l.id, 'Approved')}
+                                    className="px-2 py-1 bg-emerald-600 text-white rounded font-bold text-[10px]"
+                                  >
+                                    Approve
+                                  </button>
+                                  <button
+                                    onClick={() => handleLeave(l.id, 'Rejected')}
+                                    className="px-2 py-1 bg-slate-200 text-slate-700 rounded font-bold text-[10px]"
+                                  >
+                                    Reject
+                                  </button>
+                                </div>
+                              )}
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                )}
+
+                {/* 7. Institutional Profile View */}
+                {state.activeNav === 'profile' && (
+                  <div className="space-y-6">
+                    {/* Hero Profile Card */}
+                    <div className="bg-white rounded-2xl border p-6 shadow-xs relative overflow-hidden">
+                      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                        <div className="flex items-center gap-4">
+                          <div className="w-16 h-16 rounded-2xl bg-indigo-600 text-white font-bold text-2xl flex items-center justify-center shadow-md">
+                            {(ROLES[state.currentPlatform].find(r => r.id === state.currentRole)?.name || 'Admin').split(' ').map(n=>n[0]).join('').slice(0,2)}
+                          </div>
+                          <div>
+                            <div className="flex items-center gap-2">
+                              <h2 className="text-xl font-bold text-slate-900">
+                                {ROLES[state.currentPlatform].find(r => r.id === state.currentRole)?.name}
+                              </h2>
+                              <span className="px-2 py-0.5 bg-emerald-50 text-emerald-700 font-bold text-[10px] rounded border border-emerald-200">
+                                Verified Institutional ID
+                              </span>
+                            </div>
+                            <p className="text-xs text-indigo-600 font-semibold mt-0.5">
+                              {ROLES[state.currentPlatform].find(r => r.id === state.currentRole)?.title} · Greenfield International
+                            </p>
+                            <p className="text-[11px] text-slate-500 font-mono mt-0.5">
+                              Employee ID: #{state.currentRole.toUpperCase()}-2026-001 · Campus North
+                            </p>
+                          </div>
+                        </div>
+
+                        <div className="flex items-center gap-2">
+                          <button
+                            onClick={() => showToast('Printed', 'Sending official digital ID badge to campus card printer.')}
+                            className="px-3.5 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl font-semibold text-xs border"
+                          >
+                            Print ID Badge
+                          </button>
+                          <button
+                            onClick={() => {
+                              const newEmail = prompt('Update Official Email:', 'staff@greenfield.edu');
+                              if (newEmail) showToast('Profile Updated', 'Official email address updated.');
+                            }}
+                            className="px-3.5 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-semibold text-xs shadow-xs"
+                          >
+                            Edit Profile
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Profile Details Grid */}
+                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                      {/* Left: Contact & ID Badge Card */}
+                      <div className="space-y-6">
+                        <div className="bg-gradient-to-br from-indigo-900 to-slate-900 text-white p-5 rounded-2xl shadow-md border text-center">
+                          <div className="flex justify-between items-center pb-2 border-b border-white/20 text-[10px]">
+                            <span className="font-bold tracking-wider uppercase">Greenfield International</span>
+                            <span className="font-mono bg-white/20 px-2 py-0.5 rounded-full font-bold">2026-2027</span>
+                          </div>
+                          <div className="my-4">
+                            <div className="w-16 h-16 rounded-2xl bg-white/20 text-white font-bold text-xl flex items-center justify-center mx-auto mb-2 border-2 border-white/40">
+                              {(ROLES[state.currentPlatform].find(r => r.id === state.currentRole)?.name || 'Admin').split(' ').map(n=>n[0]).join('').slice(0,2)}
+                            </div>
+                            <h3 className="font-bold text-sm text-white">{ROLES[state.currentPlatform].find(r => r.id === state.currentRole)?.name}</h3>
+                            <p className="text-[11px] text-indigo-200">{ROLES[state.currentPlatform].find(r => r.id === state.currentRole)?.title}</p>
+                          </div>
+                          <div className="p-2.5 bg-white/10 rounded-xl text-[10px] space-y-1 text-left mb-3">
+                            <div className="flex justify-between"><span className="text-indigo-200">Department:</span><span>Academics & Operations</span></div>
+                            <div className="flex justify-between"><span className="text-indigo-200">Blood Group:</span><span className="font-mono font-bold">O+ Positive</span></div>
+                            <div className="flex justify-between"><span className="text-indigo-200">Emergency:</span><span className="font-mono">+1 555-0199</span></div>
+                          </div>
+                          <div className="pt-2 border-t border-white/20 text-[9px] font-mono text-slate-300">
+                            *RFID-CARD-ACTIVE-GREENFIELD*
+                          </div>
+                        </div>
+
+                        <div className="bg-white p-5 rounded-2xl border shadow-xs space-y-3">
+                          <h4 className="font-bold text-slate-900 text-xs uppercase tracking-wider text-slate-400">Institutional Contact</h4>
+                          <div className="space-y-2 text-xs">
+                            <div><span className="text-slate-400 block text-[10px]">Official Email</span><span className="font-semibold text-slate-800">staff.member@greenfield.edu</span></div>
+                            <div><span className="text-slate-400 block text-[10px]">Office Cabin</span><span className="font-semibold text-slate-800">Room 101, Central Admin Wing</span></div>
+                            <div><span className="text-slate-400 block text-[10px]">Direct Phone</span><span className="font-mono font-semibold text-slate-800">+1 (555) 019-2834</span></div>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Right: Credentials, Permissions & Security */}
+                      <div className="lg:col-span-2 space-y-6">
+                        <div className="bg-white p-5 rounded-2xl border shadow-xs">
+                          <h4 className="font-bold text-slate-900 text-xs mb-3">Institutional Role Permissions (RBAC)</h4>
+                          <div className="grid grid-cols-2 gap-3 text-xs">
+                            <div className="p-3 bg-slate-50 rounded-xl border flex items-center justify-between">
+                              <span className="font-medium text-slate-800">Student Database Access</span>
+                              <span className="px-2 py-0.5 bg-emerald-50 text-emerald-700 font-bold text-[10px] rounded">Full Access</span>
+                            </div>
+                            <div className="p-3 bg-slate-50 rounded-xl border flex items-center justify-between">
+                              <span className="font-medium text-slate-800">Attendance & Rosters</span>
+                              <span className="px-2 py-0.5 bg-emerald-50 text-emerald-700 font-bold text-[10px] rounded">Read / Write</span>
+                            </div>
+                            <div className="p-3 bg-slate-50 rounded-xl border flex items-center justify-between">
+                              <span className="font-medium text-slate-800">Exam Marks Clearance</span>
+                              <span className="px-2 py-0.5 bg-purple-50 text-purple-700 font-bold text-[10px] rounded">Sign-Off</span>
+                            </div>
+                            <div className="p-3 bg-slate-50 rounded-xl border flex items-center justify-between">
+                              <span className="font-medium text-slate-800">Financial Vouchers</span>
+                              <span className="px-2 py-0.5 bg-indigo-50 text-indigo-700 font-bold text-[10px] rounded">Authorized</span>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="bg-white p-5 rounded-2xl border shadow-xs">
+                          <h4 className="font-bold text-slate-900 text-xs mb-1">Account Security & Credentials</h4>
+                          <p className="text-[11px] text-slate-500 mb-3">Update your password or manage multi-factor authentication.</p>
+                          <form
+                            onSubmit={(e) => {
+                              e.preventDefault();
+                              showToast('Password Updated', 'Your security password has been changed.');
+                            }}
+                            className="space-y-3"
+                          >
+                            <div className="grid grid-cols-2 gap-3">
+                              <div>
+                                <label className="text-[10px] font-bold text-slate-500 block mb-1">Current Password</label>
+                                <input type="password" required placeholder="••••••••" className="w-full p-2 border rounded-lg text-xs" />
+                              </div>
+                              <div>
+                                <label className="text-[10px] font-bold text-slate-500 block mb-1">New Password</label>
+                                <input type="password" required placeholder="Min 8 characters" className="w-full p-2 border rounded-lg text-xs" />
+                              </div>
+                            </div>
+                            <button type="submit" className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-bold text-xs">
+                              Update Password
+                            </button>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </main>
+            </div>
+          )}
+        </div>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+  </script>
+</body>
+</html>

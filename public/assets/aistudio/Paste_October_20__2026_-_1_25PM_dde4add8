@@ -1,0 +1,789 @@
+# SCHLAR — PROMPT 3 OF 12
+## Admin Workspace and Core School Operations
+### Professional UX • Realistic Workflows • Connected Demo Data • Preserve Existing Features
+
+You are continuing the **existing SCHLAR school-management SaaS frontend project in Google AI Studio**. Do not create a separate project.
+
+Your task is to implement or complete **Prompt 3: Admin and Core School Operations**. Build a polished, realistic, easy-to-use Admin workspace suitable for demonstrating a serious school-management product to school owners and administrators.
+
+**Core product principle: Make every screen simple enough for a first-time user, but make the system powerful enough for a real school.**
+
+Simplify navigation and workflows, not functionality or permissions. Do not remove important capabilities just to make the interface look simpler.
+
+---
+
+# 1. INSPECT THE EXISTING PROJECT FIRST
+
+Before writing or changing code:
+
+1. Inspect the current project structure, routes, components, data models, shared state, styling, theme system, permission utilities, and existing tests.
+2. Identify which requirements in this prompt are already implemented and working.
+3. Preserve all working functionality from Prompts 1 and 2.
+4. Implement missing requirements and repair directly related defects.
+5. Reuse existing components, data structures, services, and utilities whenever appropriate.
+6. If a component is fundamentally broken, replace that component carefully without destroying unrelated working features.
+7. Do not duplicate routes, navigation items, state stores, permission registries, or theme systems.
+8. Do not assume a feature works merely because a button, page, or component exists. Inspect its actual behavior.
+
+If the audit reveals that an essential Prompt 2 foundation is missing, implement only the minimum foundation required for this Admin workspace and document the gap. Do not silently rebuild the entire application architecture.
+
+# 2. NON-NEGOTIABLE PROJECT RULES
+
+- Product name: **SCHLAR**.
+- Demo institution: **Greenfield International School**.
+- This is a frontend-only demo using fictional data.
+- Do not introduce a backend, database server, external API, real payment gateway, real messaging service, or production authentication system.
+- Do not replace working pages with static screenshots or decorative mockups.
+- Important buttons, forms, filters, tables, dialogs, and actions must actually work.
+- Use reusable components and maintainable code.
+- Respect the existing centralized permission system.
+- Enforce permission checks in both the UI and action handlers.
+- Unknown roles and unspecified permissions must be denied by default.
+- Never use the Admin role as a substitute for Super Admin. **There is no Super Admin role in this project.**
+- Do not merge Admin and Vice Principal.
+- Do not merge HR / Staff Manager into Admin.
+- Do not introduce a Student role.
+- Do not claim frontend-only permissions provide production-grade security.
+- Never erase the user's existing browser storage or demo data during implementation.
+- Do not claim a test passed unless it was actually executed.
+
+# 3. DESIGN AND USER EXPERIENCE
+
+Use the existing Prompt 1 design system.
+
+Default palette — Petrol & Copper:
+
+- Primary: `#164E55`
+- Secondary: `#287B7A`
+- Accent: `#C47D54`
+- Background: `#F5F0E7`
+- Surface: `#FFFFFF`
+
+Preserve all 12 existing theme palettes, the theme selector, custom theme editor, and saved custom palettes. All Admin screens must respond correctly to theme changes.
+
+## Required design quality
+
+Create a professional school-management interface with:
+
+- A clean, consistent application shell.
+- A clear page title and short explanation on every major page.
+- A left sidebar on desktop with understandable labels and suitable icons.
+- A collapsible sidebar if supported by the existing architecture.
+- A compact, useful top bar with school identity, global search if already available, notifications if already available, and a profile menu.
+- Clear primary and secondary actions.
+- Consistent spacing, typography, borders, tables, dialogs, and status indicators.
+- Useful loading, empty, success, error, and confirmation states.
+- Responsive layouts for desktop, tablet, and mobile.
+- Accessible labels, keyboard navigation, visible focus, and sufficient contrast.
+
+Avoid excessive gradients, oversized dashboard cards, decorative charts with meaningless data, unnecessary animations, and excessive nested menus.
+
+Use familiar school terminology. A first-time administrator should be able to understand where to go and what to do without reading a manual.
+
+# 4. ADMIN WORKSPACE NAVIGATION
+
+Implement the following Admin navigation, integrating it with the existing route and permission system.
+
+1. Dashboard
+2. Students & Guardians
+3. Admissions
+4. Staff Directory
+5. Academic Structure
+6. Classes & Sections
+7. Timetable
+8. Attendance
+9. Examinations & Results
+10. Fees & Finance Overview
+11. Library Overview
+12. Transport Overview
+13. Announcements
+14. Reports
+15. User & Permission Management
+16. School Settings
+17. My Profile
+
+Organize these items into sensible sidebar groups, for example:
+
+- Overview
+- People
+- Academics
+- School Services
+- Communication & Reports
+- Administration
+
+Do not show duplicate navigation entries. Respect permissions when deciding which items are visible and accessible.
+
+If a module is assigned to a later prompt and is not yet fully implemented, provide a clear, useful overview or explicitly labelled placeholder. Do not represent a placeholder as a completed operational module.
+
+# 5. ADMIN DASHBOARD
+
+Build a functional Admin dashboard using the existing fictional demo data.
+
+## Dashboard summary
+
+Show meaningful, data-derived summaries such as:
+
+- Total active students.
+- Total active staff.
+- Current academic year.
+- Number of classes and sections.
+- Today's attendance summary, if attendance data exists.
+- Admissions enquiries or pending applications.
+- Pending administrative approvals, if supported.
+- Outstanding fee summary, if finance data exists.
+- Upcoming examinations and school events, if available.
+
+Do not invent totals independently of the records displayed in the application. Dashboard metrics should update when relevant demo records change.
+
+## Dashboard content
+
+Include:
+
+- Today's important tasks.
+- Upcoming events and deadlines.
+- Recent administrative activity.
+- Admissions requiring attention.
+- Useful quick actions.
+- A small number of meaningful charts or summaries only when the underlying data supports them.
+
+Quick actions should navigate to working workflows, not dead buttons.
+
+Use helpful empty states when there is no data. Do not fabricate live statistics or claim real-time integrations.
+
+# 6. STUDENTS & GUARDIANS MANAGEMENT
+
+Implement a usable student and guardian directory.
+
+## Student directory
+
+Provide:
+
+- Search by student name, admission number, or other appropriate demo identifier.
+- Filters for class, section, academic year, and enrollment status.
+- Sorting and pagination where appropriate.
+- A clear table or responsive list.
+- Student profile details.
+- Add-student form.
+- Edit-student form.
+- View details.
+- Archive or deactivate workflow with confirmation.
+- Record validation and duplicate detection.
+
+Use fictional students and realistic school records.
+
+## Student record fields
+
+Include appropriate fields such as:
+
+- Admission number.
+- Student's full name.
+- Date of birth.
+- Class and section.
+- Academic year.
+- Enrollment date.
+- Enrollment status.
+- Guardian or parent links.
+- Contact information where appropriate.
+- Emergency contact information where appropriate.
+- Transport assignment if relevant.
+- Notes needed for the school-management demo.
+
+Do not collect unnecessary sensitive information merely to make the form look comprehensive.
+
+## Guardian management
+
+Support:
+
+- Adding and editing guardian records.
+- Linking one or more guardians to a student.
+- Supporting siblings who share a guardian.
+- Identifying primary and additional guardians.
+- Viewing the students linked to a guardian.
+- Validating incomplete or conflicting links.
+- Preventing accidental duplicate records where practical.
+
+Changing a guardian's details should update the shared guardian record rather than create unrelated copies for each child.
+
+## Enrollment status
+
+Support meaningful statuses, such as:
+
+- Applicant.
+- Active.
+- Inactive.
+- Transferred.
+- Graduated, if relevant to the demo.
+
+Use clear confirmation and validation before changing enrollment status.
+
+If a student is archived, preserve the historical record and explain that archiving is not the same as permanently deleting it.
+
+# 7. ADMISSIONS MANAGEMENT
+
+Build a basic, usable admissions workflow.
+
+## Admissions enquiry list
+
+Provide:
+
+- Searchable enquiry records.
+- Filters by status, date, and requested class.
+- Applicant and guardian contact details.
+- Enquiry source, where relevant.
+- Follow-up date.
+- Assigned staff member, where supported.
+- Notes and activity history.
+
+## Admissions stages
+
+Use a clear workflow such as:
+
+1. New Enquiry
+2. Contacted
+3. Application Received
+4. Under Review
+5. Accepted
+6. Rejected
+7. Waitlisted
+
+Only use stages that make sense for the school's workflow. Do not make all statuses look identical.
+
+## Required actions
+
+Support:
+
+- Create an enquiry.
+- Edit enquiry details.
+- Record a follow-up.
+- Add notes.
+- Change an application's status.
+- View the application history.
+- Convert an accepted applicant into a student record.
+
+When converting an applicant, avoid creating duplicate students. Preserve the link between the original admission record and the resulting student record.
+
+Provide validation, confirmation where necessary, and clear feedback.
+
+Do not implement actual email or SMS delivery. Communication actions must be simulated and clearly identified as demo behavior.
+
+# 8. STAFF DIRECTORY — ADMIN SCOPE ONLY
+
+Implement the basic staff directory needed for school administration.
+
+Support:
+
+- Search and filter staff records.
+- View staff profiles.
+- Add staff records when authorized.
+- Edit appropriate staff details.
+- Assign staff to relevant classes or academic responsibilities where appropriate.
+- View staff employment status.
+- Archive or deactivate records with confirmation.
+
+Possible fields include:
+
+- Staff ID.
+- Name.
+- Designation.
+- Department.
+- Contact details.
+- Assigned classes or subjects, where relevant.
+- Joining date.
+- Employment status.
+
+Respect the existing role-permission rules.
+
+**Scope boundary:** Detailed recruitment, leave management, staff attendance, staff documents, onboarding, offboarding, and other HR workflows belong to Prompt 6. Do not build a second HR system inside Admin.
+
+Do not expose salary, private HR documents, or other restricted employment information merely because a user has the Admin role. Check the explicit permissions configured in the application.
+
+# 9. ACADEMIC STRUCTURE
+
+Build the foundation for organizing the school academically.
+
+Support management of:
+
+- Academic years.
+- Grades or classes.
+- Sections.
+- Subjects.
+- Subject-to-class relationships.
+- Teacher-to-class or teacher-to-subject assignments, where the existing permission and data model supports them.
+- Active and inactive academic structures.
+
+Provide create, view, edit, and safe archive actions where appropriate.
+
+## Validation rules
+
+- Academic years must have valid dates and sensible ordering.
+- Duplicate class or section identifiers must be prevented where applicable.
+- A section must belong to a valid class and academic year.
+- Subject assignments must reference existing academic records.
+- Teacher assignments must reference existing staff records.
+- Do not silently delete dependent records when a class, section, subject, or academic year is changed.
+
+If an existing record is referenced by students, attendance, marks, or timetable entries, explain the dependency and require an appropriate resolution before archiving or changing it.
+
+Keep the interface understandable: users should not have to manually manage technical identifiers.
+
+# 10. CLASSES & SECTIONS
+
+Create a practical class and section management workspace.
+
+Include:
+
+- Class and section directory.
+- Student counts derived from student records.
+- Assigned class teacher, if configured.
+- Subject summaries.
+- Academic year filters.
+- Class details view.
+- Create and edit actions.
+- Student roster access.
+- Section status.
+- Relevant warnings about assignments or dependent records.
+
+Allow administrators to open a class and understand its organization without navigating through unrelated pages.
+
+Keep the class and section data consistent with the student directory, academic structure, and timetable.
+
+Do not display invented student counts or teacher assignments.
+
+# 11. TIMETABLE MANAGEMENT
+
+Build a useful timetable interface with actual editing behavior.
+
+The timetable is a core school operation and must not be reduced to a static image.
+
+## Views
+
+Provide:
+
+- Weekly timetable.
+- Day view.
+- Class/section selector.
+- Teacher selector where permitted.
+- Day and period navigation.
+- Clear period times.
+- Subject and teacher details.
+- Room or location if supported.
+
+## Editing
+
+Support:
+
+- Creating a timetable entry.
+- Editing an entry.
+- Moving or changing an entry using a clear interaction.
+- Deleting an entry with confirmation.
+- Configuring school days and period times where supported.
+- Selecting class, section, subject, teacher, and room.
+- Displaying conflicts before saving.
+
+## Conflict validation
+
+At minimum, detect:
+
+- A teacher assigned to overlapping classes.
+- A class or section assigned to overlapping lessons.
+- A room assigned to overlapping lessons, if room data exists.
+- Invalid or overlapping period times.
+- Assignments that reference inactive or nonexistent records.
+
+Show a clear explanation of each conflict and how the administrator can resolve it.
+
+Do not silently accept invalid timetable assignments.
+
+Preserve existing timetable data and use the shared data model so relevant changes are reflected in other authorized workspaces.
+
+Detailed teacher-specific timetable experiences will be refined in Prompt 4.
+
+# 12. ATTENDANCE OVERVIEW
+
+Create the Admin's attendance monitoring and reporting workspace.
+
+Include:
+
+- Date selector.
+- Class and section filters.
+- Daily attendance summary.
+- Present, absent, late, and other supported statuses.
+- Class-level attendance records.
+- Attendance completion status.
+- Search and filtering.
+- Clear warnings for missing attendance records.
+- A summary of attendance trends when the underlying data supports it.
+
+Use existing attendance records where possible. Do not create a disconnected second attendance dataset.
+
+Admin access to view, correct, or approve attendance must follow the configured permission system.
+
+If attendance corrections require approval, preserve the existing approval rules or introduce an explicit approval step rather than silently overwriting historical information.
+
+Detailed teacher attendance-taking workflows belong to Prompt 4.
+
+# 13. EXAMINATIONS & RESULTS OVERVIEW
+
+Provide an Admin-level overview of examinations and results.
+
+Include, where data exists:
+
+- Upcoming examinations.
+- Examination status.
+- Classes participating.
+- Assessment completion summaries.
+- Results preparation status.
+- Results awaiting authorized approval or publication.
+- Useful academic summaries.
+
+Do not create an alternative examination system that conflicts with the later Exam Coordinator workflow in Prompt 8.
+
+Do not allow Admin to bypass explicit marks-entry, approval, or publication permissions.
+
+If marks or results are not yet implemented, provide an honest overview or clearly labelled placeholder that can connect to the later examination modules.
+
+# 14. FEES & FINANCE OVERVIEW
+
+Create an appropriate administrative finance summary without duplicating the Accountant's full workspace.
+
+Where finance demo data exists, show:
+
+- Total fees expected.
+- Amount collected.
+- Outstanding balance.
+- Collection summary by period.
+- Pending concessions or other approvals, if configured.
+- A high-level fee status summary.
+
+All amounts must be derived from consistent demo records. Define how totals are calculated and avoid double-counting transactions.
+
+Admin must not automatically receive every finance permission. Financial details, transaction changes, concessions, refunds, and receipts must follow explicit configured permissions.
+
+Detailed fee structures, transactions, receipts, concessions, and financial workflows belong to Prompt 6.
+
+Do not implement real payments or claim that money has been transferred.
+
+# 15. LIBRARY AND TRANSPORT OVERVIEWS
+
+Provide useful high-level summaries for these school services when corresponding data exists.
+
+## Library overview
+
+Possible information:
+
+- Total books.
+- Currently issued books.
+- Overdue items.
+- Pending reservations.
+
+## Transport overview
+
+Possible information:
+
+- Available routes.
+- Vehicles and drivers.
+- Student transport assignments.
+- Vehicle or route issues requiring attention.
+
+These are Admin overview pages, not replacements for the dedicated Librarian and Transport Manager workspaces in Prompt 7.
+
+Use shared records where possible. If a dedicated module is not implemented yet, state what is available and what remains planned.
+
+# 16. ANNOUNCEMENTS
+
+Implement a basic administrative announcements workflow if the existing communication foundation supports it.
+
+Support:
+
+- Create announcement.
+- Edit draft.
+- Select intended audience.
+- Set a publication status.
+- Preview content.
+- Publish or schedule in the local demo where supported.
+- Archive or expire an announcement.
+- View announcement history.
+
+Provide validation for required title, content, audience, and relevant dates.
+
+Clearly distinguish draft, scheduled, published, and archived states.
+
+Do not claim that parents or staff received real push notifications, emails, or SMS messages. Simulate delivery status only when it is explicitly labelled as simulated.
+
+Respect permissions governing who can publish announcements and to which audience.
+
+# 17. REPORTS
+
+Create a usable Admin reports area with filters and meaningful results based on existing demo records.
+
+Potential reports:
+
+- Student enrollment by class.
+- Student status summary.
+- Admissions pipeline.
+- Class and section roster.
+- Attendance summary.
+- Timetable summary.
+- High-level fee summary, only for authorized users.
+- Staff directory summary, subject to permissions.
+
+Support:
+
+- Date or academic-year filters where relevant.
+- Class and section filters where relevant.
+- Clear totals.
+- Empty states.
+- Print-friendly layouts if practical.
+- CSV export for appropriate non-sensitive reports if feasible.
+
+Exports must use the active filters and current authorized data. Do not include restricted fields in exports.
+
+Do not add fake chart values or generate reports unrelated to the selected filters.
+
+# 18. USER & PERMISSION MANAGEMENT
+
+Integrate with the centralized permission system established in Prompt 2.
+
+Do not create a second, competing permission registry.
+
+The Admin workspace may expose authorized user-management and permission-management functionality, but the available actions must be controlled by explicit permissions.
+
+Where the existing permission-management UI exists, preserve it and make sure it integrates correctly.
+
+Where it is missing, implement the appropriate part needed for the Admin workflow without changing the approved ten-role list.
+
+Requirements:
+
+- Exactly ten approved roles.
+- No Student role.
+- No Super Admin role.
+- Admin and Vice Principal remain separate.
+- HR / Staff Manager remains separate.
+- Unknown permissions are denied by default.
+- Permission changes require clear confirmation.
+- The interface must show what a permission allows.
+- Destructive or sensitive changes must not happen silently.
+- Preserve a local demo audit record of permission changes where supported.
+
+Do not claim that client-side permission checks alone secure a production application.
+
+# 19. SCHOOL SETTINGS
+
+Implement only the school-level settings required for the Admin experience.
+
+Possible settings:
+
+- School name and basic profile.
+- Academic year.
+- School working days.
+- Default period configuration.
+- Basic contact information.
+- School calendar settings, where supported.
+- Display preferences already provided by the shared theme system.
+
+Validate settings before saving. Show a preview or confirmation when a change affects other screens.
+
+Do not expose platform-level infrastructure, multi-tenant administration, or nonexistent Super Admin controls.
+
+Preserve the existing global theme editor and its saved palettes. School settings must not overwrite the design system's theme configuration.
+
+# 20. SHARED DATA, STATE, AND CRUD
+
+All relevant Admin pages must use a coherent shared demo data model.
+
+Examples:
+
+- A newly added student appears in the student directory and relevant class roster.
+- Updating a student's class updates the student's displayed class information consistently.
+- Linking a guardian makes that relationship visible from both student and guardian profiles.
+- An accepted applicant converted to a student remains linked to the original application.
+- Changing academic structure affects the relevant class and timetable selectors.
+- Timetable entries use real records from the shared class, subject, teacher, and room datasets.
+- Dashboard metrics update when their underlying records change.
+- Archiving a record updates relevant lists without silently destroying historical information.
+
+Implement working create, read, update, and archive operations where specified.
+
+If local persistence already exists, preserve it. If additional local persistence is required, extend the existing persistence mechanism rather than introducing a competing store.
+
+Handle malformed or outdated saved demo data safely. Never clear all browser storage to solve a data issue.
+
+Do not claim synchronization between devices or users. This is a frontend demo.
+
+# 21. ADMIN PERMISSIONS AND DATA SAFETY
+
+Reuse the existing authorization utilities.
+
+Every sensitive action must check permission in its handler, not merely hide its button.
+
+Examples of actions requiring explicit checks include:
+
+- Viewing sensitive student information.
+- Editing student records.
+- Changing enrollment status.
+- Managing staff records.
+- Changing academic structure.
+- Editing the timetable.
+- Correcting attendance.
+- Viewing or modifying finance data.
+- Publishing results.
+- Managing user permissions.
+- Changing school settings.
+- Exporting sensitive reports.
+- Archiving records.
+
+Enforce the principle of least privilege. Do not infer permissions merely from a role's name.
+
+If a user lacks access, show a helpful access-denied state or hide the action according to the established application pattern. Direct navigation or manually invoking an action must not bypass the client-side authorization checks.
+
+Record important administrative actions in the local demo audit history if an audit facility exists. Do not store passwords, secrets, or unnecessary sensitive personal data in audit records.
+
+# 22. PROFESSIONAL INTERACTION QUALITY
+
+Every implemented workflow must provide:
+
+- Clear field labels and required-field indicators.
+- Appropriate validation messages.
+- Helpful error messages.
+- Success confirmation after successful actions.
+- Confirmation before destructive or consequential changes.
+- Cancel behavior that does not accidentally save data.
+- Duplicate prevention where practical.
+- Search and filtering that work with the actual dataset.
+- Empty states that explain how to begin.
+- Clear status labels.
+- A sensible way to return to the previous list or workspace.
+- Preservation of form input after recoverable errors.
+- Protection against accidental repeated submissions.
+- Keyboard-accessible dialogs and forms.
+
+Prefer a simple list-to-details-to-edit flow over unnecessary pages. Use drawers or dialogs only when they genuinely improve the workflow.
+
+Do not make every operation require several clicks when one clear action would be enough. Equally, do not remove important validation or permission checks to reduce clicks.
+
+# 23. RESPONSIVE DESIGN AND ACCESSIBILITY
+
+The Admin workspace must remain usable across desktop, tablet, and mobile widths.
+
+- Sidebar navigation must adapt to small screens.
+- Tables should have a usable mobile presentation.
+- Important actions must remain reachable.
+- Forms must not overflow the viewport.
+- Dialogs must fit smaller screens.
+- Timetable layouts must remain readable.
+- Status must not be communicated by color alone.
+- Inputs and buttons must have accessible labels.
+- Focus must remain manageable when dialogs open and close.
+- Respect the existing theme tokens and avoid hard-coded colors that break alternate palettes.
+
+Do not rebuild the Parent or Teacher mobile experiences as part of this prompt. Preserve them and verify that Admin changes do not break them.
+
+# 24. STRICT SCOPE BOUNDARIES
+
+This is Prompt 3 of 12.
+
+Focus on Admin and core school operations.
+
+Do not use this prompt to rebuild all later modules:
+
+- Prompt 4: detailed Vice Principal and Teacher workflows.
+- Prompt 5: complete Parent Web and Mobile workflows.
+- Prompt 6: detailed Accountant and HR workflows.
+- Prompt 7: complete Librarian and Transport workflows.
+- Prompt 8: detailed Receptionist and Exam Coordinator workflows.
+- Prompt 9: cross-role shared school modules.
+- Prompt 10: broader CRUD, data relationships, and workflows.
+- Prompt 11: final responsive and mobile polish.
+- Prompt 12: final testing, repair, and documentation.
+
+Implement the Admin foundations and cross-links needed for those later modules, but do not duplicate their specialized work.
+
+# 25. IMPLEMENTATION PLAN
+
+Work in controlled stages:
+
+**Stage A — Inspect and plan**
+- Review the existing project.
+- Map current Admin features to this specification.
+- Identify reusable components and missing requirements.
+
+**Stage B — Admin foundation**
+- Establish or complete Admin navigation.
+- Connect the dashboard to shared demo data.
+- Verify permission enforcement and theme compatibility.
+
+**Stage C — Core school records**
+- Implement or complete student and guardian management.
+- Implement or complete admissions.
+- Implement the basic staff directory.
+- Implement academic structure and classes/sections.
+
+**Stage D — Operational workflows**
+- Implement or complete timetable editing and conflict detection.
+- Implement the Admin attendance overview.
+- Implement examination, finance, library, and transport overviews.
+
+**Stage E — Administration**
+- Complete authorized announcements, reports, user/permission management, and school settings.
+
+**Stage F — Integration and verification**
+- Verify data consistency.
+- Verify permissions.
+- Test key workflows.
+- Repair regressions before finishing.
+
+If the project is too large to implement reliably in one pass, prioritize working, connected core workflows over superficial coverage of every screen. Report any unfinished requirements honestly.
+
+# 26. REQUIRED TESTS
+
+Actually run the available build, lint, type-check, and test commands where configured. Add or update focused tests if the project has a suitable test framework.
+
+At minimum, manually verify the following:
+
+1. The Admin workspace opens using the existing role-selection and navigation architecture.
+2. The Admin navigation contains the correct sections without duplicate or dead links.
+3. Student records can be created, viewed, edited, searched, and safely archived.
+4. Guardian relationships remain consistent from both guardian and student views.
+5. Admissions records can progress through the supported workflow.
+6. Converting an accepted applicant does not create duplicate student records.
+7. Academic years, classes, sections, subjects, and assignments remain consistent.
+8. Timetable entries can be created, edited, and removed with confirmation.
+9. Teacher and class timetable conflicts are detected.
+10. Dashboard totals reflect changes to underlying demo records.
+11. Attendance summaries use actual attendance records.
+12. Finance information is hidden or blocked when the active permissions do not allow it.
+13. Unauthorized actions are rejected by action handlers, not merely hidden in the UI.
+14. Direct navigation to restricted Admin pages is handled correctly.
+15. Reports respect filters and permissions.
+16. Theme changes remain consistent across Admin and existing workspaces.
+17. All 12 palettes and saved custom palettes remain intact.
+18. Existing Parent and Teacher Web/Mobile experiences still work.
+19. Browser refresh and malformed local data are handled safely.
+20. No obvious broken imports, runtime errors, or console errors remain.
+21. Existing tests still pass, or any failures are accurately reported.
+
+Do not delete tests or weaken assertions merely to obtain a passing result.
+
+# 27. REQUIRED FINAL IMPLEMENTATION REPORT
+
+When finished, provide a concise but factual report containing:
+
+1. **Implemented:** Features completed during this prompt.
+2. **Already present:** Features preserved from the existing project.
+3. **Changed files:** Relevant files created or modified.
+4. **Working workflows:** Specific actions that were actually tested.
+5. **Permission checks:** How sensitive Admin operations are controlled.
+6. **Data consistency:** How related records stay connected.
+7. **Tests executed:** Exact commands and actual outcomes.
+8. **Known limitations:** Missing modules, unverified behaviors, or failed checks.
+9. **Remaining work:** The most important items to address before Prompt 4.
+
+Separate fully working functionality from partial implementations and placeholders. Never describe a planned feature as completed.
+
+## FINAL INSTRUCTION
+
+Deliver a professional, cohesive, easy-to-use Admin workspace that makes SCHLAR feel like a realistic school-management product.
+
+**Inspect first. Preserve working features. Implement the missing functionality. Verify actual behavior. Report honestly.**
+
+Do not automatically start Prompt 4 after finishing this task.

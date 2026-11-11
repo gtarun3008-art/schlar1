@@ -1,0 +1,624 @@
+# SCHLAR — PROMPT 9 OF 12
+## Shared School Modules — Professional, Integrated, and Fully Functional Frontend
+
+Continue developing my existing **SCHLAR School Management System** project in Google AI Studio.
+
+This is **Prompt 9 of the 12-prompt implementation sequence**. Prompts 1–8 have already been completed. Your task is to audit the current implementation and build or improve the shared school-wide modules that multiple authorized roles use.
+
+**Do not start a new project. Do not rebuild the application from scratch. Do not replace existing working pages with static mockups.**
+
+The goal is to make SCHLAR feel like one professionally integrated school management product, with consistent design, shared demo data, clear permissions, and genuinely working frontend interactions.
+
+---
+
+# 1. FIRST: AUDIT THE EXISTING PROJECT
+
+Before modifying anything:
+
+1. Inspect the current code, page structure, routes, navigation, shared components, design tokens, role definitions, permissions, demo data, and existing functionality.
+2. Review the implementation reports and relevant work from Prompts 1–8.
+3. Identify which shared modules already exist, which are partially implemented, and which are missing.
+4. Reuse and improve existing components wherever practical.
+5. Identify duplicated functionality, inconsistent layouts, broken navigation, disconnected demo data, and conflicting permission rules.
+6. Preserve all working features, role-specific workflows, and established design decisions.
+
+Do not assume that a feature is missing merely because it is incomplete visually. Inspect whether its underlying interaction already works.
+
+**Implementation rule:** Enhance the existing application incrementally. If a feature already works, preserve it and improve it only when necessary. Do not create duplicate pages, duplicate role workspaces, or parallel versions of the same module.
+
+---
+
+# 2. NON-NEGOTIABLE SCHLAR RULES
+
+Preserve these rules throughout the implementation.
+
+### Product identity
+
+- Product name: SCHLAR.
+- Demo school: Greenfield International School.
+- Frontend-only demonstration using fictional school data.
+- Do not claim that a real backend, live database, payment gateway, email service, SMS service, or external integration exists unless it has actually been implemented and verified.
+
+### Exactly ten roles
+
+1. Admin
+2. Vice Principal
+3. Teacher
+4. Parent
+5. Accountant / Fee Manager
+6. HR / Staff Manager
+7. Librarian
+8. Transport Manager
+9. Receptionist / Front Office
+10. Exam Coordinator
+
+Do not introduce Student or Super Admin as additional roles.
+
+### Experience boundaries
+
+- **Parent:** Mobile app only. Do not create or reintroduce a Parent Web Portal.
+- **Teacher:** Web workspace and mobile app experience.
+- Other roles: Their existing role-specific web workspaces.
+- Admin and Vice Principal must remain distinct roles with distinct permissions.
+
+### Existing role workspaces
+
+Preserve the current role selector and existing role workspaces. If role workspaces are listed in a ChatGPT-inspired sidebar or history-style list, retain that behavior. Selecting an existing role must open its existing workspace, not create a duplicate workspace.
+
+### Simplicity without lost functionality
+
+SCHLAR must be simple enough for a first-time user and powerful enough for a real school.
+
+Make workflows clear and navigation intuitive, but do not remove advanced capabilities, important information, or legitimate role permissions merely to make screens look simpler.
+
+---
+
+# 3. SHARED DESIGN SYSTEM AND APPLICATION SHELL
+
+Use the existing SCHLAR design system. Do not introduce an unrelated visual style.
+
+The default Petrol & Copper palette is:
+
+- Primary: `#164E55`
+- Secondary: `#287B7A`
+- Accent: `#C47D54`
+- Background: `#F5F0E7`
+- Surface: `#FFFFFF`
+
+Preserve the existing palette selector, all twelve predefined palettes, and custom HEX color input.
+
+Every shared module must support the existing theme system. Do not hardcode colors in ways that break palette switching.
+
+## Navigation
+
+Maintain the existing ChatGPT-inspired persistent or collapsible sidebar:
+
+- Existing role workspaces remain accessible in the role/history-style list.
+- Clearly identify the active workspace and active module.
+- Use sensible module groups and nested navigation where appropriate.
+- Keep frequently used actions easy to find.
+- Provide breadcrumbs where they help users understand their location.
+- Support a mobile navigation drawer where applicable.
+- Ensure shared modules open inside the appropriate existing workspace.
+
+Do not force every module into one long page. Use direct navigation for common tasks and grouped subpages for larger modules.
+
+## Shared interface components
+
+Audit and standardize reusable components for:
+
+- Page headers and breadcrumbs.
+- Search and filter controls.
+- Data tables and responsive record lists.
+- Forms and validation.
+- Detail panels and profile summaries.
+- Status indicators.
+- Confirmation dialogs.
+- Notifications and toast messages.
+- Empty, loading, and error states.
+- Pagination where needed.
+- Date and date-range selection.
+- Import/export controls where appropriate for the demo.
+- Accessible buttons, menus, tabs, and dialogs.
+
+A shared component must behave consistently across modules while still allowing role-specific permissions and fields.
+
+---
+
+# 4. SHARED SCHOOL-WIDE MODULES
+
+Implement or improve the modules below according to the existing project architecture. Reuse working modules rather than duplicating them.
+
+## A. Academic Year, Terms, and Calendar
+
+Provide a shared academic calendar foundation.
+
+Include:
+
+- Academic year and term information.
+- School holidays and working days.
+- School events and important dates.
+- Examination dates.
+- Parent-teacher meetings.
+- School activity dates.
+- Staff meetings where authorized.
+- Calendar views suitable for the relevant role.
+- Event details, categories, date ranges, and status.
+
+Interactions:
+
+- View events by month, week, or list when supported by the existing UI.
+- Filter by event category and date range.
+- Open an event to view its details.
+- Add, edit, or cancel events only for authorized roles.
+- Validate event dates and required information.
+- Detect obvious scheduling conflicts where practical.
+- Show relevant events in authorized role dashboards.
+
+Do not allow every role to edit the school calendar. Follow the permission registry.
+
+## B. Announcements and Notice Board
+
+Create one shared announcement system used by authorized role workspaces.
+
+Include:
+
+- Announcement title and content.
+- Category and priority.
+- Audience selection.
+- Publication and expiry dates.
+- Draft, scheduled, published, and archived states where supported.
+- Author information.
+- Read or acknowledgement status when relevant.
+- Search and filtering.
+- Announcement detail view.
+
+Audience targeting must respect role boundaries. Examples include staff, teachers, specific classes, or authorized parent audiences.
+
+Interactions:
+
+- Create and edit announcements when authorized.
+- Preview an announcement before publishing.
+- Validate title, content, dates, and audience.
+- Publish, unpublish, or archive according to permissions.
+- Show relevant announcements in the appropriate dashboards.
+- Allow users to mark an announcement as read when that workflow is appropriate.
+- Display useful success and validation feedback.
+
+Do not pretend that a notice has been sent through email, SMS, push notifications, or WhatsApp. The demo may show an in-app announcement and a clearly labelled simulated delivery status if needed.
+
+## C. Internal Messaging and Communication Log
+
+Audit existing messaging or communication-log functionality before adding anything.
+
+Provide a shared, frontend-only communication experience that supports the application's actual requirements.
+
+Where appropriate, include:
+
+- Message or communication subject.
+- Sender and recipient.
+- Authorized audience.
+- Message content.
+- Created date and time.
+- Read status.
+- Related student, class, staff member, or event when appropriate.
+- Search and filters.
+- Conversation or communication history.
+
+Interactions:
+
+- Compose and view messages when authorized.
+- Validate recipients and message content.
+- Mark messages as read.
+- Display unread counts.
+- Maintain a communication history.
+- Restrict messages and records according to the role permissions.
+- Show useful empty states when there are no messages.
+
+If the existing application already has a messaging module, improve and reuse it. Do not create a second messaging system.
+
+All messaging is a demo interaction unless a real messaging backend has been explicitly implemented.
+
+## D. Centralized Notifications
+
+Provide a consistent in-app notification experience across authorized workspaces.
+
+Include relevant notifications for events such as:
+
+- New announcements.
+- Upcoming examinations.
+- Timetable changes.
+- Attendance-related updates.
+- Fee-related updates for authorized users.
+- Transport updates.
+- Library due dates and overdue items.
+- Pending approvals.
+- Staff-related actions.
+- Important calendar events.
+
+Requirements:
+
+- Notification title and description.
+- Timestamp.
+- Relevant module or record reference.
+- Read and unread states.
+- Relevant priority.
+- Navigation to the related record when permitted.
+- Mark as read and mark all as read actions.
+- Useful empty state.
+- Unread count in the existing interface.
+
+Only generate notifications for meaningful events or seeded demo examples. Do not generate random notifications every time a page renders.
+
+Notification visibility must follow permissions and data relationships. For example, a parent must not see another family's notifications.
+
+## E. Search Across Authorized School Records
+
+Improve the existing search functionality or create a shared search component if it does not exist.
+
+Search should find only records the current role is permitted to access.
+
+Depending on permissions and existing modules, searchable records may include:
+
+- Students.
+- Parents and guardians.
+- Staff.
+- Classes and sections.
+- Subjects.
+- Timetables.
+- Announcements.
+- Calendar events.
+- Fee records.
+- Library records.
+- Transport routes.
+- Examination records.
+- Relevant administrative records.
+
+Requirements:
+
+- Search by appropriate names, identifiers, and keywords.
+- Provide clear result categories.
+- Show useful record summaries.
+- Support opening a result only when authorized.
+- Display an appropriate no-results state.
+- Handle empty queries sensibly.
+- Avoid exposing restricted records through search suggestions, result counts, or error messages.
+
+Search results must not bypass the centralized permission system.
+
+Do not claim that an advanced search index or backend search service exists if search is implemented locally in the frontend.
+
+## F. School Directory and Shared Profiles
+
+Reuse existing student, guardian, teacher, and staff profiles wherever possible.
+
+The purpose of this module is to provide consistent profile access across the application, not to create duplicate databases or duplicate profile pages.
+
+Support the relevant fields already established by the project, such as:
+
+- Name and internal identifier.
+- Profile photo or avatar.
+- Role or relationship.
+- Class, section, department, or designation where applicable.
+- Approved contact information.
+- Active or inactive status.
+- Relevant linked records.
+- Authorized activity or communication history.
+
+Requirements:
+
+- Open a profile from authorized search results and related modules.
+- Keep profile fields consistent with the existing data model.
+- Allow editing only to roles with the necessary permissions.
+- Validate edited data.
+- Prevent unauthorized access to private information.
+- Show only the fields relevant to the current role.
+
+Do not expose unnecessary personal information. Parents must only access their linked children and permitted family information. Teachers must only access student information within their assigned classes, subjects, and permissions.
+
+## G. Shared Student, Class, Subject, and Staff References
+
+Audit how existing modules refer to students, classes, sections, subjects, teachers, and staff.
+
+Establish consistent references so that a student, class, or staff member is not represented by conflicting copies across different screens.
+
+Examples:
+
+- A class selected in the timetable should match the class used in attendance.
+- A subject selected in an examination should match the academic subject record.
+- A staff member selected in a transport or administrative workflow should refer to the existing staff record.
+- A student linked to a parent should remain consistent with the existing relationship data.
+- A fee record should refer to the appropriate student.
+- A library transaction should refer to the same student record used elsewhere, where permitted.
+
+Use the existing project data model and identifiers. Do not create new identifiers every time a record is displayed.
+
+If a required reference is missing, provide a clear validation message rather than silently creating an inconsistent record.
+
+## H. Shared Activity History and Audit Trail
+
+Where the existing project supports activity history, standardize it into a reusable component or service.
+
+Record meaningful demo actions such as:
+
+- Record creation.
+- Record edits.
+- Status changes.
+- Approvals and rejections.
+- Announcement publication.
+- Calendar updates.
+- Changes to authorized assignments.
+- Relevant administrative actions.
+
+Each entry should include, where applicable:
+
+- Action.
+- Record or module affected.
+- Acting demo user.
+- Timestamp.
+- Previous and new status or values when useful.
+- Relevant description.
+
+Requirements:
+
+- Make the activity history read-only for ordinary users unless an existing permission explicitly allows otherwise.
+- Do not allow unauthorized editing or deletion of audit entries.
+- Do not fabricate a claim of tamper-proof or server-side auditing.
+- Do not record passwords, authentication secrets, or unnecessary sensitive personal data.
+- Keep the history understandable and useful rather than flooding it with irrelevant UI events.
+
+## I. Shared Reports and Export Foundation
+
+Improve the reusable report and export components used by existing modules.
+
+Depending on the current implementation and role permissions, provide:
+
+- Searchable and filterable tables.
+- Date-range filters.
+- Relevant totals and summary values.
+- Clear empty states.
+- Print-friendly layouts.
+- CSV export where practical.
+- Export of the currently filtered records when appropriate.
+- Clear indication of applied filters.
+- Validation and useful error feedback.
+
+Do not build a giant universal report page containing every school record. Reports should remain accessible from their relevant modules, with shared components providing consistency.
+
+Do not export records the current role is not permitted to view.
+
+If a report contains totals, calculate them from the displayed or filtered demo records. Do not hardcode totals that contradict the underlying data.
+
+---
+
+# 5. DATA CONSISTENCY AND FRONTEND STATE
+
+All shared modules must work with the existing SCHLAR demo-data architecture.
+
+1. Reuse the existing data store or state-management approach.
+2. Do not create an unnecessary second store for shared modules.
+3. Use consistent record identifiers and relationships.
+4. Ensure updates appear in every relevant screen that uses the same demo record.
+5. Persist changes using the existing local persistence approach if one is already implemented.
+6. If no persistence exists, use a consistent frontend state approach and clearly document any limitations.
+7. Provide realistic fictional seed data for demonstration.
+8. Avoid resetting the entire demo dataset every time the user navigates between pages.
+9. Provide a reset-demo-data action only if it fits the existing architecture, and require confirmation before resetting.
+10. Prevent invalid relationships, duplicate records, and accidental overwrites wherever practical.
+
+Example: publishing an announcement should update its status in the announcement list, make it visible to the appropriate audience, and create relevant in-app notification state if that behavior is supported.
+
+Example: changing an event date should update the calendar and relevant event summaries rather than leaving stale dates in other screens.
+
+Example: marking a notification as read should update its unread count immediately.
+
+These are connected frontend demo workflows, not claims of backend synchronization.
+
+---
+
+# 6. PERMISSIONS AND PRIVACY
+
+Use the existing centralized permission registry. Do not invent a separate permission system for each shared module.
+
+Rules:
+
+- Deny access by default when a permission is missing or unknown.
+- Check permissions when rendering protected UI and again when executing the action.
+- Do not rely on hiding buttons as the only access control.
+- Keep the Admin and Vice Principal permission sets distinct.
+- Respect each role's existing scope.
+- Restrict teachers to assigned classes, subjects, and permitted student records.
+- Restrict parents to linked children and permitted family information.
+- Restrict financial, HR, examination, and other sensitive information to authorized roles.
+- Prevent unauthorized records from leaking through global search, notifications, directory results, exports, and related-record links.
+- Do not bypass existing permissions simply to make a demonstration easier.
+
+If the existing permission model is incomplete, improve it without removing legitimate existing capabilities. Document any permission gaps that cannot be safely resolved without clarification.
+
+---
+
+# 7. REAL INTERACTIONS — NO STATIC MOCKUPS
+
+Every visible control introduced or modified in Prompt 9 must work as intended.
+
+Examples:
+
+- Search filters actual demo records.
+- Filters change displayed results.
+- Forms validate required fields.
+- Save actions update the appropriate state.
+- Edit actions modify the intended record.
+- Cancel actions behave predictably.
+- Dialogs open and close correctly.
+- Navigation opens the intended existing module.
+- Read states update notification counts.
+- Published announcements appear to the correct demo audience.
+- Calendar changes appear in related calendar views.
+- Export controls produce a real downloadable file if implemented.
+- Empty states and error states are meaningful.
+- Success messages appear only after the corresponding frontend action succeeds.
+
+Do not add decorative buttons that do nothing.
+
+If an action cannot be implemented within the frontend-only scope, either omit the action or clearly mark it as unavailable in the demo. Do not simulate success for a feature that has not actually occurred.
+
+---
+
+# 8. PROFESSIONAL AND USER-FRIENDLY EXPERIENCE
+
+SCHLAR must feel suitable for a professional school-management demonstration.
+
+Follow these UX principles:
+
+- Clear page titles and descriptive labels.
+- One obvious primary action per screen where appropriate.
+- Familiar terminology for school staff.
+- Short instructions for complex workflows.
+- Sensible defaults.
+- Consistent form layouts and validation.
+- Clear success, warning, and error feedback.
+- Confirmation for destructive or consequential actions.
+- Helpful empty states explaining what the user can do next.
+- Tables that remain readable on smaller screens.
+- Responsive cards or lists when a wide table is unsuitable.
+- Keyboard-accessible controls and visible focus states.
+- Sufficient contrast and readable typography.
+- Consistent spacing and alignment.
+- No unnecessary animations, visual clutter, or excessive decorative cards.
+
+Do not remove useful information or advanced capabilities in the name of simplicity. Make the interface easier to navigate while preserving the depth needed for a complete school-management system.
+
+---
+
+# 9. RESPONSIVE BEHAVIOR
+
+Ensure shared components adapt to the application's supported screen sizes.
+
+### Desktop
+
+- Use readable content widths and structured layouts.
+- Keep navigation and table actions easy to locate.
+- Avoid excessive empty space and oversized cards.
+
+### Tablet
+
+- Adjust column widths and grids.
+- Keep filters and actions accessible.
+- Avoid horizontal overflow where practical.
+
+### Mobile
+
+- Use responsive record cards or controlled horizontal scrolling where appropriate.
+- Make dialogs and forms usable on small screens.
+- Keep important actions visible.
+- Use the existing mobile navigation patterns.
+- Preserve the Parent mobile-only experience and Teacher mobile experience.
+
+Do not create a Parent Web Portal while implementing shared components. Shared component reuse must not accidentally expose parent-only functionality in a web workspace.
+
+---
+
+# 10. TESTING AND ACCEPTANCE CRITERIA
+
+After implementation, run the checks supported by the existing project and fix any issues caused by your changes.
+
+Test at least the following:
+
+### Shared module behavior
+
+- Calendar events can be viewed and, where authorized, created or edited.
+- Announcements can be created, validated, published, and displayed to the correct audience.
+- Notifications can be opened and marked as read.
+- Search returns appropriate matching records.
+- Search does not expose unauthorized records.
+- Shared profiles open the correct records.
+- Shared references remain consistent across connected modules.
+- Activity history records supported meaningful actions.
+- Reports and exports use the correct filtered data.
+
+### Permissions
+
+- An unauthorized role cannot execute a protected action.
+- Hiding a restricted button is not the only protection.
+- Parent records remain limited to linked children.
+- Teacher records remain limited to assigned classes, subjects, and permitted data.
+- Sensitive financial, HR, and examination data remain restricted.
+- Admin and Vice Principal remain distinct.
+
+### Integration and regression
+
+- Existing Prompt 1–8 functionality remains intact.
+- Existing role workspaces still open correctly.
+- No duplicate role workspaces or duplicate shared modules are introduced.
+- Existing role-specific navigation continues to work.
+- Palette switching remains functional.
+- Shared components work with all existing palettes.
+- No new console errors or broken routes are introduced by these changes.
+- Responsive layouts remain usable.
+
+Do not claim that a test passed unless it was actually run. If a test cannot be run in the current environment, state that clearly and explain how it can be verified.
+
+---
+
+# 11. IMPLEMENTATION ORDER
+
+Work in this sequence:
+
+1. Audit the existing application and implementation reports.
+2. Identify reusable components and existing shared modules.
+3. Confirm the centralized permission and data-state approach.
+4. Fix the most important shared-component inconsistencies.
+5. Implement or improve the calendar and announcement workflows.
+6. Implement or improve notifications and authorized global search.
+7. Standardize shared profiles and record references.
+8. Improve activity history, reports, and export foundations.
+9. Integrate shared modules into the correct existing role workspaces.
+10. Run functional, permission, responsive, and regression checks.
+11. Fix issues introduced by the changes.
+12. Produce the implementation report described below.
+
+Do not attempt an unrelated redesign or begin Prompt 10 automatically.
+
+---
+
+# 12. REQUIRED FINAL IMPLEMENTATION REPORT
+
+When Prompt 9 is complete, provide a factual report with these sections:
+
+**A. Existing Project Audit**
+- Which shared modules already existed.
+- Which components and state-management mechanisms were reused.
+- Important gaps identified.
+
+**B. Implemented Changes**
+- Modules improved or added.
+- Files or components changed.
+- Workflows that now function.
+
+**C. Integration**
+- Which role workspaces use the shared modules.
+- How data and navigation remain consistent.
+- How permission boundaries are enforced.
+
+**D. Testing**
+- Tests actually performed.
+- Results of each test.
+- Bugs discovered and fixed.
+- Tests not run and why.
+
+**E. Known Limitations**
+- Remaining defects.
+- Incomplete features.
+- Any frontend-only limitations.
+- Any areas requiring clarification.
+
+**F. Next Step**
+- Confirm that Prompt 9 is complete only if the work and checks support that conclusion.
+- State that Prompt 10 of 12 is next: **Demo Data, CRUD, and Workflows**.
+- Do not start Prompt 10 until I explicitly request it.
+
+## FINAL INSTRUCTION
+
+Deliver an integrated, professional, user-friendly shared-module layer for the existing SCHLAR application. Prioritize consistency, real interactions, data integrity, role-based privacy, and preservation of all working functionality.
+
+**Do not merely describe the implementation. Inspect the existing project, make the changes, test what you can, and report accurately what is complete.**

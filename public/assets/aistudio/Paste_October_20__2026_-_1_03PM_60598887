@@ -1,0 +1,761 @@
+# SCHLAR — PROMPT 1 OF 12
+## Complete Project Audit, Professional Redesign, Brand Identity and Design System
+
+### 1. YOUR ROLE AND OBJECTIVE
+
+Act as a senior SaaS product designer, UI/UX architect, frontend engineer, design-system specialist, and quality-assurance engineer.
+
+You are working on **SCHLAR**, a premium School Management SaaS product intended to become a realistic, scalable, multi-school platform.
+
+Your immediate objective is to inspect the existing project and establish a polished, consistent, professional foundation for every future module.
+
+The result must be a working frontend application, not a static mockup, design description, or collection of screenshots.
+
+**You have permission to remove, replace, rebuild, and redesign existing code or interfaces when genuinely necessary.** However, inspect the project first and preserve valuable functionality, working features, useful data structures, and existing frontend integrations wherever possible.
+
+Do not blindly delete the entire project or restart from an empty application merely because a redesign is easier.
+
+Make decisions based on the actual condition of the existing code.
+
+---
+
+### 2. AUTHORITATIVE PRODUCT SPECIFICATION
+
+Use these requirements as the source of truth.
+
+- Product name: SCHLAR
+- Product category: School Management SaaS
+- Demo institution: Greenfield International School
+- Current deliverable: Interactive frontend demo
+- Long-term direction: Secure, scalable, multi-school SaaS with a dedicated backend, database, server-side authorization, and future mobile applications.
+
+Follow this principle throughout development:
+
+> Make every screen simple enough for a first-time user, but make the system powerful enough for a real school.
+
+This means:
+
+- Simplify navigation, not functionality.
+- Make important actions easy to find.
+- Keep advanced functionality organized rather than removing it.
+- Make permissions explicit rather than giving every role unrestricted access.
+- Keep the interface professional without making it complicated.
+- Build reusable components instead of duplicating the same interface everywhere.
+- Preserve working features unless there is a clear reason to replace them.
+
+Do not turn SCHLAR into a generic dashboard template. It must look and behave like a thoughtfully designed school-management product.
+
+---
+
+### 3. AUDIT THE ENTIRE EXISTING PROJECT FIRST
+
+Before changing code, inspect the available application.
+
+Identify:
+
+- Framework, programming language, and build system.
+- Application entry point and project structure.
+- Existing pages, routes, components, and navigation.
+- Current branding, typography, colors, and design tokens.
+- Existing theme selection and custom theme editor.
+- Existing theme presets, persistence, and import/export functionality.
+- Existing role-selection flow and role-specific experiences.
+- Existing state-management and browser-local persistence.
+- Existing permission definitions and authorization utilities.
+- Existing demo records and data models.
+- Existing responsive layouts and mobile navigation.
+- Existing forms, dialogs, tables, search, notifications, and profile menus.
+- Existing validation, loading states, error handling, and empty states.
+- Existing tests, build scripts, and available development tools.
+- Broken, duplicated, unfinished, inconsistent, or unnecessarily complicated implementations.
+
+Classify important findings into:
+
+1. Working and worth preserving.
+2. Working but requiring improvement.
+3. Broken and requiring repair.
+4. Incomplete and requiring implementation.
+5. Redundant or poorly structured and potentially requiring replacement.
+
+Do not stop after producing an audit report. Proceed to implementation in the same task.
+
+#### Redesign and deletion authorization
+
+You are explicitly allowed to:
+
+- Remove obsolete or duplicate components.
+- Replace broken layouts.
+- Rebuild poorly implemented theme or navigation systems.
+- Refactor tangled frontend code.
+- Remove dead code after confirming it is unused.
+- Replace an entire subsystem if repairing it would be less reliable than rebuilding it.
+
+Before removing a subsystem, identify its dependencies and preserve the functionality users rely on.
+
+Do not delete working theme customization, role experiences, useful demo data, or existing features simply because they are inconvenient to maintain.
+
+Do not introduce a new framework or replace the entire project architecture without a compelling technical reason.
+
+If a major replacement is necessary, complete it coherently, update dependent code, and verify the result.
+
+---
+
+### 4. SCHLAR BRAND IDENTITY
+
+Establish a consistent identity for SCHLAR.
+
+The product should communicate:
+
+- Trust.
+- Academic excellence.
+- Organization.
+- Professionalism.
+- Clarity.
+- Reliability.
+- Modern technology.
+- Ease of use.
+
+Use **SCHLAR** consistently in the interface, application header, role-selection page, and other relevant branding locations.
+
+Use **Greenfield International School** as the sample school identity where appropriate.
+
+Do not invent another company name or replace SCHLAR with a different brand.
+
+Create a polished wordmark using typography and, if useful, a simple original geometric symbol inspired by learning, organization, or connected systems.
+
+The essential brand identity must work without depending on a remote image or external logo service.
+
+Avoid:
+
+- Childish school illustrations.
+- Excessive gradients.
+- Decorative animations everywhere.
+- Unnecessary glass effects.
+- Excessive rounded cards.
+- Oversized headings that waste space.
+- Generic dashboard-template styling.
+
+The result should be suitable for a serious school-management product that could eventually serve schools and colleges.
+
+---
+
+### 5. DESIGN SYSTEM AND DEFAULT THEME
+
+Use the following as the default SCHLAR palette.
+
+**Default theme: Petrol & Copper**
+
+- Primary: `#164E55`
+- Secondary: `#287B7A`
+- Accent: `#C47D54`
+- Background: `#F5F0E7`
+- Surface: `#FFFFFF`
+
+Create centralized design tokens for:
+
+- Primary and secondary brand colors.
+- Accent color.
+- Main and secondary text.
+- Muted text.
+- Borders and dividers.
+- Page background and surfaces.
+- Sidebar and navigation.
+- Hover, selected, and active states.
+- Focus indicators.
+- Disabled controls.
+- Success, warning, error, and information states.
+- Overlays, dialogs, and popovers.
+
+Use semantic tokens consistently throughout the application. Avoid scattering hardcoded color values across components.
+
+#### Typography
+
+Use a professional, readable font system with sensible fallbacks.
+
+Define consistent styles for:
+
+- Page titles.
+- Section headings.
+- Card headings.
+- Body text.
+- Form labels.
+- Table content.
+- Supporting descriptions.
+- Status labels.
+- Metadata and helper text.
+
+Prefer readable text and sensible line lengths over unnecessarily large typography.
+
+#### Spacing and layout
+
+Create a consistent spacing scale and reusable patterns for:
+
+- Main content containers.
+- Sidebars.
+- Top navigation.
+- Page sections.
+- Cards.
+- Tables.
+- Forms.
+- Dialogs.
+- Dropdowns.
+- Buttons.
+- Mobile navigation.
+
+Keep layouts aligned and predictable.
+
+Avoid both overcrowding and excessive empty space that forces unnecessary scrolling.
+
+#### Interaction and elevation
+
+Use restrained corner radii, subtle borders, and limited shadows.
+
+Provide consistent hover, active, selected, focus, loading, disabled, and pressed states.
+
+Use animation only when it clarifies an interaction. Respect reduced-motion preferences.
+
+---
+
+### 6. IMPLEMENT ALL 12 COLOR PALETTES USING THESE EXACT HEX CODES
+
+Implement all twelve palettes in the existing theme selector and custom theme editor.
+
+Each palette must define the five core tokens:
+
+- Primary
+- Secondary
+- Accent
+- Background
+- Surface
+
+Do not use palette names as substitutes for actual color values. Use the exact hexadecimal values below.
+
+#### Palette 1 — Navy & Teal
+
+- Primary: `#17324D`
+- Secondary: `#2A7886`
+- Accent: `#E0A458`
+- Background: `#F2F5F8`
+- Surface: `#FFFFFF`
+
+#### Palette 2 — Forest & Champagne
+
+- Primary: `#245747`
+- Secondary: `#54866A`
+- Accent: `#D6B878`
+- Background: `#F3F4EC`
+- Surface: `#FFFFFF`
+
+#### Palette 3 — Oxblood & Blush
+
+- Primary: `#702D3A`
+- Secondary: `#A65C69`
+- Accent: `#D9A3A7`
+- Background: `#F8F0F0`
+- Surface: `#FFFFFF`
+
+#### Palette 4 — Cobalt & Electric Lime
+
+- Primary: `#2448A5`
+- Secondary: `#3C70D6`
+- Accent: `#C4E83A`
+- Background: `#F2F5FC`
+- Surface: `#FFFFFF`
+
+#### Palette 5 — Terracotta & Sage
+
+- Primary: `#A34F38`
+- Secondary: `#71866B`
+- Accent: `#D9A66F`
+- Background: `#F7F1E9`
+- Surface: `#FFFFFF`
+
+#### Palette 6 — Graphite & Ice Lavender
+
+- Primary: `#343640`
+- Secondary: `#666A7D`
+- Accent: `#B8B5E8`
+- Background: `#F3F3F8`
+- Surface: `#FFFFFF`
+
+#### Palette 7 — Petrol & Copper (DEFAULT)
+
+- Primary: `#164E55`
+- Secondary: `#287B7A`
+- Accent: `#C47D54`
+- Background: `#F5F0E7`
+- Surface: `#FFFFFF`
+
+#### Palette 8 — Indigo & Marigold
+
+- Primary: `#373B83`
+- Secondary: `#6266B5`
+- Accent: `#E9B949`
+- Background: `#F4F3FA`
+- Surface: `#FFFFFF`
+
+#### Palette 9 — Royal Purple & Gold
+
+- Primary: `#512B81`
+- Secondary: `#8056A8`
+- Accent: `#D8B45A`
+- Background: `#F6F1FA`
+- Surface: `#FFFFFF`
+
+#### Palette 10 — Emerald & Coral
+
+- Primary: `#146B58`
+- Secondary: `#329780`
+- Accent: `#EF806F`
+- Background: `#EFF6F2`
+- Surface: `#FFFFFF`
+
+#### Palette 11 — Black & Gold
+
+- Primary: `#242424`
+- Secondary: `#454545`
+- Accent: `#C9A44C`
+- Background: `#F4F2EC`
+- Surface: `#FFFFFF`
+
+#### Palette 12 — Sky & Midnight
+
+- Primary: `#17365D`
+- Secondary: `#3985B8`
+- Accent: `#F0B44D`
+- Background: `#EFF5FA`
+- Surface: `#FFFFFF`
+
+#### Palette implementation rules
+
+1. Use Palette 7, Petrol & Copper, as the initial default.
+2. Display each palette with its name, visible color swatches, and exact hex values in the theme-management interface.
+3. Make all palettes selectable.
+4. Changing a palette must update the entire application consistently, including sidebars, navigation, buttons, forms, tables, dialogs, cards, and mobile experiences.
+5. Use centralized CSS variables or the framework's equivalent design-token system.
+6. Do not hardcode palette colors separately inside unrelated components.
+7. Preserve valid existing palettes and theme functionality.
+8. Repair or rebuild the theme system only when necessary.
+9. Do not create twelve separate application layouts. All palettes must share the same component system and visual hierarchy.
+10. Check readability and contrast for every palette.
+11. Do not rely on color alone to communicate statuses, errors, selection, or warnings.
+12. Keep semantic success, warning, error, and information colors distinguishable from brand colors.
+
+The palette values above are the source of truth for the five core colors. Additional semantic colors may be defined as necessary.
+
+---
+
+### 7. CUSTOM THEME EDITOR
+
+Inspect the existing theme editor before modifying it.
+
+Preserve and repair it if it works. If it is missing or unreliable, implement or rebuild it while preserving the intended functionality.
+
+The editor should support:
+
+- Selecting any of the twelve presets.
+- Editing supported theme colors.
+- Previewing changes before applying them.
+- Applying a theme.
+- Resetting to a selected preset.
+- Resetting to the default Petrol & Copper theme.
+- Saving custom themes locally.
+- Selecting saved custom themes.
+- Renaming and deleting custom themes where supported.
+- Exporting a theme configuration.
+- Importing a theme configuration with validation.
+
+Use clear labels and helpful previews so a nontechnical school administrator can understand the controls.
+
+#### Technical requirements
+
+1. Use a defined theme configuration schema.
+2. Validate imported data before applying it.
+3. Reject malformed or unsupported color values safely.
+4. Prevent imported content from executing as code.
+5. Never use `eval` or dynamically execute imported JavaScript.
+6. Avoid overwriting unrelated application data.
+7. Provide clear success and error feedback.
+8. Handle invalid or outdated saved theme data without crashing.
+9. Preserve valid saved themes during unrelated UI changes.
+10. Clearly distinguish temporary preview from applied theme.
+11. Make cancel and reset behavior predictable.
+12. Ensure the editor works across desktop and mobile layouts.
+
+Use the project's existing persistence mechanism where practical. If browser-local storage is already used, retain it and handle read/write failures gracefully.
+
+Do not claim that themes synchronize across different devices or users.
+
+---
+
+### 8. REUSABLE UI FOUNDATION
+
+Create a maintainable design system appropriate to the existing framework.
+
+Reuse good existing components. Do not introduce a new UI library merely to rewrite the application.
+
+Create or standardize reusable components for:
+
+- Buttons and icon buttons.
+- Text inputs and search fields.
+- Select controls.
+- Checkboxes and radio controls.
+- Form fields and validation messages.
+- Badges and status indicators.
+- Cards.
+- Data tables.
+- Tabs.
+- Dropdown menus.
+- Dialogs and confirmation dialogs.
+- Toasts or equivalent feedback.
+- Tooltips where useful.
+- Loading indicators.
+- Empty states.
+- Error states.
+- Page headings.
+- Breadcrumbs where useful.
+- Navigation items.
+- Mobile navigation.
+- Theme controls.
+
+Ensure each component supports the shared design tokens and relevant interaction states.
+
+Components must remain functional when content, theme, or screen size changes.
+
+Avoid duplicated styles and duplicated interaction logic.
+
+Do not build components that look correct in a screenshot but break in the running application.
+
+---
+
+### 9. ROLE-SELECTION AND APPLICATION ENTRY FOUNDATION
+
+Prompt 1 must establish a polished entry and role-selection foundation that later prompts can extend.
+
+Inspect the existing entry flow and improve or rebuild it as necessary.
+
+Use exactly these ten approved roles:
+
+1. Admin
+2. Vice Principal
+3. Teacher
+4. Parent
+5. Accountant / Fee Manager
+6. HR / Staff Manager
+7. Librarian
+8. Transport Manager
+9. Receptionist / Front Office
+10. Exam Coordinator
+
+Do not add a Student role.
+
+Do not add a Super Admin role.
+
+Do not merge Admin and Vice Principal.
+
+Do not merge HR / Staff Manager into Admin.
+
+#### Role-selection page
+
+Create a professional role-selection experience.
+
+Each role should have:
+
+- A recognizable icon.
+- A clear role name.
+- A short explanation of its responsibilities.
+- An obvious interaction for entering the workspace.
+
+Use consistent icons from the existing icon library where available.
+
+Use a responsive grid or similarly efficient layout. Avoid ten oversized cards that force excessive scrolling.
+
+The layout should work on desktop, tablet, and mobile.
+
+#### Parent and Teacher platform choices
+
+Parent and Teacher must each have two distinct experiences:
+
+- Web Portal.
+- Mobile App Experience.
+
+After selecting Parent, allow the user to choose Parent Web or Parent Mobile.
+
+After selecting Teacher, allow the user to choose Teacher Web or Teacher Mobile.
+
+The other eight roles should open their intended web workspaces without an unnecessary platform-selection step.
+
+The mobile experiences are app-like, mobile-first web interfaces for this demo. Do not claim they are installed native Android or iOS applications.
+
+If these flows already exist, preserve and improve them rather than creating duplicate entry pages.
+
+#### Demo identity
+
+Use Greenfield International School as the sample institution where appropriate.
+
+Clearly identify the application as a demo.
+
+Do not imply that selecting a role authenticates the user against a real school account.
+
+If selecting a role starts a demo session, label it honestly as a demo session.
+
+The detailed role-specific workflows will be implemented in subsequent prompts. In Prompt 1, establish the shared entry experience and reusable visual foundation without inventing unfinished modules.
+
+---
+
+### 10. NAVIGATION AND SHARED APPLICATION SHELL
+
+Inspect the existing shared application shell.
+
+Create or refine the common structural foundation used by future workspaces.
+
+Where appropriate, include:
+
+- A branded header or top bar.
+- A consistent sidebar for desktop workspaces.
+- Responsive navigation.
+- A page-content area.
+- A profile or demo-session menu.
+- A theme selector.
+- A role-switching control.
+- Search placement or a reusable search component.
+- A notification entry point if the existing application supports it.
+- Clear page titles and optional breadcrumbs.
+
+Do not expose every future module as a functional feature if it has not been implemented.
+
+Future module navigation may be prepared as an extension point, but incomplete features must not pretend to work.
+
+Use consistent shell patterns while allowing Parent Mobile and Teacher Mobile to have their own mobile-first navigation in later implementation stages.
+
+Keep navigation behavior predictable and avoid unnecessary nested menus.
+
+---
+
+### 11. RESPONSIVE DESIGN
+
+The application must remain usable on:
+
+- Desktop computers.
+- Laptops.
+- Tablets.
+- Mobile phones.
+
+Use responsive layouts rather than shrinking the desktop interface onto a phone.
+
+Requirements:
+
+- Sidebars should adapt appropriately to smaller screens.
+- Tables must remain readable, using responsive alternatives where needed.
+- Forms should fit within the viewport.
+- Dialogs must not overflow the screen.
+- Navigation controls must remain touch-friendly.
+- Theme selection and editing must work on small screens.
+- Text must remain readable without unnecessary horizontal scrolling.
+- Focus indicators must remain visible.
+- Layouts must not break when content becomes longer than expected.
+
+Test at representative desktop, tablet, and mobile viewport sizes using available browser or preview tools.
+
+Do not claim that responsive behavior was tested unless it was actually checked.
+
+---
+
+### 12. ACCESSIBILITY AND USABILITY
+
+Implement practical accessibility measures throughout the shared foundation.
+
+Include:
+
+- Semantic headings and landmarks.
+- Labels associated with form controls.
+- Keyboard-accessible navigation and dialogs.
+- Visible keyboard focus.
+- Appropriate accessible names for icon-only buttons.
+- Readable contrast.
+- Clear validation messages.
+- Meaningful button labels.
+- Sensible focus behavior when opening or closing dialogs.
+- Reduced-motion support where animations exist.
+- Status indicators that do not rely on color alone.
+
+Use plain, familiar language.
+
+Do not sacrifice accessibility for visual effects.
+
+---
+
+### 13. FRONTEND-ONLY BOUNDARY
+
+The current deliverable is a frontend demo.
+
+For this prompt:
+
+- Do not build a production backend.
+- Do not add a real database server.
+- Do not add real payment processing.
+- Do not introduce external authentication that is not already part of the project and explicitly required.
+- Do not claim production-grade security.
+- Do not claim that data synchronizes across devices or users.
+- Do not add unnecessary API dependencies.
+- Do not replace working frontend behavior with fake API calls.
+
+Reuse the existing state-management and persistence approach wherever practical.
+
+If browser-local persistence is used, label its behavior honestly.
+
+Handle malformed saved data gracefully without destroying unrelated stored information.
+
+Do not store passwords, authentication secrets, or unnecessary sensitive personal data.
+
+Keep the frontend architecture suitable for later integration with a secure backend.
+
+---
+
+### 14. IMPLEMENTATION PROCESS
+
+Work through these stages in order.
+
+#### Stage A — Inspect
+
+Examine the actual code and existing application behavior.
+
+Identify what should be preserved, repaired, improved, replaced, or implemented.
+
+#### Stage B — Plan
+
+Determine the smallest coherent set of changes needed to establish the design foundation.
+
+Identify dependencies before removing or replacing code.
+
+#### Stage C — Implement
+
+Implement the actual changes in the existing project.
+
+Do not merely provide code snippets or instructions for the user to implement manually when you can edit the project directly.
+
+Centralize theme tokens, repair the theme system where needed, improve the entry experience, and standardize shared UI components.
+
+#### Stage D — Integrate
+
+Check that the redesigned components work with the existing routes, state, demo data, theme persistence, and application shell.
+
+Remove obsolete code only after verifying that it is no longer needed.
+
+Resolve imports, references, styling conflicts, and component dependencies.
+
+#### Stage E — Verify
+
+Run the available build, test, lint, and type-check commands where supported.
+
+Use the actual preview or browser tools available in Google AI Studio to inspect the running application when possible.
+
+Fix issues caused by your changes.
+
+Do not stop after the first successful render if important functionality remains broken.
+
+---
+
+### 15. ACCEPTANCE TESTS
+
+Verify the following before reporting completion.
+
+#### Brand and design
+
+- [ ] SCHLAR branding appears consistently.
+- [ ] Greenfield International School appears where the demo institution is relevant.
+- [ ] Petrol & Copper is the default theme.
+- [ ] All five default theme colors match their exact specified hex codes.
+- [ ] All twelve palettes exist with the exact specified core hex values.
+- [ ] Theme switching updates the application consistently.
+- [ ] Text and controls remain readable across palettes.
+- [ ] Shared components use centralized design tokens.
+- [ ] There are no obvious visual inconsistencies or overlapping elements.
+
+#### Theme editor
+
+- [ ] Preset selection works.
+- [ ] Color editing works where implemented.
+- [ ] Preview and apply behavior are distinct and predictable.
+- [ ] Reset behavior works.
+- [ ] Custom theme persistence works where implemented.
+- [ ] Import validation rejects malformed input.
+- [ ] Export produces a valid theme configuration where implemented.
+- [ ] Invalid stored data does not crash the application.
+- [ ] Existing working theme features have not been unintentionally removed.
+
+#### Role selection
+
+- [ ] All ten approved roles appear exactly once.
+- [ ] No Student role is added.
+- [ ] No Super Admin role is added.
+- [ ] Admin and Vice Principal remain separate.
+- [ ] HR / Staff Manager remains separate.
+- [ ] Parent offers Web Portal and Mobile App Experience.
+- [ ] Teacher offers Web Portal and Mobile App Experience.
+- [ ] The other eight roles use their intended web-workspace entry flow.
+- [ ] Role selection works on desktop and mobile.
+- [ ] Demo status is communicated honestly.
+
+#### Application quality
+
+- [ ] Shared navigation and layout work.
+- [ ] Role switching works where implemented.
+- [ ] The theme selector remains accessible.
+- [ ] Responsive layouts do not have obvious overflow or clipping.
+- [ ] Keyboard focus is visible.
+- [ ] Buttons and controls perform their advertised actions.
+- [ ] No broken imports or obvious runtime errors were introduced.
+- [ ] Existing valuable functionality still works.
+- [ ] The application remains frontend-only.
+- [ ] Available build and test checks have been run and their actual results recorded.
+
+If a test cannot be performed because the environment lacks the required capability, report it as unverified instead of claiming it passed.
+
+Fix regressions caused by your changes before declaring the prompt complete.
+
+---
+
+### 16. FINAL REPORT
+
+After implementation, provide a concise but factual report containing:
+
+1. **Initial audit:** What the project already had and what was broken or incomplete.
+2. **Preserved features:** Which existing features were retained.
+3. **Removed or rebuilt components:** What was deleted or redesigned, why, and how its functionality was preserved.
+4. **Design system:** The implemented tokens, typography, spacing, and reusable components.
+5. **Color palettes:** Confirmation of the twelve exact palette configurations.
+6. **Theme editor:** What works, including preview, persistence, import, and export where supported.
+7. **Entry flow:** What works in role selection and platform selection.
+8. **Files changed:** The important files created, modified, or removed.
+9. **Verification:** The commands, tests, and browser checks actually executed, with their results.
+10. **Known limitations:** Anything incomplete, unverified, or still broken.
+11. **Next step:** Recommend proceeding to Prompt 2 only after this foundation is stable.
+
+Do not claim that a feature works merely because you wrote code for it.
+
+Do not claim tests passed unless they were actually executed.
+
+Do not conceal unresolved problems.
+
+---
+
+### 17. STRICT SCOPE CONTROL
+
+This is **Prompt 1 of 12**.
+
+Focus on the existing project's audit, brand identity, exact color palettes, theme system, reusable design foundation, and entry experience.
+
+Do not automatically implement all detailed school-management modules in this prompt.
+
+Do not start Prompt 2 automatically.
+
+Do not remove working features from later modules simply to make the current stage appear cleaner.
+
+Leave the application in a coherent, runnable state so the next prompt can extend it without rebuilding the same foundation again.
+
+### FINAL DIRECTIVE
+
+Inspect first. Make thoughtful engineering decisions. Redesign or delete poor implementations when necessary, but preserve valuable functionality. Implement the changes directly, verify the result, and report honestly.
+
+The final result must look professional, feel simple to use, support all twelve exact color palettes, and establish a maintainable foundation for SCHLAR's remaining eleven prompts.

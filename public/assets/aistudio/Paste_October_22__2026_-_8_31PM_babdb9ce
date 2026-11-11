@@ -1,0 +1,816 @@
+# SCHLAR — PROMPT 6 OF 12
+## Accountant / Fee Manager & HR / Staff Manager
+### Professional Workspaces • Complete Workflows • Detailed Records • Role-Based Permissions • Frontend-Only Demo
+
+## 1. YOUR ROLE
+
+Act as a senior SaaS product architect, school-finance workflow specialist, HR-management product designer, frontend engineer, accessibility specialist, and QA engineer.
+
+Implement Prompt 6 in the existing SCHLAR school-management application. Build two distinct, polished workspaces:
+
+1. **Accountant / Fee Manager**
+2. **HR / Staff Manager**
+
+Both workspaces must feel like real school-management software, not static dashboards or collections of decorative cards. Prioritize clarity, accuracy, intuitive navigation, useful information, and reliable interactions.
+
+The application must be professional and easy for a first-time user while preserving comprehensive functionality and appropriate permissions.
+
+**Simplify the workflow and navigation—not the capabilities.**
+
+## 2. MANDATORY PROJECT RULES
+
+Before editing any code:
+
+1. Inspect the existing project and current implementation.
+2. Review the authoritative SCHLAR master handover document and previous prompt implementation reports when available.
+3. Identify the existing routes, shared components, role registry, permissions, data models, demo records, theme system, and persistence mechanisms.
+4. Determine which finance and HR features already work, which are incomplete, and which are broken.
+5. Preserve working features and extend the existing architecture.
+6. Implement missing functionality and repair relevant defects without creating duplicate modules or parallel permission systems.
+7. Keep the changes limited to Prompt 6, except for necessary integrations with existing shared components.
+
+Do not assume a feature is missing without inspecting the current code.
+
+If a required dependency is not yet implemented, create only the necessary integration point and a clear, honest empty state. Do not silently claim that a later prompt's functionality already exists.
+
+## 3. PRESERVE THE SCHLAR PRODUCT
+
+The authoritative specification defines exactly ten roles:
+
+1. Admin
+2. Vice Principal
+3. Teacher
+4. Parent
+5. Accountant / Fee Manager
+6. HR / Staff Manager
+7. Librarian
+8. Transport Manager
+9. Receptionist / Front Office
+10. Exam Coordinator
+
+Do not add Student or Super Admin. Keep Admin, Vice Principal, Accountant / Fee Manager, and HR / Staff Manager as distinct roles.
+
+Preserve the established experience rules:
+
+- Parents use the Parent Mobile App only. There must be no Parent Web Portal option.
+- Teachers retain their Web and Mobile experiences.
+- The other roles retain their existing authorized workspaces.
+- Accountant / Fee Manager and HR / Staff Manager each open their own web workspace.
+- Role switching must use the existing role-selection system.
+- Do not allow one role to inherit another role's permissions simply because their modules are related.
+
+## 4. DESIGN SYSTEM AND VISUAL QUALITY
+
+Use the existing SCHLAR design system and shared theme tokens.
+
+Default Petrol & Copper palette:
+
+- Primary: `#164E55`
+- Secondary: `#287B7A`
+- Accent: `#C47D54`
+- Background: `#F5F0E7`
+- Surface: `#FFFFFF`
+
+Requirements:
+
+- Respect the currently selected palette.
+- Preserve all existing palettes and the custom HEX palette editor.
+- Reuse existing typography, spacing, icons, cards, tables, forms, buttons, dialogs, and status indicators.
+- Use a clean, professional school-SaaS visual language.
+- Keep data-dense screens readable through clear headings, spacing, alignment, and restrained use of color.
+- Use status text alongside color so status meaning is not conveyed by color alone.
+- Ensure layouts adapt to desktop, tablet, and mobile widths.
+- Avoid decorative charts, excessive gradients, clutter, oversized empty cards, and unnecessary animations.
+- Keep the two workspaces visually consistent with SCHLAR but clearly distinct in purpose.
+
+## 5. CHATGPT-INSPIRED WORKSPACE NAVIGATION
+
+Use the general usability pattern of a persistent navigation sidebar and a dedicated content workspace. Do not copy ChatGPT branding or unrelated features.
+
+For both roles:
+
+- Display a persistent, collapsible left sidebar.
+- Show the current role and school identity.
+- Group related modules when grouping improves discoverability.
+- Highlight the active navigation item.
+- Open the selected module in the main content area.
+- Keep the shared application shell consistent while navigating.
+- Support sensible back navigation, breadcrumbs where useful, and direct navigation where feasible.
+- Make every visible menu item functional.
+- Put secondary features in appropriate grouped sections rather than crowding the dashboard.
+- Convert the sidebar into a drawer on smaller screens.
+- Preserve role-specific permissions during navigation and direct URL access.
+
+The dashboard is a summary and starting point. It must not contain every table, form, and workflow on one excessively long page.
+
+## 6. WORKSPACE A — ACCOUNTANT / FEE MANAGER
+
+Build a complete fee and school-finance workspace appropriate to the Accountant / Fee Manager's authorized responsibilities.
+
+### 6.1 Navigation
+
+Provide a role-specific sidebar containing the following modules where supported by the existing SCHLAR specification:
+
+- Dashboard
+- Fee Structure
+- Student Fee Accounts
+- Fee Collection
+- Outstanding Dues
+- Payment History
+- Receipts
+- Concessions and Scholarships
+- Refunds and Adjustments
+- Expenses
+- Finance Reports
+- My Profile
+
+Use sub-sections where they improve organization. Keep common tasks easy to access.
+
+Do not expose unrestricted school settings, user administration, HR records, or permission configuration unless the existing centralized permission registry explicitly grants that access.
+
+### 6.2 Accountant dashboard
+
+Display accurate, data-derived metrics such as:
+
+- Total fees assessed for the selected period.
+- Total fees collected.
+- Outstanding dues.
+- Number of students with outstanding balances.
+- Today's recorded collections.
+- Recent transactions.
+- Upcoming due dates.
+- Collection trends, if meaningful demo data exists.
+- Recent finance activity.
+
+Each metric must be calculated from the same demo records used by the relevant finance modules.
+
+Provide quick actions such as:
+
+- Record a collection.
+- Find a student account.
+- Review outstanding dues.
+- Open a receipt.
+- View a finance report.
+
+Every action must navigate to a real screen or open a working form.
+
+Do not invent figures independently for dashboard cards.
+
+### 6.3 Fee structure management
+
+Where authorized, provide a working fee-structure module.
+
+Support the existing data model for:
+
+- Academic year.
+- Class or section applicability.
+- Fee category.
+- Fee amount.
+- Term or installment schedule.
+- Due date.
+- Applicable status.
+
+Required behavior:
+
+- View fee structures.
+- Search and filter existing records.
+- Create and edit records where authorized.
+- Validate required fields, amounts, dates, and duplicate definitions.
+- Confirm destructive or consequential actions.
+- Show clear success and error feedback.
+- Prevent invalid negative amounts unless the existing model explicitly supports a valid adjustment.
+- Avoid changing historical fee records unintentionally when a future fee structure is edited.
+
+If fee structures are owned by Admin in the existing permission specification, keep the Accountant's access read-only or restricted accordingly. Do not grant extra permissions merely to make the interface convenient.
+
+### 6.4 Student fee accounts
+
+Create a dedicated student-fee-account list and detail view.
+
+Each record should show available information such as:
+
+- Student name and identifier.
+- Class and section.
+- Academic year.
+- Fee total.
+- Amount paid.
+- Outstanding balance.
+- Next due date.
+- Account status.
+
+Provide:
+
+- Search by student name or permitted identifier.
+- Filters for class, academic year, payment status, and due status where supported.
+- Sorting and pagination or a suitable equivalent.
+- A complete fee-account detail screen.
+- A chronological ledger of charges, payments, concessions, refunds, and adjustments where those records exist.
+- Clear empty states when no matching records exist.
+
+Opening a student account must display its actual related records, not a generic placeholder page.
+
+Respect the project's student data permissions. Do not expose unrelated sensitive information such as medical or private family records when it is not necessary for finance work.
+
+### 6.5 Fee collection workflow
+
+Implement a genuine frontend demo workflow for recording fee collections.
+
+The workflow should:
+
+1. Find and select an eligible student.
+2. Confirm the student's identity and fee account.
+3. Display applicable charges and outstanding balances.
+4. Select the relevant fee or installment.
+5. Enter the amount received.
+6. Select an available demo payment method, such as cash, bank transfer, or UPI, if supported by the existing model.
+7. Enter a transaction reference when applicable.
+8. Validate the amount and payment details.
+9. Display a review step before saving.
+10. Save the demo transaction to shared application state.
+11. Update the student's fee ledger and balance.
+12. Update the dashboard and relevant reports.
+13. Generate a unique demo receipt reference.
+14. Display a clear success confirmation and provide receipt viewing or printing where feasible.
+
+Important safeguards:
+
+- Prevent payments exceeding the outstanding balance unless a valid advance-payment workflow exists.
+- Prevent accidental duplicate submissions.
+- Prevent negative or zero payment amounts unless explicitly supported by the data model.
+- Do not record a payment if validation fails.
+- Do not mark an account as paid when only a partial payment has been recorded.
+- Ensure a saved payment is not counted twice in totals.
+- Never claim a real payment was processed.
+- Do not collect real banking credentials or card details.
+
+### 6.6 Outstanding dues
+
+Build a dedicated dues-management screen with:
+
+- Student and class information.
+- Outstanding amount.
+- Due date.
+- Days overdue, when calculable.
+- Relevant fee category or installment.
+- Payment status.
+- Search, filters, and sorting.
+- A student-account detail action.
+- A print-friendly dues statement where feasible.
+
+Use consistent definitions for due, overdue, partially paid, and paid. Derive status from the actual record data and applicable dates.
+
+If reminder functionality exists, reuse it. Otherwise, do not pretend to send messages. Any simulated reminder must be clearly identified as a demo action.
+
+### 6.7 Payment history and transactions
+
+Provide a transaction list with:
+
+- Unique receipt or transaction reference.
+- Student.
+- Date.
+- Amount.
+- Payment method.
+- Related fee or installment.
+- Recorded-by information where permitted.
+- Status.
+
+Include relevant search, filters, sorting, and transaction details.
+
+Do not allow an ordinary user to silently modify historical payment records. If correction, reversal, or refund is supported, use an explicit workflow with validation, confirmation, and an audit trail.
+
+### 6.8 Receipts
+
+Implement a receipt-detail view containing the information available in the data model:
+
+- SCHLAR and school identity.
+- Receipt number.
+- Student details.
+- Academic year.
+- Fee categories or installments covered.
+- Amount received.
+- Payment method.
+- Transaction reference, where applicable.
+- Date.
+- Remaining balance, if relevant.
+
+Provide a print-friendly layout and a working print action where browser capabilities permit.
+
+Do not claim a PDF was generated if the implementation only opens the browser print dialog.
+
+Receipt references must be unique within the demo dataset. A receipt must match its corresponding saved transaction.
+
+### 6.9 Concessions, scholarships, refunds, and adjustments
+
+Implement only workflows supported by the authoritative permission rules and existing finance model.
+
+For each supported workflow:
+
+- Identify the relevant student account and charge.
+- Record the reason and amount.
+- Validate the operation.
+- Show a review and confirmation step.
+- Update the ledger consistently.
+- Recalculate balances and dashboard metrics.
+- Retain the original transaction history.
+- Record who performed the action where the demo model supports it.
+
+Use explicit authorization for concessions, refunds, write-offs, and adjustments. Do not automatically give the Accountant permission to approve every financial action.
+
+If an action requires Admin approval in the specification, implement the appropriate approval state or restricted action rather than bypassing it.
+
+### 6.10 Expenses
+
+If expense management is included in the existing SCHLAR specification, provide the authorized expense workflows.
+
+Support relevant fields such as:
+
+- Expense category.
+- Description.
+- Amount.
+- Date.
+- Reference or notes.
+- Status and approval information, where applicable.
+
+Validate entries and ensure expense totals are not confused with fee collections or student balances.
+
+Do not create an unrestricted financial-administration module if that is outside the Accountant's authorized role.
+
+### 6.11 Finance reports
+
+Provide useful reports based on real demo records, including supported reports such as:
+
+- Fee collection summary.
+- Outstanding dues.
+- Class-wise collection.
+- Fee-category breakdown.
+- Payment-method breakdown.
+- Transaction history.
+- Concessions and refunds.
+- Expenses, if authorized.
+
+Allow relevant date, academic year, class, category, or status filters.
+
+- Derive report totals from the underlying records.
+- Keep report filters consistent with displayed results.
+- Provide CSV export if feasible within the existing frontend architecture.
+- Clearly label the selected reporting period.
+- Display useful empty states.
+- Respect permissions when displaying or exporting sensitive financial data.
+
+## 7. WORKSPACE B — HR / STAFF MANAGER
+
+Build a separate workspace for managing staff information and authorized HR workflows.
+
+Do not merge this role into Admin. Do not assume it has permission to configure the entire school system.
+
+### 7.1 Navigation
+
+Provide a role-specific sidebar containing the following modules where supported by the existing specification:
+
+- Dashboard
+- Staff Directory
+- Staff Profiles
+- Departments and Designations
+- Staff Attendance
+- Leave Management
+- Work Assignments
+- Employment Documents
+- Recruitment
+- Payroll Overview
+- HR Reports
+- My Profile
+
+Keep the sidebar focused and organized. Only display modules and actions allowed by the centralized permission registry.
+
+If a module belongs to another role or a later prompt and has not yet been implemented, show an appropriate authorized summary or empty state rather than building a duplicate management system.
+
+### 7.2 HR dashboard
+
+Show accurate, data-derived metrics such as:
+
+- Total active staff.
+- Staff by department.
+- Staff by employment status.
+- Staff present or absent today, if reliable attendance data exists.
+- Pending leave requests.
+- Upcoming staff events or contract dates, if available.
+- Incomplete staff records.
+- Recent HR activity.
+
+Provide useful quick actions such as:
+
+- Add a staff member.
+- Find a staff profile.
+- Review leave requests.
+- View staff attendance.
+- Open an HR report.
+
+Each quick action must work.
+
+Do not invent attendance or employment statistics when the underlying data is unavailable.
+
+### 7.3 Staff directory
+
+Create a detailed, searchable staff directory.
+
+Where available and authorized, display:
+
+- Staff name.
+- Staff ID.
+- Profile image or initials.
+- Department.
+- Designation.
+- Employment type.
+- Joining date.
+- Employment status.
+- Work contact information.
+
+Provide:
+
+- Search by name or permitted staff identifier.
+- Filters by department, designation, employment type, and status.
+- Sorting and pagination or a suitable equivalent.
+- A complete staff-detail view.
+- Clear status labels.
+- A useful empty state.
+
+Avoid putting every staff field into one crowded table. Use a compact list or table for scanning and a separate detail view for complete information.
+
+### 7.4 Staff profile management
+
+Where authorized, support adding, viewing, and editing staff profiles.
+
+Use logically grouped sections such as:
+
+**Basic information**
+- Staff ID.
+- Full name.
+- Profile image or initials.
+- Contact information.
+- Address only where authorized and necessary.
+
+**Employment information**
+- Department.
+- Designation.
+- Employment type.
+- Joining date.
+- Employment status.
+- Reporting manager, if supported.
+
+**Professional information**
+- Qualifications.
+- Relevant experience.
+- Assigned responsibilities.
+- Qualifications or documents, where supported.
+
+**Emergency and sensitive information**
+- Display only if the existing specification authorizes access and the information is necessary for the role.
+- Do not place sensitive personal information on the dashboard or expose it to unauthorized users.
+
+Form requirements:
+
+- Validate required fields and formats.
+- Prevent duplicate staff IDs.
+- Provide clear field-level errors.
+- Support Save and Cancel.
+- Confirm consequential status changes.
+- Reflect successful changes across the directory, profile, and relevant shared modules.
+- Do not silently discard unsaved changes.
+
+Do not invent mandatory personal data requirements that are absent from the existing model.
+
+### 7.5 Departments and designations
+
+Where the existing permission model allows HR to manage organizational information, provide:
+
+- Department list and detail.
+- Designation list and detail.
+- Add and edit forms.
+- Search and filters.
+- Duplicate prevention.
+- Validation.
+- Relationship checks before archiving a department or designation in use.
+
+If these records are managed by Admin according to the master specification, keep the HR workspace read-only or provide an appropriate restricted state.
+
+### 7.6 Staff attendance
+
+Build an HR-facing attendance overview using the existing shared attendance records.
+
+Include, where available:
+
+- Date-wise staff attendance.
+- Present and absent counts.
+- Late or other attendance statuses only if supported by the data model.
+- Staff member, department, and date filters.
+- Monthly summaries.
+- Individual staff attendance history.
+- Clear empty states.
+
+Distinguish viewing staff attendance from editing it.
+
+Only provide attendance entry or correction actions if the centralized permission registry explicitly permits them. Do not create a second independent attendance system.
+
+Never change student attendance through the HR workspace.
+
+### 7.7 Leave management
+
+Implement the authorized HR leave workflow.
+
+Include:
+
+- Leave request list.
+- Staff member.
+- Leave type.
+- Start and end dates.
+- Reason or notes where authorized.
+- Submission date.
+- Current status.
+- Relevant supporting information if supported.
+
+Provide:
+
+- Search and filtering.
+- Pending, approved, and rejected views.
+- Leave request details.
+- Validation of dates and required information.
+- Approval or rejection actions only where authorized.
+- A reason field for rejection if required by the existing workflow.
+- Confirmation before consequential decisions.
+- Clear feedback after an action.
+- An audit trail where supported.
+
+Do not permit HR to approve its own leave request unless the authoritative policy explicitly allows it and an appropriate safeguard exists.
+
+When a request is approved or rejected, update the shared leave record and related views. Do not claim that a real notification was delivered.
+
+### 7.8 Work assignments and staff records
+
+If supported by the existing model, allow HR to view or manage authorized staff assignments and employment records.
+
+Possible information includes:
+
+- Assigned responsibilities.
+- Department or designation.
+- Reporting manager.
+- Employment start date.
+- Employment status.
+- Contract end date, if applicable.
+
+Prevent accidental loss of historical records when a staff member becomes inactive or leaves the school.
+
+Use archive or inactive status where appropriate rather than deleting records that other modules depend on.
+
+Do not expose teacher-only academic controls or change class timetables unless explicitly authorized.
+
+### 7.9 Employment documents
+
+Where supported, provide a secure, permission-aware document register for relevant employment documents.
+
+- Display document title and type.
+- Show related staff member.
+- Show document status and dates where available.
+- Allow viewing or downloading only when a valid document and supported action exist.
+- Support adding document metadata only where the existing frontend supports it.
+- Show clear empty states when no files exist.
+
+Do not fabricate uploaded files or claim a document was stored when only its metadata was entered.
+
+Never expose employment documents to Parent, Teacher, or other unauthorized roles.
+
+### 7.10 Recruitment
+
+Implement recruitment functionality only if included in the authoritative specification or existing application.
+
+Where supported, provide a basic candidate register with:
+
+- Candidate name.
+- Position.
+- Application date.
+- Recruitment status.
+- Contact details only where authorized.
+- Interview information where supported.
+
+Allow authorized users to search, filter, view details, and update recruitment status with validation.
+
+Do not invent an external job-board integration, email service, or automated hiring process.
+
+### 7.11 Payroll overview and salary privacy
+
+Payroll is sensitive. Implement only the payroll information and actions permitted by the authoritative permission registry.
+
+If payroll is part of the existing HR scope, provide a controlled overview such as:
+
+- Payroll period.
+- Processing status.
+- Relevant aggregate totals.
+- Authorized employee-level salary information.
+- Payroll history or report links where supported.
+
+Requirements:
+
+- Check permissions before displaying salary or bank-related information.
+- Never expose salary information in public staff-directory views.
+- Do not create or reveal bank account credentials.
+- Do not claim payroll has been processed or salaries have been transferred.
+- Do not invent tax calculations, statutory deductions, or compliance claims.
+- If actual payroll processing is not implemented, label the feature accurately as a demo overview or leave it restricted according to the master specification.
+
+Do not grant HR unrestricted access to all finance records simply because payroll relates to staff.
+
+### 7.12 HR reports
+
+Provide useful, data-derived reports where supported:
+
+- Staff directory summary.
+- Department-wise staff distribution.
+- Employment-status summary.
+- Staff attendance summary.
+- Leave-request summary.
+- Employment-document status.
+- Recruitment summary.
+- Payroll overview only when authorized.
+
+Allow relevant filters and CSV export where feasible.
+
+Reports must reflect the same underlying records shown in the workspace. Do not use hard-coded totals that contradict the staff directory or attendance views.
+
+## 8. SHARED RECORDS, CRUD, AND DATA CONSISTENCY
+
+Both workspaces must use the existing SCHLAR data architecture.
+
+- Reuse the shared state and existing data models.
+- Reuse existing local persistence if available.
+- Do not create separate copies of student fee accounts, payments, staff records, or attendance.
+- Ensure supported create, read, update, and archive actions update the relevant lists and details.
+- Recalculate finance totals from valid transactions.
+- Recalculate HR metrics from staff and attendance records.
+- Ensure a record appears consistently across all relevant views.
+- Preserve history where deleting or overwriting a record would damage financial or employment records.
+- Validate IDs, amounts, dates, required fields, and record relationships.
+- Handle missing or malformed persisted data gracefully.
+- Avoid resetting or clearing all browser storage.
+- Use realistic fictional demo records and label the environment as a demo.
+- Do not add a backend, database server, external API, or real payment or payroll integration.
+
+If browser-local persistence is appropriate and compatible with the existing project, use it without claiming cross-device synchronization.
+
+## 9. CENTRALIZED PERMISSIONS AND DATA PRIVACY
+
+Reuse the existing centralized permission registry. Do not implement an isolated permission system for Prompt 6.
+
+Apply permission checks to both page rendering and action handlers. Direct navigation must not bypass access restrictions.
+
+**Accountant / Fee Manager**
+- Access finance functions only as authorized.
+- Do not automatically grant access to HR documents, salary details, staff personal records, school-wide settings, or permission administration.
+- Do not allow unrestricted fee waivers, refunds, or adjustments when approval is required.
+
+**HR / Staff Manager**
+- Access staff and HR functions only as authorized.
+- Do not automatically grant access to student fee ledgers, payment transaction details, or unrestricted school finance reports.
+- Restrict salary and sensitive employment information to explicitly authorized permissions.
+- Do not allow unauthorized changes to academic records or school settings.
+
+**Admin and Vice Principal**
+- Preserve their existing separate permission boundaries.
+- Do not grant or remove permissions simply to make Prompt 6 easier to implement.
+
+**All roles**
+- Default to deny when permission information is missing or unknown.
+- Never expose another role's workspace merely because a route exists.
+- Keep audit history for sensitive changes where the current architecture supports it.
+- Remember that frontend permission checks are demonstration safeguards, not production-grade security.
+
+## 10. REUSABLE COMPONENTS AND CODE QUALITY
+
+Use or extend shared components for:
+
+- Workspace shell and sidebar.
+- Page headers and breadcrumbs.
+- Tables and responsive record lists.
+- Search and filter controls.
+- Status indicators.
+- Forms and validation messages.
+- Confirmation dialogs.
+- Empty states.
+- Notifications and feedback.
+- Detail panels.
+- Date and currency formatting.
+- Print-friendly receipts.
+- Permission-aware actions.
+
+Keep finance and HR domain logic separated while sharing general UI components.
+
+Avoid:
+
+- One enormous component containing both workspaces.
+- Duplicate navigation systems.
+- Repeated hard-coded data.
+- Inconsistent status names.
+- Fake buttons.
+- Placeholder pages disguised as complete modules.
+- Silent failures.
+- Unnecessary new dependencies.
+- Unrelated redesigns.
+
+Follow the conventions already used by the project.
+
+## 11. RESPONSIVENESS AND ACCESSIBILITY
+
+- Ensure the finance and HR workspaces remain usable on desktop, tablet, and mobile.
+- Keep dense tables readable and provide a mobile-friendly alternative when necessary.
+- Avoid horizontal overflow.
+- Ensure dialogs fit small screens.
+- Provide accessible labels, keyboard navigation, visible focus states, and readable contrast.
+- Do not rely on color alone for payment or employment status.
+- Provide useful field-level validation and error messages.
+- Keep destructive actions explicit and confirmed.
+- Preserve all existing theme options.
+
+## 12. TESTING AND ACCEPTANCE CRITERIA
+
+After implementing Prompt 6, test the actual application.
+
+### Accountant / Fee Manager tests
+
+1. Selecting Accountant / Fee Manager opens the correct workspace.
+2. The finance sidebar opens the correct pages.
+3. Student account search and filters work.
+4. Opening a student shows the correct fee ledger.
+5. Recording a valid demo payment updates the ledger and balance.
+6. Invalid or duplicate payments are rejected safely.
+7. Receipt details match the saved transaction.
+8. Dashboard totals and reports reflect the same underlying records.
+9. Partial payments do not incorrectly mark accounts as fully paid.
+10. Refunds, adjustments, concessions, and approvals respect permissions.
+11. Unauthorized HR and administrative information remains inaccessible.
+12. Refreshing the app preserves supported saved demo data.
+
+### HR / Staff Manager tests
+
+1. Selecting HR / Staff Manager opens the correct workspace.
+2. The HR sidebar opens the correct pages.
+3. Staff search, filters, and profile details work.
+4. Adding or editing a permitted staff record updates relevant views.
+5. Duplicate staff IDs and invalid forms are rejected.
+6. Leave-request status changes work only for authorized users.
+7. Staff attendance summaries use shared records.
+8. Sensitive employment and salary information remains restricted.
+9. HR actions do not modify student attendance or finance records.
+10. Dashboard metrics match the underlying staff records.
+
+### Cross-role regression tests
+
+1. All ten roles remain present.
+2. Parent opens the Parent Mobile App directly, with no Parent Web Portal option.
+3. Teacher Web and Teacher Mobile remain available.
+4. Admin and Vice Principal remain separate.
+5. The existing theme selector and all palettes remain functional.
+6. Prompt 6 does not break completed features from Prompts 1–5.
+7. Visible navigation items do not lead to broken pages.
+8. No critical runtime errors are introduced.
+
+Test only what the environment allows. If a test cannot be performed, report it as unverified instead of claiming success.
+
+## 13. IMPLEMENTATION SEQUENCE
+
+Complete the work in this order:
+
+1. Audit the existing finance and HR implementation.
+2. Map current modules, records, routes, and permissions to the master specification.
+3. Preserve working components and identify the smallest necessary changes.
+4. Implement or complete the Accountant / Fee Manager workspace.
+5. Implement or complete the HR / Staff Manager workspace.
+6. Connect both workspaces to shared records and state.
+7. Implement validation, permission checks, and feedback.
+8. Verify dashboard metrics, forms, lists, detail views, and supported persistence.
+9. Test the relevant role boundaries and previous features.
+10. Fix defects and prepare the final report.
+
+Do not begin Prompt 7 automatically.
+
+## 14. REQUIRED FINAL IMPLEMENTATION REPORT
+
+When finished, provide a factual report containing:
+
+1. Features already present and preserved.
+2. New features implemented.
+3. Features repaired.
+4. Accountant / Fee Manager modules completed.
+5. HR / Staff Manager modules completed.
+6. Files created or modified.
+7. Shared data models and state reused.
+8. Permissions implemented or verified.
+9. Tests actually performed and their results.
+10. Features not implemented and why.
+11. Known limitations and dependencies on later prompts.
+12. Confirmation that the application remains frontend-only.
+
+Do not claim a module is complete merely because its navigation item exists. A module is complete only when its permitted screens, data, validation, and expected actions work.
+
+### FINAL DEFINITION OF DONE
+
+SCHLAR must provide two distinct and usable workspaces. An authorized Accountant / Fee Manager can manage permitted fee and finance workflows with consistent records and accurate totals. An authorized HR / Staff Manager can manage permitted staff and HR workflows with detailed records and appropriate privacy boundaries.
+
+Both workspaces must use the established SCHLAR design system, ChatGPT-inspired sidebar navigation, shared demo data, validated forms, clear feedback, and role-based access. Existing functionality must remain intact, and no real backend or external service may be falsely claimed.

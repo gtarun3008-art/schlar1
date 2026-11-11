@@ -1,0 +1,737 @@
+# SCHLAR — PROMPT 8 OF 12
+## Receptionist / Front Office & Exam Coordinator
+### Professional Workspaces • Complete Workflows • Detailed Records • Permission-Aware Design • Frontend-Only Demo
+
+## 1. ROLE AND OBJECTIVE
+
+Act as a senior SaaS product architect, school-front-office workflow specialist, examination-management specialist, frontend engineer, UX designer, accessibility specialist, and QA engineer.
+
+Implement Prompt 8 in the existing SCHLAR application. Build two distinct, complete role workspaces:
+
+1. **Receptionist / Front Office**
+2. **Exam Coordinator**
+
+Each workspace must be professional, intuitive for a first-time user, responsive, and functionally connected to the existing SCHLAR demo application.
+
+Implement actual screens, working forms, navigation, record management, validation, state updates, and tested workflows. Do not deliver only a design, plan, screenshot, or collection of static cards.
+
+The guiding principle is:
+
+**Simple enough for a first-time user, powerful enough for a real school. Simplify navigation and workflows without removing required functionality.**
+
+## 2. AUDIT THE EXISTING PROJECT BEFORE CHANGING IT
+
+Before modifying code:
+
+1. Inspect the existing application structure, routing, shared components, role registry, permission registry, data models, demo records, theme system, and persistence mechanisms.
+2. Review the authoritative SCHLAR master handover and available implementation reports for Prompts 1–7.
+3. Identify which Receptionist and Exam Coordinator features already exist.
+4. Separate implemented and verified features from incomplete, broken, missing, or unverified features.
+5. Reuse working components, routes, shared state, and existing data models.
+6. Implement missing functionality and repair relevant defects without duplicating existing modules.
+7. Preserve working functionality across all other roles.
+8. Avoid unnecessary architecture changes and unrelated redesigns.
+
+Do not blindly replace working code. Do not claim that an earlier prompt's feature is complete merely because its menu item exists.
+
+If a dependency from an earlier or later prompt is not implemented, use an appropriate integration point or honest empty state instead of inventing a completed feature.
+
+## 3. PRESERVE THE AUTHORITATIVE SCHLAR SPECIFICATION
+
+SCHLAR has exactly ten roles:
+
+1. Admin
+2. Vice Principal
+3. Teacher
+4. Parent
+5. Accountant / Fee Manager
+6. HR / Staff Manager
+7. Librarian
+8. Transport Manager
+9. Receptionist / Front Office
+10. Exam Coordinator
+
+Mandatory rules:
+
+- Do not introduce Student or Super Admin.
+- Keep Admin and Vice Principal separate.
+- Keep Receptionist / Front Office and Exam Coordinator separate.
+- Parents use only the Parent Mobile App. Do not reintroduce Parent Web Portal.
+- Teacher retains separate Web and Mobile experiences.
+- Receptionist and Exam Coordinator each open their own web workspace.
+- Preserve all existing role-specific permissions and navigation.
+- Use the existing role-selection and workspace architecture.
+
+The Exam Coordinator manages examinations and results within the authorized scope. The role must not automatically receive Admin, Teacher, Accountant, or Vice Principal permissions.
+
+## 4. SHARED BRAND AND DESIGN SYSTEM
+
+Use the existing SCHLAR design system and centralized theme tokens.
+
+Default Petrol & Copper palette:
+
+- Primary: `#164E55`
+- Secondary: `#287B7A`
+- Accent: `#C47D54`
+- Background: `#F5F0E7`
+- Surface: `#FFFFFF`
+
+Requirements:
+
+- Preserve all existing palettes and the custom HEX palette editor.
+- Respect the currently selected palette.
+- Reuse existing typography, spacing, buttons, cards, tables, dialogs, icons, and status components.
+- Use restrained color and consistent visual hierarchy.
+- Make tables and data-heavy screens readable.
+- Display status text as well as color.
+- Keep the design clean, modern, professional, and appropriate for a school.
+- Avoid clutter, oversized empty cards, excessive gradients, and decorative charts without practical value.
+- Ensure both workspaces work across desktop, tablet, and mobile viewports.
+
+Do not introduce an unrelated design system for these two roles.
+
+## 5. CHATGPT-INSPIRED SIDEBAR AND WORKSPACE NAVIGATION
+
+Use the general usability pattern of a persistent sidebar and a dedicated content workspace. Do not copy ChatGPT branding or unrelated features.
+
+For both roles:
+
+- Provide a persistent, collapsible left sidebar.
+- Show the current role and school identity.
+- Organize modules into logical groups.
+- Highlight the currently active module.
+- Open each selected module in the main content area.
+- Keep the application shell consistent while navigating.
+- Provide clear page titles and breadcrumbs where useful.
+- Make record details easy to open and return from.
+- Support sensible browser back/forward navigation where the existing architecture permits it.
+- Make every visible navigation item functional.
+- Convert the sidebar into an accessible drawer on small screens.
+- Enforce role permissions when rendering pages and executing actions.
+
+The dashboard must summarize information and provide shortcuts. Do not place every form, table, and workflow on one enormous page.
+
+# PART A — RECEPTIONIST / FRONT OFFICE
+
+## 6. RECEPTIONIST WORKSPACE NAVIGATION
+
+Provide a role-specific sidebar with these modules, subject to the authoritative specification and existing permissions:
+
+- Dashboard
+- Visitor Register
+- Visitor Check-In / Check-Out
+- Appointments
+- Enquiries
+- Admissions Enquiry Tracking
+- Student and Guardian Directory
+- Staff Directory — permitted basic information only
+- Communication Log
+- School Contact Directory
+- Notices and Events — view or create only as authorized
+- Front Office Reports
+- My Profile
+
+Use sensible grouping. Keep common reception tasks easy to reach.
+
+Do not expose HR-sensitive records, salaries, finance ledgers, examination marks, permission administration, or unrestricted school settings.
+
+## 7. RECEPTIONIST DASHBOARD
+
+Build a practical front-office dashboard with data-derived information such as:
+
+- Visitors currently checked in.
+- Visitors expected today.
+- Appointments scheduled today.
+- Pending enquiries.
+- Recent visitor activity.
+- Recently updated admission enquiries, if supported.
+- Important school notices available to the role.
+
+Provide quick actions:
+
+- Register a visitor.
+- Check in a visitor.
+- Check out a visitor.
+- Create an appointment.
+- Record an enquiry.
+- Find an authorized student or staff contact.
+
+Every quick action must open the correct screen or form.
+
+Calculate metrics from the shared demo records. Do not hard-code totals that contradict the lists.
+
+If there is no data, show a useful zero state and an appropriate next action.
+
+## 8. VISITOR REGISTER
+
+Implement a searchable visitor register.
+
+Where supported, store fields such as:
+
+- Unique visitor or visit reference.
+- Visitor name.
+- Organization, if relevant.
+- Contact information, only as necessary and authorized.
+- Purpose of visit.
+- Person or department to visit.
+- Visit date.
+- Expected arrival time.
+- Actual check-in time.
+- Actual check-out time.
+- Visitor status.
+- Notes where authorized.
+
+Requirements:
+
+- Search by visitor name or permitted reference.
+- Filter by date, purpose, host, and status where supported.
+- Sort by visit date or check-in time.
+- Open a detailed visit record.
+- Validate required fields and dates.
+- Prevent accidental duplicate check-ins for the same active visit.
+- Preserve the history of completed visits.
+- Provide clear empty states and useful error messages.
+
+Do not collect unnecessary sensitive personal information.
+
+## 9. VISITOR CHECK-IN AND CHECK-OUT WORKFLOW
+
+Implement a complete frontend demo workflow.
+
+### Check-in
+
+1. Find an existing appointment or create a new visitor record.
+2. Confirm the visitor's identity using the information available in the demo.
+3. Enter the visit purpose and intended host.
+4. Review the details.
+5. Confirm check-in.
+6. Save the check-in time and active visit status.
+7. Update the visitor register and dashboard.
+8. Display confirmation.
+
+### Check-out
+
+1. Find the active visit.
+2. Review visitor and check-in details.
+3. Confirm check-out.
+4. Save the check-out time.
+5. Mark the visit as completed.
+6. Update the register and dashboard.
+7. Display confirmation.
+
+Safeguards:
+
+- Do not allow check-out before check-in.
+- Prevent duplicate active visits where the rules prohibit them.
+- Do not leave a checked-out visitor marked as currently present.
+- Use consistent date and time handling.
+- Do not claim a real identity verification, badge print, or notification took place unless implemented.
+
+If a visitor badge is supported by the existing project, use it. Otherwise, do not invent a badge-printing integration.
+
+## 10. APPOINTMENTS
+
+Build an appointment register and detail view.
+
+Where supported, include:
+
+- Appointment reference.
+- Visitor.
+- Host or department.
+- Date and time.
+- Purpose.
+- Status.
+- Notes.
+
+Provide:
+
+- Search and filters.
+- Add and edit actions where authorized.
+- Date and required-field validation.
+- Appointment details.
+- Clear statuses such as Scheduled, Completed, Cancelled, or No-show only when supported by the existing workflow.
+- A daily agenda or calendar-style view where useful.
+
+Prevent invalid dates and duplicate appointment records where the existing rules require it.
+
+Do not claim that an appointment invitation was sent through email or SMS unless that integration exists.
+
+## 11. ENQUIRIES AND ADMISSIONS ENQUIRY TRACKING
+
+Create an enquiry-management workflow suitable for the front office.
+
+Where supported, include:
+
+- Enquiry reference.
+- Enquirer name.
+- Permitted contact details.
+- Enquiry category.
+- Academic year or class of interest, where relevant.
+- Enquiry date.
+- Assigned staff member, if supported.
+- Status.
+- Notes and follow-up date.
+
+Provide:
+
+- Search, filters, and sorting.
+- Add and edit forms where authorized.
+- Enquiry details.
+- Status updates.
+- Follow-up tracking.
+- Duplicate detection or warnings when appropriate.
+- Clear validation and success feedback.
+
+Use only the admission statuses already defined in the project. If the existing application has an Admissions workflow, integrate with it instead of creating a second independent admissions system.
+
+**Important:** Recording an enquiry must not automatically create an enrolled student. Conversion to an applicant or student must follow the existing authorized admissions workflow and prevent duplicate records.
+
+Do not expose confidential admissions decisions unless explicitly permitted.
+
+## 12. STUDENT, GUARDIAN, AND STAFF DIRECTORY
+
+Provide a quick-search directory for information that the Receptionist is authorized to view.
+
+### Student and guardian directory
+
+Show only necessary information, such as:
+
+- Student name and permitted identifier.
+- Class and section.
+- Linked guardian or permitted contact.
+- Enrollment status where authorized.
+
+### Staff directory
+
+Show permitted basic information such as:
+
+- Staff name.
+- Designation.
+- Department.
+- Work contact details where authorized.
+
+Requirements:
+
+- Reuse shared student, guardian, and staff records.
+- Provide search and filters.
+- Open a compact detail view.
+- Prevent access to unrelated private records.
+- Do not allow Receptionist to edit student enrollment, academic marks, finance data, or HR-sensitive fields unless explicitly authorized.
+
+Never create a duplicate student or staff identity merely to populate a directory.
+
+## 13. COMMUNICATION LOG, CONTACTS, AND FRONT OFFICE REPORTS
+
+Where supported by the specification, provide a communication log containing:
+
+- Date and time.
+- Communication type.
+- Relevant visitor, enquiry, appointment, or permitted contact.
+- Summary.
+- Status or follow-up action where supported.
+
+Do not store unnecessary sensitive conversation details.
+
+Provide an authorized school contact directory and reports such as:
+
+- Daily visitor register.
+- Current visitors.
+- Completed visits.
+- Appointment summary.
+- Enquiry summary.
+- Follow-up summary.
+
+Use shared records and consistent filters. Provide CSV export or a print-friendly view where feasible.
+
+If a real communication channel is unavailable, log a demo action honestly. Do not claim a call, email, SMS, or notification was sent automatically.
+
+# PART B — EXAM COORDINATOR
+
+## 14. EXAM COORDINATOR WORKSPACE NAVIGATION
+
+Create a separate Exam Coordinator sidebar with modules such as:
+
+- Dashboard
+- Academic Examination Calendar
+- Examination Setup
+- Exam Types and Sessions
+- Exam Timetable
+- Class and Subject Mapping
+- Exam Schedule and Room Allocation
+- Examination Readiness
+- Marks Entry Status
+- Results Review
+- Results Publication
+- Report Cards
+- Examination Reports
+- My Profile
+
+Only include modules and actions authorized by the master specification.
+
+Reuse existing exam and results functionality. Do not create a duplicate examination system if one already exists in Admin or shared school modules.
+
+## 15. EXAM COORDINATOR DASHBOARD
+
+Display data-derived information such as:
+
+- Upcoming examinations.
+- Active examination sessions.
+- Scheduled papers.
+- Timetable conflicts requiring attention.
+- Marks-entry completion status.
+- Results awaiting review.
+- Results awaiting publication.
+- Recently published results, if available.
+
+Provide quick actions:
+
+- Create an examination session.
+- Open the exam timetable.
+- Review schedule conflicts.
+- View marks-entry status.
+- Review eligible results.
+- Open examination reports.
+
+Every action must open the correct functional screen.
+
+Calculate counts from actual exam records. Do not display fabricated percentages or statuses.
+
+## 16. EXAMINATION SETUP
+
+Implement an examination setup module using the existing data model.
+
+Where supported, allow authorized users to manage:
+
+- Examination name.
+- Examination type.
+- Academic year.
+- Term or session.
+- Start and end dates.
+- Applicable classes and sections.
+- Subjects.
+- Status.
+
+Requirements:
+
+- Validate required fields and date ranges.
+- Prevent duplicate examination definitions where appropriate.
+- Ensure selected classes, sections, and subjects exist.
+- Use shared academic structure and subject assignments.
+- Support editing only when allowed by the examination status and permission rules.
+- Confirm consequential changes.
+- Provide useful error and success feedback.
+
+Do not create separate duplicate academic years, classes, sections, or subjects.
+
+If Admin owns academic structure, the Exam Coordinator must use those records rather than managing an unauthorized second copy.
+
+## 17. EXAM TIMETABLE AND SCHEDULING
+
+Build a practical examination scheduling workflow.
+
+Include, where supported:
+
+- Examination.
+- Class and section.
+- Subject.
+- Exam date.
+- Start and end time.
+- Duration.
+- Room or venue.
+- Invigilator or assigned staff, if authorized.
+- Schedule status.
+
+Provide:
+
+- Calendar, list, or timetable views appropriate to the data.
+- Filters by exam, date, class, and subject.
+- Add and edit actions where authorized.
+- Detailed schedule view.
+- Validation of dates, times, duration, and required references.
+- Clear conflict messages.
+
+### Conflict detection
+
+Detect relevant conflicts using the available data, including:
+
+- A class scheduled for two exams at the same time.
+- A subject or examination assigned inconsistently.
+- An invigilator assigned to overlapping sessions, when invigilator assignment exists.
+- A room assigned to overlapping exams, when room allocation exists.
+- Invalid or overlapping time ranges.
+
+Prevent invalid schedules from being saved unless the existing policy explicitly allows an override. If overrides are allowed, require appropriate authorization, confirmation, and an audit record where supported.
+
+Do not simply display a warning and then silently accept an invalid schedule.
+
+## 18. EXAMINATION READINESS
+
+Provide an examination-readiness view to help the coordinator identify missing or inconsistent information before an exam.
+
+Show supported checks such as:
+
+- Missing subject schedule.
+- Missing class or section mapping.
+- Missing room allocation, when required.
+- Missing invigilator, when required.
+- Timetable conflicts.
+- Incomplete examination setup.
+- Other explicitly defined readiness requirements.
+
+Each issue should link to the relevant record or correction screen.
+
+Use clear status labels such as Ready, Needs Attention, or Incomplete only when the status is derived from actual checks.
+
+Do not invent readiness requirements that conflict with the existing master specification.
+
+## 19. MARKS-ENTRY STATUS AND RESULTS REVIEW
+
+Provide a coordinator-facing overview of marks-entry progress and results readiness.
+
+Where supported, display:
+
+- Examination.
+- Class and section.
+- Subject.
+- Marks-entry status.
+- Completion information.
+- Missing entries.
+- Submission or review status.
+- Result-publication status.
+
+Important permission boundaries:
+
+- The Exam Coordinator must not automatically inherit Teacher permissions.
+- Do not allow the coordinator to enter or edit marks unless explicitly authorized.
+- Reuse marks entered by authorized Teachers.
+- Do not expose unpublished results to Parents.
+- Do not bypass approval or publication rules.
+
+Where the existing system supports marks review, provide the authorized workflow. Otherwise, provide a read-only status overview or honest empty state.
+
+## 20. RESULTS REVIEW AND PUBLICATION
+
+Implement the authorized results workflow using shared examination and marks data.
+
+Where supported, include:
+
+- Results grouped by examination, class, section, and subject.
+- Missing or incomplete marks indicators.
+- Validation summaries.
+- Results review status.
+- Approval status where the existing workflow requires it.
+- Publication status.
+- Publication date where available.
+
+Before publication:
+
+1. Verify the examination and applicable classes.
+2. Check whether required marks are complete.
+3. Check for invalid or missing marks.
+4. Confirm that required review or approval has occurred.
+5. Display a review summary.
+6. Require explicit confirmation.
+7. Publish only if the user has the required permission and all required conditions are met.
+8. Update shared result status and related views.
+9. Show a clear confirmation.
+
+If approval belongs to Admin or another authorized role, do not bypass that approval.
+
+Do not publish incomplete results merely to make the workflow appear functional.
+
+Do not claim that parents received a notification unless a real notification service exists. The Parent App should display published results only when the shared data and permissions allow them to appear.
+
+## 21. REPORT CARDS AND EXAMINATION REPORTS
+
+Use existing report-card and examination-report components where available.
+
+Provide authorized views such as:
+
+- Examination schedule.
+- Class-wise exam schedule.
+- Marks-entry completion.
+- Results readiness.
+- Publication status.
+- Subject-wise results summary.
+- Examination performance summaries where supported.
+
+For report cards:
+
+- Reuse the established report-card design and result model.
+- Display only valid and authorized result data.
+- Distinguish drafts, approved results, and published results when those states exist.
+- Provide print-friendly output or export only where implemented.
+- Do not invent marks, grades, rankings, or pass/fail outcomes.
+
+Use consistent calculations and the existing grading rules. Do not introduce a new grading policy without authorization.
+
+# PART C — SHARED TECHNICAL AND QUALITY REQUIREMENTS
+
+## 22. SHARED DATA AND STATE CONSISTENCY
+
+Both workspaces must use the existing SCHLAR data architecture.
+
+- Reuse shared state, routing, data models, and persistence.
+- Reuse shared student, guardian, staff, academic, timetable, examination, and result records.
+- Do not create separate duplicate datasets for the same entities.
+- Ensure permitted changes update relevant lists, detail screens, and dashboards.
+- Ensure counts and reports derive from underlying records.
+- Validate relationships and prevent invalid references.
+- Handle missing or malformed persisted data gracefully.
+- Preserve history where deleting records would damage auditability.
+- Do not clear all browser storage to reset a module.
+- Use realistic fictional demo records.
+
+Keep the application frontend-only. Do not add a backend, database server, external API, real email/SMS service, payment integration, or external examination service.
+
+Use existing browser-local persistence where appropriate and supported. Do not claim cross-device synchronization.
+
+## 23. PERMISSIONS AND PRIVACY
+
+Reuse the existing centralized permission registry.
+
+- Default to deny when a permission is missing or unknown.
+- Check permissions both when displaying a screen and when executing its actions.
+- Protect direct navigation and unauthorized record access.
+- Preserve the separate boundaries of Admin and Vice Principal.
+- Restrict Receptionist access to necessary front-office information.
+- Restrict Exam Coordinator access to authorized examination workflows.
+- Keep marks entry, result editing, result approval, and result publication separate where the specification requires separation.
+- Do not expose private HR, finance, or family records unnecessarily.
+- Use confirmation and audit history for consequential actions where supported.
+
+Frontend checks are demonstration safeguards, not production-grade security.
+
+## 24. REUSABLE COMPONENTS AND CODE QUALITY
+
+Reuse or extend shared components for:
+
+- Workspace shell and sidebar.
+- Page headers and breadcrumbs.
+- Responsive tables and record lists.
+- Search, sorting, and filters.
+- Forms and validation.
+- Confirmation dialogs.
+- Status indicators.
+- Detail views.
+- Empty states.
+- Feedback messages.
+- Date and time formatting.
+- Print-friendly reports.
+- Permission-aware actions.
+
+Keep Front Office and Examination domain logic separate while reusing general UI components.
+
+Avoid:
+
+- One giant component for both roles.
+- Duplicate route or permission systems.
+- Hard-coded dashboard figures.
+- Fake buttons or dead links.
+- Placeholder pages disguised as complete workflows.
+- Silent save failures.
+- Unnecessary dependencies.
+- Unrelated changes to other roles.
+
+Follow the framework, routing, state-management conventions, and component patterns already used in the project.
+
+## 25. RESPONSIVENESS AND ACCESSIBILITY
+
+- Support desktop, tablet, and mobile layouts.
+- Use an accessible mobile drawer for navigation where necessary.
+- Avoid horizontal overflow.
+- Keep tables, forms, and dialogs usable at narrow widths.
+- Provide accessible labels, visible focus states, and keyboard navigation where applicable.
+- Use readable contrast and status text.
+- Show clear validation messages.
+- Confirm consequential actions.
+- Respect the existing global theme system.
+
+## 26. TESTING AND ACCEPTANCE CRITERIA
+
+Run actual tests supported by the current environment.
+
+### Receptionist tests
+
+1. Selecting Receptionist / Front Office opens the correct workspace.
+2. Sidebar items open the correct pages.
+3. Visitor records can be created and searched.
+4. Check-in and check-out update visitor status correctly.
+5. Duplicate active check-ins are prevented where required.
+6. Appointments validate and save.
+7. Enquiry records update the correct list and details.
+8. Enquiry creation does not create duplicate student records.
+9. Directories display only authorized information.
+10. Reports reflect actual visitor and enquiry records.
+
+### Exam Coordinator tests
+
+1. Selecting Exam Coordinator opens the correct workspace.
+2. Sidebar items open the correct pages.
+3. Examination setup validates dates and references.
+4. Timetable conflicts are detected.
+5. Invalid overlapping schedules cannot be saved contrary to policy.
+6. Readiness checks reflect actual missing information.
+7. Marks-entry status uses shared marks data.
+8. Unpublished results are not exposed to Parents.
+9. Publication requires the correct permissions and required review.
+10. Reports reflect actual examination and result records.
+
+### Cross-role regression tests
+
+1. All ten roles remain present.
+2. Parent opens the Parent Mobile App directly.
+3. No Parent Web Portal is reintroduced.
+4. Teacher Web and Teacher Mobile remain available.
+5. Admin and Vice Principal remain separate.
+6. Accountant / Fee Manager and HR / Staff Manager still work.
+7. Librarian and Transport Manager still work.
+8. Theme selection and all existing palettes remain functional.
+9. Unauthorized routes and actions remain restricted.
+10. No critical runtime errors or broken navigation are introduced.
+
+Do not report a test as passed unless it was actually run. Clearly identify tests that could not be performed.
+
+## 27. IMPLEMENTATION ORDER
+
+Complete the work in this sequence:
+
+1. Audit existing Front Office and Examination functionality.
+2. Map existing features to the authoritative master specification.
+3. Preserve working components and workflows.
+4. Implement or complete the Receptionist workspace.
+5. Implement or complete the Exam Coordinator workspace.
+6. Connect both workspaces to shared records and state.
+7. Implement validation, permission checks, and accurate feedback.
+8. Test visitor workflows, appointments, enquiries, examination setup, scheduling, and publication rules.
+9. Run cross-role regression tests.
+10. Fix defects and produce the implementation report.
+
+Do not begin Prompt 9 automatically.
+
+## 28. REQUIRED FINAL IMPLEMENTATION REPORT
+
+Provide a factual report containing:
+
+1. Features already present and preserved.
+2. New features implemented.
+3. Features repaired.
+4. Receptionist modules completed.
+5. Exam Coordinator modules completed.
+6. Files created or modified.
+7. Shared components and data models reused.
+8. Permission boundaries implemented or verified.
+9. Tests actually performed and their results.
+10. Features not implemented and why.
+11. Known limitations and dependencies on later prompts.
+12. Confirmation that the project remains frontend-only.
+
+Do not declare a module complete merely because its navigation item exists. Its authorized screens, data, validation, and expected actions must work.
+
+### FINAL DEFINITION OF DONE
+
+The Receptionist can perform authorized visitor registration, check-in/check-out, appointment, enquiry, directory, and reporting workflows.
+
+The Exam Coordinator can manage authorized examination setup, scheduling, conflict checks, readiness, results review, publication, and reports according to the existing permissions and approval rules.
+
+Both workspaces must use the SCHLAR design system, organized sidebar navigation, validated forms, consistent shared demo data, accessible responsive layouts, and correct role boundaries. Existing functionality must remain intact, and no unavailable external service may be falsely claimed.

@@ -1,0 +1,169 @@
+@import "tailwindcss";
+
+:root {
+  /* Core SCHLAR Palette 7 (Petrol & Copper - DEFAULT) */
+  --color-primary: #164E55;
+  --color-secondary: #287B7A;
+  --color-accent: #C47D54;
+  --color-background: #F5F0E7;
+  --color-surface: #FFFFFF;
+
+  /* Derived and Semantic Design Tokens */
+  --color-primary-hover: #103b40;
+  --color-primary-light: rgba(22, 78, 85, 0.08);
+  --color-secondary-hover: #1f6160;
+  --color-secondary-light: rgba(40, 123, 122, 0.1);
+  --color-accent-hover: #ad6d48;
+  --color-accent-light: rgba(196, 125, 84, 0.12);
+  --color-text: #192024;
+  --color-text-muted: #5c6670;
+  --color-border: rgba(22, 78, 85, 0.14);
+  --color-ring: rgba(22, 78, 85, 0.35);
+
+  /* Legacy variables for full backward compatibility across views */
+  --primary-color: var(--color-primary);
+  --primary-hover: var(--color-primary-hover);
+  --primary-dark: #0f363b;
+  --primary-light: var(--color-primary-light);
+  --primary-border: var(--color-border);
+  --primary-ring: var(--color-ring);
+  --primary-text: var(--color-primary);
+  --gradient-start: var(--color-primary);
+  --gradient-end: var(--color-secondary);
+}
+
+/* Global Application Base Styles */
+body {
+  background-color: var(--color-background);
+  color: var(--color-text);
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  min-height: 100vh;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* Theme utility classes */
+.bg-theme-primary {
+  background-color: var(--color-primary) !important;
+}
+
+.bg-theme-secondary {
+  background-color: var(--color-secondary) !important;
+}
+
+.bg-theme-accent {
+  background-color: var(--color-accent) !important;
+}
+
+.bg-theme-background {
+  background-color: var(--color-background) !important;
+}
+
+.bg-theme-surface {
+  background-color: var(--color-surface) !important;
+}
+
+.bg-theme-light {
+  background-color: var(--color-primary-light) !important;
+}
+
+.hover\:bg-theme-hover:hover {
+  background-color: var(--color-primary-hover) !important;
+}
+
+.text-theme-primary {
+  color: var(--color-primary) !important;
+}
+
+.text-theme-secondary {
+  color: var(--color-secondary) !important;
+}
+
+.text-theme-accent {
+  color: var(--color-accent) !important;
+}
+
+.text-theme-dark {
+  color: var(--color-primary) !important;
+}
+
+.border-theme-primary {
+  border-color: var(--color-primary) !important;
+}
+
+.border-theme-light {
+  border-color: var(--color-border) !important;
+}
+
+.border-theme-border {
+  border-color: var(--color-border) !important;
+}
+
+.bg-theme-gradient {
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%) !important;
+}
+
+.ring-theme:focus {
+  outline: none !important;
+  box-shadow: 0 0 0 3px var(--color-ring) !important;
+}
+
+/* Reusable Theme Button */
+.btn-theme-primary {
+  background-color: var(--color-primary) !important;
+  color: #ffffff !important;
+  transition: all 0.15s ease-in-out;
+}
+.btn-theme-primary:hover {
+  background-color: var(--color-primary-hover) !important;
+}
+
+/* Active Navigation Item styling */
+.nav-item-active {
+  background-color: var(--color-primary-light) !important;
+  color: var(--color-primary) !important;
+  font-weight: 700 !important;
+  border-left: 3px solid var(--color-primary) !important;
+}
+
+/* Mobile Active Tab */
+.mobile-tab-active {
+  color: var(--color-primary) !important;
+  font-weight: 700 !important;
+}
+.mobile-tab-indicator {
+  background-color: var(--color-primary) !important;
+}
+
+/* Theme Badges */
+.badge-theme {
+  background-color: var(--color-primary-light) !important;
+  color: var(--color-primary) !important;
+  border: 1px solid var(--color-border) !important;
+}
+
+/* Interactive accent */
+input[type="checkbox"]:checked,
+input[type="radio"]:checked {
+  accent-color: var(--color-primary) !important;
+}
+
+::selection {
+  background-color: var(--color-primary) !important;
+  color: #ffffff !important;
+}
+
+/* Scrollbar polish */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.25);
+}
